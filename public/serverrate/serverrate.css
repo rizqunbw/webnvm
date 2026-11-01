@@ -86,3 +86,16 @@
 #nvm-serverrate .rfx-cell-lbl { font-weight: 500; letter-spacing: .025em; }
 #nvm-serverrate .rfx-sep { font-weight: 600; letter-spacing: .045em; }
 #nvm-serverrate .rfx-card-title, #nvm-serverrate .rfx-btn-text, #nvm-serverrate .rfx-map-rate { font-weight: 600; }
+
+/* Legibility override for host website typography (including forced bold rules). */
+#nvm-serverrate, #nvm-serverrate .rfx { font-weight: 400 !important; }
+#nvm-serverrate .rfx-hd h2 { font-weight: 500 !important; font-size: 23px; letter-spacing: .01em; }
+#nvm-serverrate .rfx-hd p { font-weight: 400 !important; }
+#nvm-serverrate .rfx-sep { font-weight: 500 !important; font-size: 13px; }
+#nvm-serverrate .rfx-cell-lbl, #nvm-serverrate .rfx-price-lbl { font-weight: 400 !important; font-size: 12px; }
+#nvm-serverrate .rfx-cell-val, #nvm-serverrate .rfx-cell-val .cx { font-weight: 500 !important; font-size: 17px; }
+#nvm-serverrate .rfx-card-title, #nvm-serverrate .rfx-price-val,
+#nvm-serverrate .rfx-map-rate, #nvm-serverrate .rfx-btn-text,
+#nvm-serverrate .rfx-nc h3 { font-weight: 500 !important; }
+#nvm-serverrate .rfx-card-sub, #nvm-serverrate .rfx-price-sub,
+#nvm-serverrate .rfx-btn-text small, #nvm-serverrate .rfx-nc li { font-weight: 400 !important; }
