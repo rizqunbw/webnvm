@@ -1,0 +1,49 @@
+<div id="nvm-serverrate-loader">
+  <p style="text-align:center;color:#72e5f3;padding:25px">
+    Loading Server Rate...
+  </p>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var BASE = "https://raw.githubusercontent.com/rizqunbw/webnvm/main/public/serverrate/";
+  var target = document.getElementById("nvm-serverrate-loader");
+
+  if (!target) return;
+
+  function getFile(name) {
+    return fetch(BASE + name + "?v=" + Date.now())
+      .then(function (res) {
+        if (!res.ok) {
+          throw new Error(name + ": HTTP " + res.status);
+        }
+        return res.text();
+      });
+  }
+
+  Promise.all([
+    getFile("serverrate.html"),
+    getFile("serverrate.css")
+  ])
+  .then(function (files) {
+    var style = document.getElementById("nvm-serverrate-style");
+
+    if (!style) {
+      style = document.createElement("style");
+      style.id = "nvm-serverrate-style";
+      document.head.appendChild(style);
+    }
+
+    style.textContent = files[1];
+    target.innerHTML = files[0];
+
+    console.log("Server Rate loaded successfully");
+  })
+  .catch(function (err) {
+    target.textContent = "Server Rate Error: " + err.message;
+    console.error(err);
+  });
+})();
+</script>
