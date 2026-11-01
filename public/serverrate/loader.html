@@ -37,7 +37,14 @@
     }
 
     style.textContent = files[1];
-    target.innerHTML = files[0];
+    var html = files[0];
+    // Defensively remove the banner already rendered by the website template.
+    var parsed = document.createElement("div");
+    parsed.innerHTML = html;
+    parsed.querySelectorAll('img[src*="/assets/images/srate.jpg"]').forEach(function (img) {
+      img.remove();
+    });
+    target.innerHTML = parsed.innerHTML;
 
     console.log("Server Rate loaded successfully");
   })
