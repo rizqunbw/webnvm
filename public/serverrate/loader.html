@@ -11,7 +11,7 @@
   var BASE = "https://raw.githubusercontent.com/rizqunbw/webnvm/main/public/serverrate/";
   var target = document.getElementById("nvm-serverrate-loader");
   var STYLE_ID = "nvm-serverrate-style";
-  var REFRESH_MS = 60000;
+  var REFRESH_MS = 15000;
   var lastHTML = null;
   var lastCSS = null;
   var busy = false;
@@ -60,8 +60,21 @@
           document.head.appendChild(style);
         }
 
+        // Sample a native site heading so CKEditor does not impose its Arial font.
+        var nativeHeading = document.querySelector(".sidebar h3, .sidebar h2, aside h3, aside h2, .left-sidebar h3, .left-sidebar h2");
+        var nativeNav = document.querySelector("header nav a, .navbar a, nav a");
+        var nativeFont = nativeHeading || nativeNav || document.body;
+        var fontFamily = window.getComputedStyle(nativeFont).fontFamily;
+        target.style.setProperty("--nvm-native-font", fontFamily);
+
         if (files[1] !== lastCSS) {
-          style.textContent = files[1];
+          style.textContent = files[1] + "\n" +
+            "#nvm-serverrate, #nvm-serverrate .rfx, " +
+            "#nvm-serverrate .rfx h2, #nvm-serverrate .rfx h3, " +
+            "#nvm-serverrate .rfx div, #nvm-serverrate .rfx p, " +
+            "#nvm-serverrate .rfx span, #nvm-serverrate .rfx a, " +
+            "#nvm-serverrate .rfx li, #nvm-serverrate .rfx small " +
+            "{font-family:var(--nvm-native-font,inherit)!important;}";
           lastCSS = files[1];
         }
 
@@ -75,7 +88,7 @@
         }
 
         removeDuplicateBanners();
-        console.log("[NVM Server Rate] GitHub content checked");
+        console.log("[NVM Server Rate] GitHub checked; native font:", fontFamily);
       })
       .catch(function (error) {
         if (lastHTML === null) {
