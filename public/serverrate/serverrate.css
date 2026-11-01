@@ -99,18 +99,3 @@
 #nvm-serverrate .rfx-nc h3 { font-weight: 500 !important; }
 #nvm-serverrate .rfx-card-sub, #nvm-serverrate .rfx-price-sub,
 #nvm-serverrate .rfx-btn-text small, #nvm-serverrate .rfx-nc li { font-weight: 400 !important; }
-
-/* Site display fonts can remain visually heavy at weight 400. Use a neutral UI face. */
-#nvm-serverrate, #nvm-serverrate .rfx,
-#nvm-serverrate .rfx h2, #nvm-serverrate .rfx h3,
-#nvm-serverrate .rfx div, #nvm-serverrate .rfx p,
-#nvm-serverrate .rfx span, #nvm-serverrate .rfx a,
-#nvm-serverrate .rfx li, #nvm-serverrate .rfx small {
-  font-family: Arial, Helvetica, sans-serif !important;
-  text-shadow: none !important;
-}
-#nvm-serverrate .rfx-hd h2 { font-weight: 400 !important; font-size: 22px; }
-#nvm-serverrate .rfx-sep, #nvm-serverrate .rfx-card-title { font-weight: 400 !important; }
-#nvm-serverrate .rfx-cell-val, #nvm-serverrate .rfx-cell-val .cx,
-#nvm-serverrate .rfx-price-val, #nvm-serverrate .rfx-map-rate,
-#nvm-serverrate .rfx-btn-text { font-weight: 400 !important; }
