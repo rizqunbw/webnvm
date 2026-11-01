@@ -1,54 +1,81 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css");
-#nvm-serverrate {font-family:inherit;color:#ddeef3;width:100%;min-width:0}
-#nvm-serverrate * {box-sizing:border-box}
-#nvm-serverrate .nvm-rate-banner{display:block;width:100%;max-width:100%;height:auto;margin:0 0 18px}
-#nvm-serverrate .nvm-rate-banner:not(:first-child){margin-top:24px}
-#nvm-serverrate .rfx{--cx:#72e5f3;--dim:#8faab4;color:#ddeef3;position:relative;isolation:isolate}
-#nvm-serverrate .rfx-hd{text-align:center;padding:14px 0 12px;border-bottom:1px solid #72e5f333;margin-bottom:14px}
-#nvm-serverrate .rfx-hd h2{font-size:23px;letter-spacing:4px;text-transform:uppercase;color:#72e5f3;margin:0 0 5px;text-shadow:0 0 12px #72e5f360}
-#nvm-serverrate .rfx-hd p{font-size:14px;color:#8faab4;letter-spacing:3px;text-transform:uppercase;margin:0}
-#nvm-serverrate .rfx-sep{display:flex;align-items:center;gap:8px;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:#8faab4;margin:16px 0 9px}
-#nvm-serverrate .rfx-sep:after{content:"";height:1px;flex:1;background:linear-gradient(90deg,#72e5f355,transparent)}
-#nvm-serverrate .rfx-grid,#nvm-serverrate .rfx-prices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-bottom:15px}
-#nvm-serverrate .rfx-cell{display:flex;align-items:center;gap:10px;background:#090e12d9;border:1px solid #72e5f32d;border-left:3px solid #72e5f399;border-radius:9px;padding:11px 13px;min-width:0;transition:.2s}
-#nvm-serverrate .rfx-cell:hover{background:#72e5f312;transform:translateY(-2px)}
-#nvm-serverrate .rfx-cell-wide,#nvm-serverrate .rfx-price-wide{grid-column:1/-1}
-#nvm-serverrate .rfx-cell-ic,#nvm-serverrate .rfx-card-ic{flex:none;width:35px;height:35px;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#72e5f3;background:#72e5f31a;border:1px solid #72e5f333;font-size:18px}
-#nvm-serverrate .rfx-cell-lbl,#nvm-serverrate .rfx-price-lbl{font-size:13px;text-transform:uppercase;letter-spacing:1px;color:#8faab4}
-#nvm-serverrate .rfx-cell-val{font-size:18px;font-weight:700;color:white;margin-top:3px}
-#nvm-serverrate .cx,#nvm-serverrate .rfx-map-rate{color:#72e5f3}
-#nvm-serverrate .sep{color:#8faab4;margin:0 6px}
-#nvm-serverrate .pm{font-size:15px;color:#8faab4}
-#nvm-serverrate .rfx-card{border:1px solid #72e5f333;border-radius:12px;overflow:hidden;margin-bottom:11px;background:#060a0ed9;transition:.2s}
-#nvm-serverrate .rfx-card:hover{border-color:#72e5f366}
-#nvm-serverrate .rfx-card-gold{border-color:#ffa50250}
-#nvm-serverrate .rfx-card-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:13px 16px;border-bottom:1px solid #72e5f329;background:linear-gradient(90deg,#72e5f31d,transparent)}
-#nvm-serverrate .rfx-card-head-gold{background:linear-gradient(90deg,#ffa5021d,transparent)}
-#nvm-serverrate .rfx-card-title{font-size:17px;letter-spacing:1px;text-transform:uppercase;color:white;font-weight:700}
-#nvm-serverrate .rfx-card-title-gold{color:#ffc04a}
-#nvm-serverrate .rfx-card-sub{font-size:14px;color:#8faab4;margin-top:3px}
-#nvm-serverrate .rfx-card-body{padding:12px 16px}
-#nvm-serverrate .rfx-alert{font-size:12px;color:#ff8a95;border:1px solid #ff475760;border-radius:5px;background:#ff47571f;padding:4px 9px}
-#nvm-serverrate .rfx-maps{display:flex;flex-direction:column;gap:7px}
-#nvm-serverrate .rfx-map-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:11px 13px;border-radius:8px;background:#ffffff0a;border:1px solid #ffffff12;font-size:16px}
-#nvm-serverrate .rfx-map-name{display:flex;align-items:center;gap:9px}
-#nvm-serverrate .rfx-map-name i{color:#72e5f3}
-#nvm-serverrate .rfx-map-rate-red{color:#ff4757}
-#nvm-serverrate .rfx-vote-desc{font-size:16px;line-height:1.7;background:#72e5f30f;border-left:3px solid #72e5f373;border-radius:8px;padding:12px 14px;margin-bottom:12px}
-#nvm-serverrate .rfx-price{border-radius:9px;background:#ffffff0a;border:1px solid #ffffff14;padding:11px 13px;min-width:0}
-#nvm-serverrate .rfx-price-val{color:#ff7b87;font-size:19px;font-weight:700;margin-top:5px}
-#nvm-serverrate .rfx-price-sub{font-size:13px;color:#8faab4;margin-top:4px}
-#nvm-serverrate .rfx-btn{display:flex;align-items:center;gap:13px;padding:13px 16px;border-radius:10px;margin:9px 0;text-decoration:none!important;color:white!important;background:#0008;border:1px solid #72e5f366;transition:.2s}
-#nvm-serverrate .rfx-btn:hover{transform:translateY(-2px);background:#72e5f313}
-#nvm-serverrate .rfx-btn-ic{font-size:21px;color:#72e5f3;width:40px;flex:none}
-#nvm-serverrate .rfx-btn-text{flex:1;font-size:16px;font-weight:700}
-#nvm-serverrate .rfx-btn-text small{display:block;font-size:13px;color:#8faab4;font-weight:400}
-#nvm-serverrate .rfx-btn-indo{border-color:#ff475766}
-#nvm-serverrate .rfx-btn-intl{border-color:#ffa50266}
-#nvm-serverrate .rfx-btn-arr{opacity:.6}
-#nvm-serverrate .rfx-nc{color:#ddeef3;padding:10px}
-#nvm-serverrate .rfx-nc h3{font-size:18px;text-transform:uppercase;letter-spacing:1px;color:#72e5f3;margin:0 0 12px}
-#nvm-serverrate .rfx-nc ul{list-style:none;margin:0;padding:0}
-#nvm-serverrate .rfx-nc li{display:flex;align-items:center;gap:10px;border-bottom:1px dashed #72e5f34d;padding:9px 0;font-size:15px}
-#nvm-serverrate .rfx-nc li i{color:#72e5f3;width:20px;text-align:center}
-@media(max-width:560px){#nvm-serverrate .rfx-grid,#nvm-serverrate .rfx-prices{grid-template-columns:1fr}#nvm-serverrate .rfx-cell-wide,#nvm-serverrate .rfx-price-wide{grid-column:auto}#nvm-serverrate .rfx-hd h2{font-size:20px;letter-spacing:2px}}
+
+/* Scoped to the CKEditor content fragment; never changes the host layout. */
+#nvm-serverrate {
+  --nvm-bg: #0b1115;
+  --nvm-panel: #10191e;
+  --nvm-line: #294047;
+  --nvm-text: #edf3f5;
+  --nvm-muted: #b1c3ca;
+  --nvm-accent: #72e5f3;
+  --nvm-gold: #f0bd65;
+  width: 100%;
+  min-width: 0;
+  color: var(--nvm-text);
+  font-family: inherit;
+  line-height: 1.5;
+}
+#nvm-serverrate, #nvm-serverrate * { box-sizing: border-box; }
+#nvm-serverrate .nvm-rate-banner { display: block; width: 100%; height: auto; margin: 0 0 20px; }
+#nvm-serverrate .nvm-rate-banner:not(:first-child) { margin-top: 30px; }
+#nvm-serverrate .rfx { width: 100%; min-width: 0; }
+#nvm-serverrate .rfx-hd { padding: 4px 0 18px; margin-bottom: 20px; border-bottom: 1px solid var(--nvm-line); }
+#nvm-serverrate .rfx-hd h2 { margin: 0 0 4px; color: var(--nvm-accent); font-size: clamp(21px, 2.8vw, 27px); font-weight: 750; letter-spacing: .06em; }
+#nvm-serverrate .rfx-hd h2 i { margin-right: 8px; }
+#nvm-serverrate .rfx-hd p { margin: 0; color: var(--nvm-muted); font-size: 13px; letter-spacing: .08em; text-transform: uppercase; }
+#nvm-serverrate .rfx-sep { display: flex; align-items: center; gap: 9px; margin: 28px 0 12px; padding: 0 0 9px; border-bottom: 1px solid var(--nvm-line); color: var(--nvm-text); font-size: 14px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+#nvm-serverrate .rfx-sep i { color: var(--nvm-accent); }
+#nvm-serverrate .rfx-grid, #nvm-serverrate .rfx-prices { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
+#nvm-serverrate .rfx-cell { display: flex; align-items: center; gap: 12px; min-width: 0; padding: 15px; border: 1px solid var(--nvm-line); border-radius: 5px; background: var(--nvm-panel); }
+#nvm-serverrate .rfx-cell-wide, #nvm-serverrate .rfx-price-wide { grid-column: 1 / -1; }
+#nvm-serverrate .rfx-cell-ic { display: grid; flex: none; place-items: center; width: 35px; height: 35px; color: var(--nvm-accent); border: 1px solid var(--nvm-line); border-radius: 4px; font-size: 17px; }
+#nvm-serverrate .rfx-cell-body { min-width: 0; }
+#nvm-serverrate .rfx-cell-lbl, #nvm-serverrate .rfx-price-lbl { color: var(--nvm-muted); font-size: 12px; font-weight: 700; letter-spacing: .045em; text-transform: uppercase; }
+#nvm-serverrate .rfx-cell-val { margin-top: 4px; font-size: 19px; font-weight: 750; line-height: 1.35; overflow-wrap: anywhere; }
+#nvm-serverrate .cx, #nvm-serverrate .rfx-map-rate { color: var(--nvm-accent); }
+#nvm-serverrate .sep { padding: 0 8px; color: var(--nvm-muted); }
+#nvm-serverrate .pm { color: var(--nvm-muted); font-size: 15px; font-weight: 500; }
+#nvm-serverrate .rfx-card { margin: 0 0 14px; border: 1px solid var(--nvm-line); border-radius: 5px; background: var(--nvm-bg); overflow: hidden; }
+#nvm-serverrate .rfx-card-head { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; padding: 15px 17px; border-bottom: 1px solid var(--nvm-line); }
+#nvm-serverrate .rfx-card-head > div:nth-child(2) { flex: 1 1 190px; min-width: 0; }
+#nvm-serverrate .rfx-card-ic { display: grid; flex: none; place-items: center; width: 36px; height: 36px; color: var(--nvm-accent); font-size: 19px; }
+#nvm-serverrate .rfx-card-title { color: var(--nvm-text); font-size: 17px; font-weight: 750; }
+#nvm-serverrate .rfx-card-sub { margin-top: 3px; color: var(--nvm-muted); font-size: 13px; }
+#nvm-serverrate .rfx-card-body { padding: 16px 17px; }
+#nvm-serverrate .rfx-alert { padding: 5px 9px; border: 1px solid #8b5d60; border-radius: 3px; color: #ffc2c6; background: #3b1e24; font-size: 12px; font-weight: 700; }
+#nvm-serverrate .rfx-maps { display: grid; gap: 0; }
+#nvm-serverrate .rfx-map-row { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px 16px; padding: 12px 0; border-bottom: 1px solid var(--nvm-line); }
+#nvm-serverrate .rfx-map-row:last-child { border-bottom: 0; }
+#nvm-serverrate .rfx-map-name { display: flex; align-items: baseline; gap: 10px; }
+#nvm-serverrate .rfx-map-name i { color: var(--nvm-muted); }
+#nvm-serverrate .rfx-map-rate { font-weight: 750; }
+#nvm-serverrate .rfx-map-rate-red { color: #ff8c94; }
+#nvm-serverrate .rfx-vote-desc { margin-bottom: 15px; color: var(--nvm-text); line-height: 1.7; }
+#nvm-serverrate .rfx-price { min-width: 0; padding: 14px; border: 1px solid var(--nvm-line); background: var(--nvm-panel); border-radius: 4px; }
+#nvm-serverrate .rfx-price-val { margin-top: 5px; color: var(--nvm-gold); font-size: 19px; font-weight: 750; }
+#nvm-serverrate .rfx-price-sub { margin-top: 4px; color: var(--nvm-muted); font-size: 13px; }
+#nvm-serverrate .rfx-card-gold { border-color: #7d653c; }
+#nvm-serverrate .rfx-card-title-gold, #nvm-serverrate .rfx-card-ic-gold { color: var(--nvm-gold); }
+#nvm-serverrate .rfx-btn { display: flex; align-items: center; gap: 12px; min-height: 54px; margin-top: 10px; padding: 12px 15px; border: 1px solid #437580; border-radius: 4px; background: #10262c; color: var(--nvm-text) !important; text-decoration: none !important; cursor: pointer; transition: background-color .15s ease, border-color .15s ease; }
+#nvm-serverrate .rfx-btn:hover { background: #183b43; border-color: var(--nvm-accent); }
+#nvm-serverrate .rfx-btn:focus-visible { outline: 3px solid var(--nvm-accent); outline-offset: 3px; }
+#nvm-serverrate .rfx-btn-ic { width: 28px; flex: none; color: var(--nvm-accent); font-size: 21px; }
+#nvm-serverrate .rfx-btn-text { min-width: 0; flex: 1; font-size: 15px; font-weight: 750; }
+#nvm-serverrate .rfx-btn-text small { display: block; margin-top: 3px; color: var(--nvm-muted); font-size: 12px; font-weight: 400; }
+#nvm-serverrate .rfx-btn-arr { color: var(--nvm-muted); }
+#nvm-serverrate .rfx-btn-indo { border-color: #8d5b60; background: #2b1b20; }
+#nvm-serverrate .rfx-btn-indo:hover { border-color: #ff9ca4; background: #39252a; }
+#nvm-serverrate .rfx-btn-intl { border-color: #886b3b; background: #292218; }
+#nvm-serverrate .rfx-btn-intl:hover { border-color: var(--nvm-gold); background: #382c1d; }
+#nvm-serverrate .rfx-nc { padding: 0 0 10px; }
+#nvm-serverrate .rfx-nc h3 { margin: 0 0 8px; color: var(--nvm-accent); font-size: 18px; }
+#nvm-serverrate .rfx-nc ul { margin: 0; padding: 0; list-style: none; }
+#nvm-serverrate .rfx-nc li { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--nvm-line); }
+#nvm-serverrate .rfx-nc li i { width: 20px; text-align: center; color: var(--nvm-accent); }
+@media (max-width: 640px) {
+  #nvm-serverrate .rfx-grid, #nvm-serverrate .rfx-prices { grid-template-columns: 1fr; }
+  #nvm-serverrate .rfx-cell-wide, #nvm-serverrate .rfx-price-wide { grid-column: auto; }
+  #nvm-serverrate .rfx-card-head, #nvm-serverrate .rfx-card-body { padding: 13px; }
+  #nvm-serverrate .rfx-cell { padding: 13px; }
+}
+@media (prefers-reduced-motion: reduce) { #nvm-serverrate .rfx-btn { transition: none; } }
