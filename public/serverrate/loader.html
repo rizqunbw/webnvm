@@ -10,61 +10,94 @@
 
   var BASE = "https://raw.githubusercontent.com/rizqunbw/webnvm/main/public/serverrate/";
   var target = document.getElementById("nvm-serverrate-loader");
+  var STYLE_ID = "nvm-serverrate-style";
+  var REFRESH_MS = 60000;
+  var lastHTML = null;
+  var lastCSS = null;
+  var busy = false;
 
-  if (!target) return;
+  if (!target || target.dataset.nvmLiveStarted === "1") return;
+  target.dataset.nvmLiveStarted = "1";
 
   function getFile(name) {
-    return fetch(BASE + name + "?v=" + Date.now())
-      .then(function (res) {
-        if (!res.ok) {
-          throw new Error(name + ": HTTP " + res.status);
-        }
-        return res.text();
-      });
+    return fetch(BASE + name + "?v=" + Date.now(), {
+      cache: "no-store"
+    }).then(function (response) {
+      if (!response.ok) throw new Error(name + ": HTTP " + response.status);
+      return response.text();
+    });
   }
 
-  Promise.all([
-    getFile("serverrate.html"),
-    getFile("serverrate.css")
-  ])
-  .then(function (files) {
-    var style = document.getElementById("nvm-serverrate-style");
-
-    if (!style) {
-      style = document.createElement("style");
-      style.id = "nvm-serverrate-style";
-      document.head.appendChild(style);
-    }
-
-    style.textContent = files[1];
-    var html = files[0];
-    // Defensively remove the banner already rendered by the website template.
-    var parsed = document.createElement("div");
-    parsed.innerHTML = html;
-    parsed.querySelectorAll('img[src*="/assets/images/srate.jpg"]').forEach(function (img) {
-      img.remove();
-    });
-    target.innerHTML = parsed.innerHTML;
-
-    // Keep the first site banner; remove subsequent copies only.
+  function removeDuplicateBanners() {
     var banners = Array.prototype.slice.call(
       document.querySelectorAll('img[src*="srate.jpg"]')
     );
     banners.slice(1).forEach(function (img) {
-      var wrapper = img.parentElement;
-      if (wrapper && wrapper.children.length === 1 &&
-          wrapper.textContent.trim() === "" &&
-          wrapper !== document.body) {
-        wrapper.remove();
+      var parent = img.parentElement;
+      if (parent && parent !== document.body &&
+          parent.children.length === 1 &&
+          parent.textContent.trim() === "") {
+        parent.remove();
       } else {
         img.remove();
       }
     });
-    console.log("Server Rate loaded successfully; matching banners:", banners.length);
-  })
-  .catch(function (err) {
-    target.textContent = "Server Rate Error: " + err.message;
-    console.error(err);
+  }
+
+  function refresh() {
+    if (busy || !document.documentElement.contains(target)) return;
+    if (document.hidden && lastHTML !== null) return;
+    busy = true;
+
+    Promise.all([getFile("serverrate.html"), getFile("serverrate.css")])
+      .then(function (files) {
+        if (!document.documentElement.contains(target)) return;
+
+        var style = document.getElementById(STYLE_ID);
+        if (!style) {
+          style = document.createElement("style");
+          style.id = STYLE_ID;
+          document.head.appendChild(style);
+        }
+
+        if (files[1] !== lastCSS) {
+          style.textContent = files[1];
+          lastCSS = files[1];
+        }
+
+        if (files[0] !== lastHTML) {
+          var parsed = document.createElement("div");
+          parsed.innerHTML = files[0];
+          parsed.querySelectorAll('img[src*="/assets/images/srate.jpg"]')
+            .forEach(function (img) { img.remove(); });
+          target.innerHTML = parsed.innerHTML;
+          lastHTML = files[0];
+        }
+
+        removeDuplicateBanners();
+        console.log("[NVM Server Rate] GitHub content checked");
+      })
+      .catch(function (error) {
+        if (lastHTML === null) {
+          target.textContent = "Server Rate Error: " + error.message;
+        }
+        console.error("[NVM Server Rate]", error);
+      })
+      .then(function () { busy = false; });
+  }
+
+  refresh();
+  var interval = setInterval(function () {
+    if (!document.documentElement.contains(target)) {
+      clearInterval(interval);
+      return;
+    }
+    refresh();
+  }, REFRESH_MS);
+
+  document.addEventListener("visibilitychange", function () {
+    if (!document.hidden) refresh();
   });
+  window.addEventListener("focus", refresh);
 })();
 </script>
