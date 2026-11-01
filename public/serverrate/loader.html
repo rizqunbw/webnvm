@@ -46,7 +46,21 @@
     });
     target.innerHTML = parsed.innerHTML;
 
-    console.log("Server Rate loaded successfully");
+    // Keep the first site banner; remove subsequent copies only.
+    var banners = Array.prototype.slice.call(
+      document.querySelectorAll('img[src*="srate.jpg"]')
+    );
+    banners.slice(1).forEach(function (img) {
+      var wrapper = img.parentElement;
+      if (wrapper && wrapper.children.length === 1 &&
+          wrapper.textContent.trim() === "" &&
+          wrapper !== document.body) {
+        wrapper.remove();
+      } else {
+        img.remove();
+      }
+    });
+    console.log("Server Rate loaded successfully; matching banners:", banners.length);
   })
   .catch(function (err) {
     target.textContent = "Server Rate Error: " + err.message;
