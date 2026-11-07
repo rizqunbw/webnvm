@@ -1,0 +1,114 @@
+<div id="nvm-serverrate-loader">
+  <p style="text-align:center;color:#72e5f3;padding:25px">Loading Server Rate...</p>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var BASE = "https://raw.githubusercontent.com/rizqunbw/webnvm/main/public/serverrate/";
+  var REFRESH_MS = 1000;
+  var STYLE_ID = "nvm-serverrate-style";
+  var target = document.getElementById("nvm-serverrate-loader");
+  var lastHTML = null;
+  var lastCSS = null;
+  var busy = false;
+
+  if (!target || target.dataset.nvmLiveStarted === "1") return;
+  target.dataset.nvmLiveStarted = "1";
+
+  function getFile(name) {
+    return fetch(BASE + name + "?v=" + Date.now(), { cache: "no-store" })
+      .then(function (response) {
+        if (!response.ok) throw new Error(name + ": HTTP " + response.status);
+        return response.text();
+      });
+  }
+
+  function removeDuplicateBanners() {
+    var banners = Array.prototype.slice.call(
+      document.querySelectorAll('img[src*="srate.jpg"]')
+    );
+    banners.slice(1).forEach(function (img) {
+      var parent = img.parentElement;
+      if (parent && parent !== document.body &&
+          parent.children.length === 1 &&
+          parent.textContent.trim() === "") {
+        parent.remove();
+      } else {
+        img.remove();
+      }
+    });
+  }
+
+  function refresh() {
+    if (busy || !document.documentElement.contains(target)) return;
+    if (document.hidden && lastHTML !== null) return;
+    busy = true;
+
+    Promise.all([getFile("serverrate.html"), getFile("serverrate.css")])
+      .then(function (files) {
+        if (!document.documentElement.contains(target)) return;
+
+        var nativeElement = document.querySelector(
+          ".sidebar h3, .sidebar h2, aside h3, aside h2, " +
+          ".left-sidebar h3, .left-sidebar h2, header nav a, .navbar a, nav a"
+        ) || document.body;
+        target.style.setProperty(
+          "--nvm-native-font", window.getComputedStyle(nativeElement).fontFamily
+        );
+
+        var style = document.getElementById(STYLE_ID);
+        if (!style) {
+          style = document.createElement("style");
+          style.id = STYLE_ID;
+          document.head.appendChild(style);
+        }
+
+        if (files[1] !== lastCSS) {
+          style.textContent = files[1] + "\n" +
+            "#nvm-serverrate, #nvm-serverrate * {" +
+            "font-family:var(--nvm-native-font,inherit)!important;}";
+          lastCSS = files[1];
+        }
+
+        if (files[0] !== lastHTML) {
+          var parsed = document.createElement("div");
+          parsed.innerHTML = files[0];
+          parsed.querySelectorAll('img[src*="/assets/images/srate.jpg"]')
+            .forEach(function (img) { img.remove(); });
+          target.innerHTML = parsed.innerHTML;
+          lastHTML = files[0];
+        }
+
+        removeDuplicateBanners();
+      })
+      .catch(function (error) {
+        // Content files may not exist yet during the clean rebuild.
+        // Keep the last successfully rendered page instead of clearing it.
+        if (lastHTML === null) {
+          target.textContent = "Server Rate sedang disiapkan...";
+        }
+        if (!/HTTP 404/.test(error.message)) {
+          console.warn("[NVM Server Rate]", error.message);
+        }
+      })
+      .then(function () { busy = false; });
+  }
+
+  refresh();
+
+  var interval = setInterval(function () {
+    if (!document.documentElement.contains(target)) {
+      clearInterval(interval);
+      return;
+    }
+    refresh();
+  }, REFRESH_MS);
+
+  document.addEventListener("visibilitychange", function () {
+    if (!document.hidden) refresh();
+  });
+  window.addEventListener("focus", refresh);
+})();
+</script>
