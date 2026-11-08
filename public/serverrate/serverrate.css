@@ -67,3 +67,15 @@
 #nvm-serverrate .nvm-rate__notice--warning>i{color:#e9bd70}
 #nvm-serverrate i.fa-solid{font-family:"Font Awesome 6 Free","Font Awesome 5 Free",FontAwesome!important;font-style:normal;font-weight:900!important;display:inline-block}
 @media(max-width:420px){#nvm-serverrate .nvm-rate__list-item{gap:7px}#nvm-serverrate .nvm-rate__list-item>strong,#nvm-serverrate .nvm-rate__status{max-width:39%;font-size:10px}#nvm-serverrate .nvm-rate__list{padding:5px 9px}}
+
+/* Typography refinement: host theme may apply heavy headings and bold elements. */
+#nvm-serverrate .nvm-rate__card h4{font-weight:400!important;font-family:inherit!important;letter-spacing:0!important;text-shadow:none!important}
+#nvm-serverrate .nvm-rate__card .nvm-rate__metric{font-weight:650!important;font-family:inherit!important;letter-spacing:-.015em!important;text-shadow:none!important}
+#nvm-serverrate .nvm-rate__card .nvm-rate__tag{font-weight:400!important}
+#nvm-serverrate .nvm-rate__card p{color:var(--nvm-muted);font-weight:400!important}
+#nvm-serverrate .nvm-rate__card p b{color:#f2c56b!important;font-weight:550!important}
+#nvm-serverrate .nvm-rate__card p{color:#f2c56b}
+#nvm-serverrate .nvm-rate__card p b + span{color:#f2c56b}
+#nvm-serverrate .nvm-rate__card:has(p) {border-color:#5b4b32}
+#nvm-serverrate .nvm-rate__card:has(p) p{display:inline-flex;flex-wrap:wrap;gap:4px;align-items:baseline;padding:4px 7px;border-radius:4px;background:rgba(214,161,60,.09);border:1px solid rgba(214,161,60,.22);line-height:1.4}
+#nvm-serverrate .nvm-rate__card:has(p) p b{color:#f4d18b!important}
