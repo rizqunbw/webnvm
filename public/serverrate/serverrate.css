@@ -79,3 +79,20 @@
 #nvm-serverrate .nvm-rate__card:has(p) {border-color:#5b4b32}
 #nvm-serverrate .nvm-rate__card:has(p) p{display:inline-flex;flex-wrap:wrap;gap:4px;align-items:baseline;padding:4px 7px;border-radius:4px;background:rgba(214,161,60,.09);border:1px solid rgba(214,161,60,.22);line-height:1.4}
 #nvm-serverrate .nvm-rate__card:has(p) p b{color:#f4d18b!important}
+
+/* Daily PvP point limits: compact comparison with gold premium emphasis. */
+#nvm-serverrate .nvm-rate__pvp-panel{border:1px solid var(--nvm-line);border-radius:6px;background:var(--nvm-bg);padding:12px}
+#nvm-serverrate .nvm-rate__pvp-plans{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+#nvm-serverrate .nvm-rate__pvp-plan{display:flex;flex-direction:column;gap:3px;min-width:0;padding:10px 12px;border:1px solid var(--nvm-line);border-radius:5px}
+#nvm-serverrate .nvm-rate__pvp-plan--premium{background:rgba(214,161,60,.07);border-color:#735c34}
+#nvm-serverrate .nvm-rate__pvp-label{color:var(--nvm-muted);font-size:12px;font-weight:500}
+#nvm-serverrate .nvm-rate__pvp-label i{margin-right:5px}
+#nvm-serverrate .nvm-rate__pvp-plan--premium .nvm-rate__pvp-label,#nvm-serverrate .nvm-rate__pvp-plan--premium strong{color:#f2c56b}
+#nvm-serverrate .nvm-rate__pvp-plan strong{color:var(--nvm-cyan);font-size:18px;font-weight:600;line-height:1.35}
+#nvm-serverrate .nvm-rate__pvp-plan small{color:var(--nvm-muted);font-size:11px}
+#nvm-serverrate .nvm-rate__pvp-examples{display:flex;flex-wrap:wrap;gap:5px 16px;margin:10px 0 0!important;color:var(--nvm-muted);font-size:11px}
+#nvm-serverrate .nvm-rate__pvp-examples span{white-space:nowrap}
+#nvm-serverrate .nvm-rate__pvp-examples b{color:var(--nvm-text);font-weight:500}
+#nvm-serverrate .nvm-rate__pvp-key{margin:5px 0 0!important;color:var(--nvm-muted);font-size:10px}
+#nvm-serverrate .nvm-rate__pvp-key span{color:#f2c56b}
+@media(max-width:420px){#nvm-serverrate .nvm-rate__pvp-plans{grid-template-columns:1fr}#nvm-serverrate .nvm-rate__pvp-panel{padding:9px}}
