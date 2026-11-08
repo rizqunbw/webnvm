@@ -188,3 +188,23 @@
 
 #nvm-serverrate i.fa-user-doctor::before { content: "\f0f0" !important; }
 #nvm-serverrate i.fa-flask::before { content: "\f0c3" !important; }
+
+/* Compact, expandable Server Settings groups; native details work without JS. */
+#nvm-serverrate .nvm-rate__groups { display:grid; gap:10px; }
+#nvm-serverrate .nvm-rate__group { min-width:0; border:1px solid var(--nvm-line); border-radius:12px; background:rgba(14,27,41,.78); overflow:hidden; }
+#nvm-serverrate .nvm-rate__group > summary { cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:13px 16px; color:var(--nvm-text); font-size:13px; font-weight:750; list-style:none; }
+#nvm-serverrate .nvm-rate__group > summary::-webkit-details-marker { display:none; }
+#nvm-serverrate .nvm-rate__group > summary::before { content:"+"; color:var(--nvm-cyan); font-size:19px; line-height:1; font-weight:400; }
+#nvm-serverrate .nvm-rate__group[open] > summary::before { content:"−"; }
+#nvm-serverrate .nvm-rate__group > summary > span:first-child { flex:1; }
+#nvm-serverrate .nvm-rate__group-count { color:var(--nvm-muted); font-size:9px; letter-spacing:.08em; white-space:nowrap; }
+#nvm-serverrate .nvm-rate__group > .nvm-rate__list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1px; padding:8px; border:0; border-top:1px solid var(--nvm-line); border-radius:0; background:transparent; overflow:visible; }
+#nvm-serverrate .nvm-rate__group .nvm-rate__list-item { min-width:0; min-height:48px; gap:9px; padding:9px 10px; background:rgba(255,255,255,.025); border:0; border-radius:7px; }
+#nvm-serverrate .nvm-rate__group .nvm-rate__list-icon { width:25px; height:25px; flex:0 0 25px; border-radius:7px; font-size:11px; }
+#nvm-serverrate .nvm-rate__group .nvm-rate__list-copy b { font-size:11px; line-height:1.3; }
+#nvm-serverrate .nvm-rate__group .nvm-rate__status { font-size:8px; }
+#nvm-serverrate .nvm-rate__group .nvm-rate__list-item > strong { font-size:12px; }
+@media(max-width:620px) {
+  #nvm-serverrate .nvm-rate__group > .nvm-rate__list { grid-template-columns:1fr; }
+  #nvm-serverrate .nvm-rate__group .nvm-rate__list-item { min-height:42px; }
+}
