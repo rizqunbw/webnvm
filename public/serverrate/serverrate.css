@@ -44,3 +44,26 @@
 @media(max-width:600px){#nvm-serverrate .nvm-rate__groups,#nvm-serverrate .nvm-rate__skill-grid{grid-template-columns:1fr}#nvm-serverrate .nvm-rate__hero{padding:12px}#nvm-serverrate .nvm-rate__level{padding:7px}#nvm-serverrate .nvm-rate__level span{font-size:9px}#nvm-serverrate .nvm-rate__level strong{font-size:20px}#nvm-serverrate .nvm-rate__card{padding:10px}#nvm-serverrate .nvm-rate__section{margin-top:15px}}
 @media(max-width:360px){#nvm-serverrate .nvm-rate__hero{align-items:flex-start}#nvm-serverrate .nvm-rate__title{font-size:20px}#nvm-serverrate .nvm-rate__level{flex-direction:column;gap:2px}#nvm-serverrate .nvm-rate__card{padding:8px}#nvm-serverrate .nvm-rate__metric{font-size:20px}}
 @media(prefers-reduced-motion:reduce){#nvm-serverrate *,#nvm-serverrate *::before,#nvm-serverrate *::after{animation:none!important;transition:none!important}}
+
+/* Readability and Font Awesome: icons are supporting markers, not large tiles. */
+#nvm-serverrate .nvm-rate__section-head h3{font-weight:600;letter-spacing:0}
+#nvm-serverrate .nvm-rate__section-head h3 i{color:var(--nvm-cyan);font-size:13px;margin-right:8px}
+#nvm-serverrate .nvm-rate__title{font-weight:650}
+#nvm-serverrate .nvm-rate__group-head{font-weight:600;padding:11px 14px;line-height:1.45}
+#nvm-serverrate .nvm-rate__group-count{font-weight:400;letter-spacing:0}
+#nvm-serverrate .nvm-rate__list{padding:5px 12px}
+#nvm-serverrate .nvm-rate__list-item{align-items:center;justify-content:flex-start;flex-wrap:nowrap;gap:10px;padding:10px 3px;line-height:1.5}
+#nvm-serverrate .nvm-rate__list-icon{display:inline-flex;align-items:center;justify-content:center;flex:0 0 17px;width:17px;color:var(--nvm-cyan);font-size:12px;opacity:.8}
+#nvm-serverrate .nvm-rate__list-copy{flex:1 1 auto;min-width:0}
+#nvm-serverrate .nvm-rate__list-copy b{font-size:12px;font-weight:450;line-height:1.5;letter-spacing:0}
+#nvm-serverrate .nvm-rate__list-item>strong,#nvm-serverrate .nvm-rate__status{font-size:11px;font-weight:550;letter-spacing:0;line-height:1.5;white-space:normal;text-align:right;max-width:43%;flex:0 1 auto}
+#nvm-serverrate .nvm-rate__status{color:var(--nvm-green)}
+#nvm-serverrate .nvm-rate__status--off{color:var(--nvm-red)}
+#nvm-serverrate .nvm-rate__skill-card{display:flex;align-items:flex-start;gap:10px}
+#nvm-serverrate .nvm-rate__skill-icon{color:var(--nvm-cyan);font-size:13px;flex:0 0 16px;margin-top:2px}
+#nvm-serverrate .nvm-rate__skill-card h4{font-weight:600}
+#nvm-serverrate .nvm-rate__notice{display:flex;align-items:flex-start;gap:10px}
+#nvm-serverrate .nvm-rate__notice>i{color:var(--nvm-cyan);margin-top:3px}
+#nvm-serverrate .nvm-rate__notice--warning>i{color:#e9bd70}
+#nvm-serverrate i.fa-solid{font-family:"Font Awesome 6 Free","Font Awesome 5 Free",FontAwesome!important;font-style:normal;font-weight:900!important;display:inline-block}
+@media(max-width:420px){#nvm-serverrate .nvm-rate__list-item{gap:7px}#nvm-serverrate .nvm-rate__list-item>strong,#nvm-serverrate .nvm-rate__status{max-width:39%;font-size:10px}#nvm-serverrate .nvm-rate__list{padding:5px 9px}}
