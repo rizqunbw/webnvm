@@ -208,3 +208,15 @@
   #nvm-serverrate .nvm-rate__group > .nvm-rate__list { grid-template-columns:1fr; }
   #nvm-serverrate .nvm-rate__group .nvm-rate__list-item { min-height:42px; }
 }
+
+/* Server info is always visible: compact overview, no clicks or collapsible controls. */
+#nvm-serverrate .nvm-rate__groups { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; align-items:start; }
+#nvm-serverrate .nvm-rate__group-head { display:flex; align-items:center; justify-content:space-between; gap:8px; padding:10px 12px; color:var(--nvm-text); font-size:12px; font-weight:750; background:rgba(105,228,242,.06); }
+#nvm-serverrate .nvm-rate__group > .nvm-rate__list { display:grid; grid-template-columns:1fr; padding:5px; gap:2px; }
+#nvm-serverrate .nvm-rate__group .nvm-rate__list-item { min-height:35px; padding:6px 8px; gap:7px; }
+#nvm-serverrate .nvm-rate__group .nvm-rate__list-icon { width:20px; height:20px; flex-basis:20px; font-size:10px; }
+#nvm-serverrate .nvm-rate__group .nvm-rate__list-copy b { font-size:10px; }
+#nvm-serverrate .nvm-rate__group .nvm-rate__list-copy small { font-size:9px; }
+#nvm-serverrate .nvm-rate__group .nvm-rate__status { font-size:8px; }
+#nvm-serverrate .nvm-rate__group .nvm-rate__list-item > strong { font-size:11px; }
+@media(max-width:760px) { #nvm-serverrate .nvm-rate__groups { grid-template-columns:1fr; } }
