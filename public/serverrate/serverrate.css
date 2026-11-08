@@ -143,3 +143,14 @@
 @media (prefers-reduced-motion: reduce) {
   #nvm-serverrate *, #nvm-serverrate *::before, #nvm-serverrate *::after { animation:none!important; transition:none!important; scroll-behavior:auto!important; }
 }
+
+/* Force the same Font Awesome Free Solid font used by the site navbar. */
+#nvm-serverrate i.fa-solid,
+#nvm-serverrate i.fa-solid::before {
+  font-family: "Font Awesome 6 Free" !important;
+  font-weight: 900 !important;
+  font-style: normal !important;
+  font-variant: normal !important;
+  text-rendering: auto !important;
+  -webkit-font-smoothing: antialiased;
+}
