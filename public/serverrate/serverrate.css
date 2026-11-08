@@ -182,3 +182,5 @@
   font-weight: 900 !important;
   display: inline-block !important;
 }
+
+#nvm-serverrate i.fa-map::before { content: "\f279" !important; }
