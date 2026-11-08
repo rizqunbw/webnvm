@@ -184,3 +184,7 @@
 }
 
 #nvm-serverrate i.fa-map::before { content: "\f279" !important; }
+
+
+#nvm-serverrate i.fa-user-doctor::before { content: "\f0f0" !important; }
+#nvm-serverrate i.fa-flask::before { content: "\f0c3" !important; }
