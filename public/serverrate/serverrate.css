@@ -15,6 +15,8 @@
   isolation: isolate;
 }
 #nvm-serverrate *, #nvm-serverrate *::before, #nvm-serverrate *::after { box-sizing: border-box; }
+/* Font Awesome: use the site's loaded Free Solid font; do not override icon font-family. */
+#nvm-serverrate i[class*='fa-'] { display:inline-block; font-style:normal; line-height:1; }
 #nvm-serverrate .nvm-rate__hero {
   position: relative; overflow: hidden; padding: clamp(22px, 4vw, 38px);
   border: 1px solid rgba(105,228,242,.28); border-radius: 18px;
