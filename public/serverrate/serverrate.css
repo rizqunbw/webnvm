@@ -157,26 +157,26 @@
 }
 
 /* Explicit Font Awesome glyph mapping: avoids missing CSS-variable icon aliases in injected content. */
-#nvm-serverrate i.fa-bolt::before { content: "\\f0e7" !important; }
-#nvm-serverrate i.fa-crown::before { content: "\\f521" !important; }
-#nvm-serverrate i.fa-chart-line::before { content: "\\f201" !important; }
-#nvm-serverrate i.fa-star::before { content: "\\f005" !important; }
-#nvm-serverrate i.fa-arrow-up-right-dots::before { content: "\\f062" !important; }
-#nvm-serverrate i.fa-gem::before { content: "\\f3a5" !important; }
-#nvm-serverrate i.fa-mountain::before { content: "\\f6fc" !important; }
-#nvm-serverrate i.fa-server::before { content: "\\f233" !important; }
-#nvm-serverrate i.fa-users::before { content: "\\f0c0" !important; }
-#nvm-serverrate i.fa-hammer::before { content: "\\f6e3" !important; }
-#nvm-serverrate i.fa-shirt::before { content: "\\f553" !important; }
-#nvm-serverrate i.fa-check::before { content: "\\f00c" !important; }
-#nvm-serverrate i.fa-arrows-rotate::before { content: "\\f021" !important; }
-#nvm-serverrate i.fa-store::before { content: "\\f54e" !important; }
-#nvm-serverrate i.fa-ban::before { content: "\\f05e" !important; }
-#nvm-serverrate i.fa-clock::before { content: "\\f017" !important; }
-#nvm-serverrate i.fa-expand::before { content: "\\f065" !important; }
-#nvm-serverrate i.fa-link::before { content: "\\f0c1" !important; }
-#nvm-serverrate i.fa-crosshairs::before { content: "\\f05b" !important; }
-#nvm-serverrate i.fa-triangle-exclamation::before { content: "\\f071" !important; }
+#nvm-serverrate i.fa-bolt::before { content: "\f0e7" !important; }
+#nvm-serverrate i.fa-crown::before { content: "\f521" !important; }
+#nvm-serverrate i.fa-chart-line::before { content: "\f201" !important; }
+#nvm-serverrate i.fa-star::before { content: "\f005" !important; }
+#nvm-serverrate i.fa-arrow-up-right-dots::before { content: "\f062" !important; }
+#nvm-serverrate i.fa-gem::before { content: "\f3a5" !important; }
+#nvm-serverrate i.fa-mountain::before { content: "\f6fc" !important; }
+#nvm-serverrate i.fa-server::before { content: "\f233" !important; }
+#nvm-serverrate i.fa-users::before { content: "\f0c0" !important; }
+#nvm-serverrate i.fa-hammer::before { content: "\f6e3" !important; }
+#nvm-serverrate i.fa-shirt::before { content: "\f553" !important; }
+#nvm-serverrate i.fa-check::before { content: "\f00c" !important; }
+#nvm-serverrate i.fa-arrows-rotate::before { content: "\f021" !important; }
+#nvm-serverrate i.fa-store::before { content: "\f54e" !important; }
+#nvm-serverrate i.fa-ban::before { content: "\f05e" !important; }
+#nvm-serverrate i.fa-clock::before { content: "\f017" !important; }
+#nvm-serverrate i.fa-expand::before { content: "\f065" !important; }
+#nvm-serverrate i.fa-link::before { content: "\f0c1" !important; }
+#nvm-serverrate i.fa-crosshairs::before { content: "\f05b" !important; }
+#nvm-serverrate i.fa-triangle-exclamation::before { content: "\f071" !important; }
 #nvm-serverrate i.fa-solid::before {
   font-family: "Font Awesome 6 Free" !important;
   font-weight: 900 !important;
