@@ -47,9 +47,9 @@
     if(!filtered.length){empty("No NPCs found","Try a different search.");return;}
     var fragment=document.createDocumentFragment();
     filtered.forEach(function(n){
-      var card=document.createElement("article"), top=document.createElement("div"), heading=document.createElement("h4");
+      var card=document.createElement("article"), top=document.createElement("div"), heading=document.createElement("h4"), icon=document.createElement("i");
       card.className="nvm-npc__card";top.className="nvm-npc__card-top";
-      heading.textContent=n.name;top.appendChild(heading);card.appendChild(top);
+      icon.className="fa-solid "+(typeof n.icon==="string" && /^fa-[a-z-]+$/.test(n.icon)?n.icon:"fa-user");icon.setAttribute("aria-hidden","true");heading.append(icon,document.createTextNode(n.name));top.appendChild(heading);card.appendChild(top);
       detail(card,"Location",n.location||"Not specified");detail(card,"Service",n.service||"Not specified");
       fragment.appendChild(card);
     });
