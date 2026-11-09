@@ -1,0 +1,109 @@
+<div id="nvm-npclist-loader"><p style="text-align:center;color:#72e5f3;padding:25px">Loading NPC List...</p></div>
+<script>
+(function () {
+  "use strict";
+  var REPO = "rizqunbw/webnvm";
+  var API = "https://api.github.com/repos/" + REPO + "/commits/main";
+  var RAW = "https://raw.githubusercontent.com/" + REPO + "/";
+  var TARGET_ID = "nvm-npclist-loader";
+  var STYLE_ID = "nvm-npclist-style";
+  var target = document.getElementById(TARGET_ID);
+  if (!target || target.dataset.nvmLiveStarted === "1") return;
+  target.dataset.nvmLiveStarted = "1";
+  var lastHTML = null, lastCSS = null, currentCommit = null, etag = null, busy = false, lastFallback = 0;
+  var searchValue = "", raceValue = "all";
+  function getRaw(name, ref) {
+    return fetch(RAW + ref + "/public/npclist/" + name, { cache:"force-cache", headers:{"Accept":"text/plain"} })
+      .then(function(r){ if(!r.ok) throw Error(name + ": HTTP " + r.status); return r.text(); });
+  }
+  function empty(message, description) {
+    var container = target.querySelector("#nvm-npc-results");
+    if (!container) return;
+    container.textContent = "";
+    var wrap = document.createElement("div"); wrap.className = "nvm-npc__empty";
+    var icon = document.createElement("i"); icon.className = "fa-solid fa-circle-info"; icon.setAttribute("aria-hidden","true");
+    var body = document.createElement("div"), heading = document.createElement("strong"), p = document.createElement("p");
+    heading.textContent = message; p.textContent = description; body.append(heading,p); wrap.append(icon,body); container.appendChild(wrap);
+  }
+  function detail(parent,label,value) {
+    var row=document.createElement("div"), a=document.createElement("span"), b=document.createElement("strong");
+    row.className="nvm-npc__detail"; a.textContent=label; b.textContent=value; row.append(a,b); parent.appendChild(row);
+  }
+  function applyDirectory() {
+    var dataNode=target.querySelector("#nvm-npc-data"), results=target.querySelector("#nvm-npc-results");
+    if(!dataNode||!results)return;
+    var data;
+    try { data=JSON.parse(dataNode.textContent); if(!Array.isArray(data))throw Error("Not an array"); }
+    catch(e){ empty("Directory data error","Check the JSON array in npclist.html."); return; }
+    var term=searchValue.trim().toLowerCase();
+    var valid=data.filter(function(n){ return n && typeof n.name==="string" && n.name.trim(); });
+    var filtered=valid.filter(function(n){
+      var race=String(n.race||"Neutral");
+      return (raceValue==="all"||race===raceValue) &&
+        [n.name,n.service,n.location,n.race].join(" ").toLowerCase().includes(term);
+    });
+    var count=target.querySelector("#nvm-npc-count");
+    if(count)count.textContent=filtered.length+" NPC"+(filtered.length===1?"":"S");
+    results.textContent="";
+    if(!valid.length){empty("NPC directory is being prepared","NPC names, services, and locations will be published here once verified.");return;}
+    if(!filtered.length){empty("No NPCs found","Try a different search or race filter.");return;}
+    var fragment=document.createDocumentFragment();
+    filtered.forEach(function(n){
+      var card=document.createElement("article"), top=document.createElement("div"), heading=document.createElement("h4"), race=document.createElement("span");
+      card.className="nvm-npc__card";top.className="nvm-npc__card-top";race.className="nvm-npc__race";
+      heading.textContent=n.name; race.textContent=n.race||"Neutral";top.append(heading,race);card.appendChild(top);
+      detail(card,"Location",n.location||"Not specified");detail(card,"Service",n.service||"Not specified");
+      fragment.appendChild(card);
+    });
+    results.appendChild(fragment);
+  }
+  function render(files) {
+    if(!document.documentElement.contains(target))return;
+    var native=document.querySelector(".sidebar h3, .sidebar h2, aside h3, aside h2, .left-sidebar h3, .left-sidebar h2, header nav a, .navbar a, nav a")||document.body;
+    target.style.setProperty("--nvm-native-font",getComputedStyle(native).fontFamily);
+    var style=document.getElementById(STYLE_ID);
+    if(!style){style=document.createElement("style");style.id=STYLE_ID;document.head.appendChild(style);}
+    if(files[1]!==lastCSS){style.textContent=files[1]+"\n#nvm-npclist{font-family:var(--nvm-native-font,inherit)!important}";lastCSS=files[1];}
+    if(files[0]!==lastHTML){
+      target.innerHTML=files[0];
+      lastHTML=files[0];
+      var search=target.querySelector("#nvm-npc-search"),race=target.querySelector("#nvm-npc-race");
+      if(search){search.value=searchValue;search.addEventListener("input",function(){searchValue=this.value;applyDirectory();});}
+      if(race){race.value=raceValue;race.addEventListener("change",function(){raceValue=this.value;applyDirectory();});}
+    }
+    applyDirectory();
+  }
+  function latestCommit(){
+    var headers={"Accept":"application/vnd.github+json","X-GitHub-Api-Version":"2022-11-28","Cache-Control":"no-cache","Pragma":"no-cache"};
+    if(etag)headers["If-None-Match"]=etag;
+    return fetch(API,{cache:"no-store",headers:headers}).then(function(r){
+      if(r.status===304)return null;
+      if(!r.ok)throw Error("GitHub API HTTP "+r.status);
+      var next=r.headers.get("ETag");if(next)etag=next;return r.json();
+    });
+  }
+  function refresh(){
+    if(busy||!document.documentElement.contains(target)||(document.hidden&&lastHTML!==null))return;
+    busy=true;
+    latestCommit().then(function(commit){
+      if(!commit||!commit.sha||commit.sha===currentCommit)return;
+      var sha=commit.sha;
+      return Promise.all([getRaw("npclist.html",sha),getRaw("npclist.css",sha)]).then(function(files){
+        render(files);currentCommit=sha;console.info("[NVM NPC List] Updated "+sha.slice(0,7));
+      });
+    }).catch(function(err){
+      var now=Date.now();if(now-lastFallback<15000)return;lastFallback=now;
+      return Promise.all(["npclist.html","npclist.css"].map(function(name){
+        return fetch(RAW+"refs/heads/main/public/npclist/"+name+"?cb="+now,{cache:"no-store"}).then(function(r){if(!r.ok)throw Error(name+" fallback HTTP "+r.status);return r.text();});
+      })).then(function(files){render(files);console.warn("[NVM NPC List] Branch fallback:",err.message);});
+    }).catch(function(err){
+      if(lastHTML===null)target.textContent="NPC List sedang disiapkan...";
+      console.warn("[NVM NPC List]",err.message);
+    }).then(function(){busy=false;});
+  }
+  refresh();
+  var timer=setInterval(function(){if(!document.documentElement.contains(target)){clearInterval(timer);return;}refresh();},1000);
+  document.addEventListener("visibilitychange",function(){if(!document.hidden)refresh();});
+  window.addEventListener("focus",refresh);
+})();
+</script>

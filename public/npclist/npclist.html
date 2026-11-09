@@ -1,0 +1,19 @@
+<section id="nvm-npclist" class="nvm-npc" aria-labelledby="nvm-npc-title">
+  <header class="nvm-npc__hero">
+    <div><span class="nvm-npc__eyebrow">RF NEVERMIND · AGE OF PATRON</span><h2 id="nvm-npc-title">NPC <span>List</span></h2><p>Find NPC services, locations, and availability by race.</p></div>
+    <div class="nvm-npc__hero-mark" aria-hidden="true"><i class="fa-solid fa-map-location-dot"></i></div>
+  </header>
+
+  <section class="nvm-npc__section" aria-labelledby="nvm-npc-directory-heading">
+    <div class="nvm-npc__heading"><h3 id="nvm-npc-directory-heading"><i class="fa-solid fa-list"></i> NPC Directory</h3><span id="nvm-npc-count" class="nvm-npc__count" aria-live="polite">0 NPCS</span></div>
+    <div class="nvm-npc__toolbar">
+      <label class="nvm-npc__search"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i><span class="nvm-npc__sr-only">Search NPC name, service, or location</span><input id="nvm-npc-search" type="search" placeholder="Search NPC, service or location..." autocomplete="off"></label>
+      <label class="nvm-npc__select-label"><span class="nvm-npc__sr-only">Filter by race</span><select id="nvm-npc-race"><option value="all">All Races</option><option value="Accretia">Accretia</option><option value="Bellato">Bellato</option><option value="Cora">Cora</option><option value="Neutral">Neutral</option></select></label>
+    </div>
+    <div id="nvm-npc-results" class="nvm-npc__results" aria-live="polite">
+      <div class="nvm-npc__empty"><i class="fa-solid fa-circle-info" aria-hidden="true"></i><div><strong>NPC directory is being prepared</strong><p>NPC names, services, and locations will be published here once verified.</p></div></div>
+    </div>
+  </section>
+  <section class="nvm-npc__section" aria-labelledby="nvm-npc-help-heading"><div class="nvm-npc__heading"><h3 id="nvm-npc-help-heading"><i class="fa-solid fa-circle-info"></i> Directory Information</h3></div><div class="nvm-npc__note">NPC entries will show <b>Name</b>, <b>Race</b>, <b>Location</b>, and <b>Service</b>. Search and race filters will become available as entries are added.</div></section>
+</section>
+<script type="application/json" id="nvm-npc-data">[]</script>
