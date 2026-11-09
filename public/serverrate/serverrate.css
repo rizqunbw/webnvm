@@ -96,3 +96,23 @@
 #nvm-serverrate .nvm-rate__pvp-key{margin:5px 0 0!important;color:var(--nvm-muted);font-size:10px}
 #nvm-serverrate .nvm-rate__pvp-key span{color:#f2c56b}
 @media(max-width:420px){#nvm-serverrate .nvm-rate__pvp-plans{grid-template-columns:1fr}#nvm-serverrate .nvm-rate__pvp-panel{padding:9px}}
+
+/* Chip War schedule: server clock, upcoming countdown and all three local times. */
+#nvm-serverrate .nvm-rate__war-panel{padding:12px;border:1px solid var(--nvm-line);border-radius:6px;background:var(--nvm-bg)}
+#nvm-serverrate .nvm-rate__war-top{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+#nvm-serverrate .nvm-rate__war-clock,#nvm-serverrate .nvm-rate__war-next{min-width:0;display:flex;flex-direction:column;gap:4px;padding:11px 13px;border:1px solid var(--nvm-line);border-radius:5px;background:#152434}
+#nvm-serverrate .nvm-rate__war-next{border-color:#426675}
+#nvm-serverrate .nvm-rate__war-clock>span,#nvm-serverrate .nvm-rate__war-next>span{color:var(--nvm-muted);font-size:12px;font-weight:450}
+#nvm-serverrate .nvm-rate__war-clock small{font-size:10px;color:var(--nvm-muted)}
+#nvm-serverrate .nvm-rate__war-clock strong,#nvm-serverrate .nvm-rate__war-next strong{color:#fff;font-size:clamp(19px,3vw,25px);font-weight:600;line-height:1.25;font-variant-numeric:tabular-nums;letter-spacing:.02em}
+#nvm-serverrate .nvm-rate__war-next strong{color:var(--nvm-cyan)}
+#nvm-serverrate .nvm-rate__war-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+#nvm-serverrate .nvm-rate__war-slot{min-width:0;display:grid;gap:2px;padding:9px 11px;border:1px solid var(--nvm-line);border-radius:5px}
+#nvm-serverrate .nvm-rate__war-slot.is-next{border-color:var(--nvm-cyan);background:rgba(105,228,242,.06)}
+#nvm-serverrate .nvm-rate__war-name{color:var(--nvm-muted);font-size:11px;font-weight:550}
+#nvm-serverrate .nvm-rate__war-name i{color:var(--nvm-cyan);margin-right:5px}
+#nvm-serverrate .nvm-rate__war-slot>strong{color:#fff;font-size:18px;font-weight:600;font-variant-numeric:tabular-nums}
+#nvm-serverrate .nvm-rate__war-slot>span:last-child{color:var(--nvm-muted);font-size:11px}
+#nvm-serverrate .nvm-rate__war-note{margin:9px 0 0;color:var(--nvm-muted);font-size:11px;line-height:1.5}
+#nvm-serverrate .nvm-rate__war-note span{color:var(--nvm-text)}
+@media(max-width:480px){#nvm-serverrate .nvm-rate__war-panel{padding:9px}#nvm-serverrate .nvm-rate__war-top{gap:6px}#nvm-serverrate .nvm-rate__war-clock,#nvm-serverrate .nvm-rate__war-next{padding:9px}#nvm-serverrate .nvm-rate__war-clock strong,#nvm-serverrate .nvm-rate__war-next strong{font-size:18px}#nvm-serverrate .nvm-rate__war-slot{padding:8px 6px}#nvm-serverrate .nvm-rate__war-slot>strong{font-size:16px}#nvm-serverrate .nvm-rate__war-name{font-size:10px}}
