@@ -1,121 +1,68 @@
 <div id="nvm-serverrate-loader">
   <p style="text-align:center;color:#72e5f3;padding:25px">Loading Server Rate...</p>
 </div>
-
 <script>
 (function () {
   "use strict";
 
-  var REPO = "rizqunbw/webnvm";
-  var API_URL = "https://api.github.com/repos/" + REPO + "/commits/main";
-  var RAW_BASE = "https://raw.githubusercontent.com/" + REPO + "/";
-  var REFRESH_MS = 1000;
-  var STYLE_ID = "nvm-serverrate-style";
   var target = document.getElementById("nvm-serverrate-loader");
-  var lastHTML = null;
-  var lastCSS = null;
-  var lastJS = null;
-  var activeScript = null;
-  var currentCommit = null;
-  var etag = null;
-  var busy = false;
-  var lastFallback = 0;
-
   if (!target || target.dataset.nvmLiveStarted === "1") return;
   target.dataset.nvmLiveStarted = "1";
 
-  function getRawFile(name, ref) {
-    var url = RAW_BASE + ref + "/public/serverrate/" + name;
-    return fetch(url, {
-      cache: "force-cache",
-      headers: { "Accept": "text/plain" }
-    }).then(function (response) {
-      if (!response.ok) throw new Error(name + ": HTTP " + response.status);
+  var BASE = "https://raw.githubusercontent.com/rizqunbw/webnvm/main/public/serverrate/";
+  var STYLE_ID = "nvm-serverrate-style";
+  var lastHTML = null;
+  var lastCSS = null;
+  var lastJS = null;
+  var script = null;
+  var busy = false;
+  var refreshTimer = null;
+
+  function getFile(name, required) {
+    var url = BASE + name + "?v=" + Date.now();
+    return fetch(url, { cache: "no-store" }).then(function (response) {
+      if (!response.ok) throw new Error(name + " HTTP " + response.status);
       return response.text();
+    }).catch(function (error) {
+      if (required) throw error;
+      console.warn("[NVM Server Rate] Optional " + name + ":", error.message);
+      return null;
     });
   }
 
-  function render(files, ref) {
-    if (!document.documentElement.contains(target)) return;
+  function applyHTML(html) {
+    if (html === lastHTML) return false;
+    var parsed = document.createElement("div");
+    parsed.innerHTML = html;
+    parsed.querySelectorAll('img[src*="/assets/images/srate.jpg"]').forEach(function (img) { img.remove(); });
+    if (!parsed.querySelector("#nvm-serverrate")) throw new Error("Server Rate HTML is missing its root element");
+    target.innerHTML = parsed.innerHTML;
+    lastHTML = html;
+    return true;
+  }
 
-    var nativeElement = document.querySelector(
-      ".sidebar h3, .sidebar h2, aside h3, aside h2, " +
-      ".left-sidebar h3, .left-sidebar h2, header nav a, .navbar a, nav a"
-    ) || document.body;
-    target.style.setProperty(
-      "--nvm-native-font", window.getComputedStyle(nativeElement).fontFamily
-    );
-
+  function applyCSS(css) {
+    if (css === lastCSS) return;
+    var nativeElement = document.querySelector(".sidebar h3, aside h3, header nav a, .navbar a, nav a") || document.body;
+    target.style.setProperty("--nvm-native-font", window.getComputedStyle(nativeElement).fontFamily);
     var style = document.getElementById(STYLE_ID);
     if (!style) {
       style = document.createElement("style");
       style.id = STYLE_ID;
       document.head.appendChild(style);
     }
-
-    if (files[1] !== lastCSS) {
-      style.textContent = files[1] + "\n" +
-        "#nvm-serverrate {" +
-        "font-family:var(--nvm-native-font,inherit)!important;}";
-      lastCSS = files[1];
-    }
-
-    var htmlChanged = files[0] !== lastHTML;
-    if (htmlChanged) {
-      var parsed = document.createElement("div");
-      parsed.innerHTML = files[0];
-      parsed.querySelectorAll('img[src*="/assets/images/srate.jpg"]')
-        .forEach(function (img) { img.remove(); });
-      target.innerHTML = parsed.innerHTML;
-      lastHTML = files[0];
-    }
-
-    removeDuplicateBanners();
-
-    if (files[2] && (htmlChanged || files[2] !== lastJS)) {
-      lastJS = files[2];
-      if (typeof window.nvmChipWarDestroy === "function") window.nvmChipWarDestroy();
-      if (activeScript) activeScript.remove();
-      activeScript = document.createElement("script");
-      activeScript.src = RAW_BASE + ref + "/public/serverrate/serverrate.js";
-      activeScript.async = true;
-      activeScript.onerror = function () { console.warn("[NVM Server Rate] Chip War script could not load."); };
-      document.head.appendChild(activeScript);
-    }
+    style.textContent = css + "\n#nvm-serverrate{font-family:var(--nvm-native-font,inherit)!important}";
+    lastCSS = css;
   }
 
-  function removeDuplicateBanners() {
-    var banners = Array.prototype.slice.call(
-      document.querySelectorAll('img[src*="srate.jpg"]')
-    );
-    banners.slice(1).forEach(function (img) {
-      var parent = img.parentElement;
-      if (parent && parent !== document.body &&
-          parent.children.length === 1 && parent.textContent.trim() === "") {
-        parent.remove();
-      } else {
-        img.remove();
-      }
-    });
-  }
-
-  function fetchLatestCommit() {
-    var headers = {
-      "Accept": "application/vnd.github+json",
-      "X-GitHub-Api-Version": "2022-11-28",
-      "Cache-Control": "no-cache",
-      "Pragma": "no-cache"
-    };
-    if (etag) headers["If-None-Match"] = etag;
-
-    return fetch(API_URL, { cache: "no-store", headers: headers })
-      .then(function (response) {
-        if (response.status === 304) return null;
-        if (!response.ok) throw new Error("GitHub API HTTP " + response.status);
-        var nextETag = response.headers.get("ETag");
-        if (nextETag) etag = nextETag;
-        return response.json();
-      });
+  function applyJS(js, htmlChanged) {
+    if (!js || (!htmlChanged && js === lastJS)) return;
+    if (typeof window.nvmChipWarDestroy === "function") window.nvmChipWarDestroy();
+    if (script) script.remove();
+    script = document.createElement("script");
+    script.textContent = js;
+    document.head.appendChild(script);
+    lastJS = js;
   }
 
   function refresh() {
@@ -123,67 +70,37 @@
     if (document.hidden && lastHTML !== null) return;
     busy = true;
 
-    fetchLatestCommit()
-      .then(function (commit) {
-        if (!commit || !commit.sha || commit.sha === currentCommit) return null;
-        var nextCommit = commit.sha;
-        return Promise.all([
-          getRawFile("serverrate.html", nextCommit),
-          getRawFile("serverrate.css", nextCommit),
-          getRawFile("serverrate.js", nextCommit).catch(function (error) { console.warn("[NVM Server Rate] Optional JS:", error.message); return null; })
-        ]).then(function (files) {
-          render(files, nextCommit);
-          currentCommit = nextCommit;
-          console.info("[NVM Server Rate] Updated from commit " + nextCommit.slice(0, 7));
-        });
-      })
-      .catch(function (error) {
-        // Fallback to the moving branch URL if GitHub API is temporarily unavailable.
-        var now = Date.now();
-        if (now - lastFallback < 15000) return;
-        lastFallback = now;
-        return Promise.all([
-          fetch(RAW_BASE + "refs/heads/main/public/serverrate/serverrate.html?cb=" + now,
-            { cache: "no-store", headers: { "Cache-Control": "no-cache" } }).then(function (r) {
-              if (!r.ok) throw new Error("HTML fallback HTTP " + r.status);
-              return r.text();
-            }),
-          fetch(RAW_BASE + "refs/heads/main/public/serverrate/serverrate.css?cb=" + now,
-            { cache: "no-store", headers: { "Cache-Control": "no-cache" } }).then(function (r) {
-              if (!r.ok) throw new Error("CSS fallback HTTP " + r.status);
-              return r.text();
-            }),
-          fetch(RAW_BASE + "refs/heads/main/public/serverrate/serverrate.js?cb=" + now,
-            { cache: "no-store" }).then(function (r) {
-              if (!r.ok) throw new Error("JS fallback HTTP " + r.status);
-              return r.text();
-            }).catch(function (error) { console.warn("[NVM Server Rate] Optional JS:", error.message); return null; })
-        ]).then(function (files) {
-          render(files, "refs/heads/main");
-          console.warn("[NVM Server Rate] Using branch fallback:", error.message);
-        });
-      })
-      .catch(function (error) {
-        if (lastHTML === null) target.textContent = "Server Rate sedang disiapkan...";
-        console.warn("[NVM Server Rate]", error.message);
-      })
-      .then(function () { busy = false; });
+    // HTML must never depend on CSS or the optional countdown script succeeding.
+    getFile("serverrate.html", true).then(function (html) {
+      var changed = applyHTML(html);
+      return Promise.all([
+        getFile("serverrate.css", false).then(function (css) {
+          if (css) applyCSS(css);
+        }),
+        getFile("serverrate.js", false).then(function (js) {
+          if (js) applyJS(js, changed);
+        })
+      ]);
+    }).catch(function (error) {
+      console.error("[NVM Server Rate] Failed to load HTML:", error);
+      if (lastHTML === null) {
+        target.innerHTML = '<p style="color:#ffafa7;padding:14px">Server Rate failed to load. Check browser console for the GitHub request error.</p>';
+      }
+    }).then(function () { busy = false; });
   }
 
-
   refresh();
-
-  var interval = setInterval(function () {
+  refreshTimer = setInterval(function () {
     if (!document.documentElement.contains(target)) {
-      clearInterval(interval);
+      clearInterval(refreshTimer);
+      if (typeof window.nvmChipWarDestroy === "function") window.nvmChipWarDestroy();
       return;
     }
     refresh();
-  }, REFRESH_MS);
+  }, 30000);
 
   document.addEventListener("visibilitychange", function () {
     if (!document.hidden) refresh();
   });
-  window.addEventListener("focus", refresh);
 })();
 </script>
