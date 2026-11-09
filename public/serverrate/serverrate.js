@@ -47,7 +47,7 @@
       var slot = root.querySelector('[data-nvm-war-slot="' + i + '"]');
       var local = root.querySelector('[data-nvm-war-local="' + i + '"]');
       if (slot) slot.classList.toggle("is-next", i === index);
-      if (local) local.textContent = localFormat.format(new Date(jakartaMidnight + hour * 3600000)) + " local";
+      if (local) local.textContent = localFormat.format(new Date(jakartaMidnight + hour * 3600000));
     });
   }
 
