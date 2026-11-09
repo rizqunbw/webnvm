@@ -72,7 +72,7 @@
 
     removeDuplicateBanners();
 
-    if (htmlChanged || files[2] !== lastJS) {
+    if (files[2] && (htmlChanged || files[2] !== lastJS)) {
       lastJS = files[2];
       if (typeof window.nvmChipWarDestroy === "function") window.nvmChipWarDestroy();
       if (activeScript) activeScript.remove();
@@ -130,10 +130,10 @@
         return Promise.all([
           getRawFile("serverrate.html", nextCommit),
           getRawFile("serverrate.css", nextCommit),
-          getRawFile("serverrate.js", nextCommit)
+          getRawFile("serverrate.js", nextCommit).catch(function (error) { console.warn("[NVM Server Rate] Optional JS:", error.message); return null; })
         ]).then(function (files) {
-          currentCommit = nextCommit;
           render(files, nextCommit);
+          currentCommit = nextCommit;
           console.info("[NVM Server Rate] Updated from commit " + nextCommit.slice(0, 7));
         });
       })
@@ -157,7 +157,7 @@
             { cache: "no-store" }).then(function (r) {
               if (!r.ok) throw new Error("JS fallback HTTP " + r.status);
               return r.text();
-            })
+            }).catch(function (error) { console.warn("[NVM Server Rate] Optional JS:", error.message); return null; })
         ]).then(function (files) {
           render(files, "refs/heads/main");
           console.warn("[NVM Server Rate] Using branch fallback:", error.message);
