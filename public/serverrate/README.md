@@ -1,11 +1,14 @@
-# RF Nevermind — Server Rate
+# RF NEVERMIND — Server Rate
 
-This directory contains the **right-column content only**, with no site header, sidebar, or footer.
+The files in this directory power the right-column Server Rate page through CKEditor.
 
-- `serverrate.html` — rewritten semantic HTML fragment based on the supplied Server Rate text.
-- `serverrate.css` — rewritten, scoped responsive CSS. Uses the host site's font through the existing loader.
-- `loader.html` — **existing working CKEditor inline loader; unchanged**. Copy its source into CKEditor once. It checks HTML and CSS for updates automatically.
+- `serverrate.html` — content, including Chip War schedule markup.
+- `serverrate.css` — scoped styles, including the countdown.
+- `serverrate.js` — Chip War countdown, Jakarta server clock, and browser-local time conversion.
+- `loader.html` — CKEditor bootstrap. Install its contents in CKEditor **once**; it automatically retrieves HTML, CSS and JS from GitHub.
 
-The previous `serverrate.js` was unused and has been removed. The page requires no separate JS beyond the working loader.
+For future content, layout or countdown changes, edit only `serverrate.html`, `serverrate.css` or `serverrate.js`. No need to paste the loader again. The loader only needs changing if the integration architecture itself changes.
 
-The source text contains Server Rates, Regen Cash Coin, Vote System, and Donation. It does not include a New Character Reward section or image; neither is included here. Existing functional Vote, GameCP donation, and Discord destinations have been retained from the previous page implementation.
+War times: 05:00, 13:00, 21:00 GMT+7 (Asia/Jakarta). Local time is derived from the visitor's device/browser time zone. Countdown accuracy depends on the device clock.
+
+The loader uses the latest GitHub commit to refresh assets and falls back to the main branch when GitHub API access fails.
