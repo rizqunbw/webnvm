@@ -11,7 +11,7 @@
   if (!target || target.dataset.nvmLiveStarted === "1") return;
   target.dataset.nvmLiveStarted = "1";
   var lastHTML = null, lastCSS = null, currentCommit = null, etag = null, busy = false, lastFallback = 0;
-  var searchValue = "", raceValue = "all";
+  var searchValue = "";
   function getRaw(name, ref) {
     return fetch(RAW + ref + "/public/npclist/" + name, { cache:"force-cache", headers:{"Accept":"text/plain"} })
       .then(function(r){ if(!r.ok) throw Error(name + ": HTTP " + r.status); return r.text(); });
@@ -38,20 +38,18 @@
     var term=searchValue.trim().toLowerCase();
     var valid=data.filter(function(n){ return n && typeof n.name==="string" && n.name.trim(); });
     var filtered=valid.filter(function(n){
-      var race=String(n.race||"Neutral");
-      return (raceValue==="all"||race===raceValue) &&
-        [n.name,n.service,n.location,n.race].join(" ").toLowerCase().includes(term);
+      return [n.name,n.service,n.location].join(" ").toLowerCase().includes(term);
     });
     var count=target.querySelector("#nvm-npc-count");
     if(count)count.textContent=filtered.length+" NPC"+(filtered.length===1?"":"S");
     results.textContent="";
     if(!valid.length){empty("NPC directory is being prepared","NPC names, services, and locations will be published here once verified.");return;}
-    if(!filtered.length){empty("No NPCs found","Try a different search or race filter.");return;}
+    if(!filtered.length){empty("No NPCs found","Try a different search.");return;}
     var fragment=document.createDocumentFragment();
     filtered.forEach(function(n){
-      var card=document.createElement("article"), top=document.createElement("div"), heading=document.createElement("h4"), race=document.createElement("span");
-      card.className="nvm-npc__card";top.className="nvm-npc__card-top";race.className="nvm-npc__race";
-      heading.textContent=n.name; race.textContent=n.race||"Neutral";top.append(heading,race);card.appendChild(top);
+      var card=document.createElement("article"), top=document.createElement("div"), heading=document.createElement("h4");
+      card.className="nvm-npc__card";top.className="nvm-npc__card-top";
+      heading.textContent=n.name;top.appendChild(heading);card.appendChild(top);
       detail(card,"Location",n.location||"Not specified");detail(card,"Service",n.service||"Not specified");
       fragment.appendChild(card);
     });
@@ -67,9 +65,8 @@
     if(files[0]!==lastHTML){
       target.innerHTML=files[0];
       lastHTML=files[0];
-      var search=target.querySelector("#nvm-npc-search"),race=target.querySelector("#nvm-npc-race");
+      var search=target.querySelector("#nvm-npc-search");
       if(search){search.value=searchValue;search.addEventListener("input",function(){searchValue=this.value;applyDirectory();});}
-      if(race){race.value=raceValue;race.addEventListener("change",function(){raceValue=this.value;applyDirectory();});}
     }
     applyDirectory();
   }
