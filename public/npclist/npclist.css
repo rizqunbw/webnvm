@@ -38,3 +38,5 @@
 @media(max-width:640px){#nvm-npclist .nvm-npc__results{grid-template-columns:1fr}#nvm-npclist .nvm-npc__hero{padding:12px}#nvm-npclist .nvm-npc__section{margin-top:15px}}
 @media(max-width:390px){#nvm-npclist .nvm-npc__toolbar{flex-direction:column}#nvm-npclist .nvm-npc__select-label{flex:auto}#nvm-npclist .nvm-npc__hero-mark{display:none}}
 @media(prefers-reduced-motion:reduce){#nvm-npclist *,#nvm-npclist *::before,#nvm-npclist *::after{transition:none!important;animation:none!important}}
+#nvm-npclist .nvm-npc__card h4{display:flex;align-items:flex-start;gap:9px}
+#nvm-npclist .nvm-npc__card h4>i{flex:0 0 16px;color:var(--npc-cyan);font-size:13px;margin-top:3px;text-align:center}
