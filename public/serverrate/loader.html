@@ -60,7 +60,8 @@
       lastCSS = files[1];
     }
 
-    if (files[0] !== lastHTML) {
+    var htmlChanged = files[0] !== lastHTML;
+    if (htmlChanged) {
       var parsed = document.createElement("div");
       parsed.innerHTML = files[0];
       parsed.querySelectorAll('img[src*="/assets/images/srate.jpg"]')
@@ -71,7 +72,7 @@
 
     removeDuplicateBanners();
 
-    if (files[2] !== lastJS) {
+    if (htmlChanged || files[2] !== lastJS) {
       lastJS = files[2];
       if (typeof window.nvmChipWarDestroy === "function") window.nvmChipWarDestroy();
       if (activeScript) activeScript.remove();
