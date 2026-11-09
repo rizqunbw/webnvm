@@ -14,6 +14,8 @@
   var target = document.getElementById("nvm-serverrate-loader");
   var lastHTML = null;
   var lastCSS = null;
+  var lastJS = null;
+  var activeScript = null;
   var currentCommit = null;
   var etag = null;
   var busy = false;
@@ -33,7 +35,7 @@
     });
   }
 
-  function render(files) {
+  function render(files, ref) {
     if (!document.documentElement.contains(target)) return;
 
     var nativeElement = document.querySelector(
@@ -68,6 +70,17 @@
     }
 
     removeDuplicateBanners();
+
+    if (files[2] !== lastJS) {
+      lastJS = files[2];
+      if (typeof window.nvmChipWarDestroy === "function") window.nvmChipWarDestroy();
+      if (activeScript) activeScript.remove();
+      activeScript = document.createElement("script");
+      activeScript.src = RAW_BASE + ref + "/public/serverrate/serverrate.js";
+      activeScript.async = true;
+      activeScript.onerror = function () { console.warn("[NVM Server Rate] Chip War script could not load."); };
+      document.head.appendChild(activeScript);
+    }
   }
 
   function removeDuplicateBanners() {
@@ -115,10 +128,11 @@
         var nextCommit = commit.sha;
         return Promise.all([
           getRawFile("serverrate.html", nextCommit),
-          getRawFile("serverrate.css", nextCommit)
+          getRawFile("serverrate.css", nextCommit),
+          getRawFile("serverrate.js", nextCommit)
         ]).then(function (files) {
           currentCommit = nextCommit;
-          render(files);
+          render(files, nextCommit);
           console.info("[NVM Server Rate] Updated from commit " + nextCommit.slice(0, 7));
         });
       })
@@ -137,9 +151,14 @@
             { cache: "no-store", headers: { "Cache-Control": "no-cache" } }).then(function (r) {
               if (!r.ok) throw new Error("CSS fallback HTTP " + r.status);
               return r.text();
+            }),
+          fetch(RAW_BASE + "refs/heads/main/public/serverrate/serverrate.js?cb=" + now,
+            { cache: "no-store" }).then(function (r) {
+              if (!r.ok) throw new Error("JS fallback HTTP " + r.status);
+              return r.text();
             })
         ]).then(function (files) {
-          render(files);
+          render(files, "refs/heads/main");
           console.warn("[NVM Server Rate] Using branch fallback:", error.message);
         });
       })
@@ -150,52 +169,6 @@
       .then(function () { busy = false; });
   }
 
-
-  var WAR_HOURS = [5, 13, 21];
-  var JAKARTA_OFFSET_MS = 7 * 60 * 60 * 1000;
-  var warZone = Intl.DateTimeFormat().resolvedOptions().timeZone || "Local time";
-  var localTimeFormat = new Intl.DateTimeFormat(undefined, { hour: "2-digit", minute: "2-digit", hour12: false });
-
-  function updateChipWar() {
-    if (!document.documentElement.contains(target)) return;
-    var root = target.querySelector("#nvm-serverrate");
-    if (!root) return;
-
-    var now = Date.now();
-    var jakartaDate = new Date(now + JAKARTA_OFFSET_MS);
-    var secondsToday = jakartaDate.getUTCHours() * 3600 + jakartaDate.getUTCMinutes() * 60 + jakartaDate.getUTCSeconds();
-    var nextIndex = WAR_HOURS.findIndex(function (hour) { return hour * 3600 > secondsToday; });
-    var tomorrow = nextIndex === -1;
-    if (tomorrow) nextIndex = 0;
-    var secondsLeft = WAR_HOURS[nextIndex] * 3600 - secondsToday + (tomorrow ? 86400 : 0);
-    var two = function (value) { return String(value).padStart(2, "0"); };
-    var clock = root.querySelector("[data-nvm-server-clock]");
-    var label = root.querySelector("[data-nvm-war-next-label]");
-    var timer = root.querySelector("[data-nvm-war-countdown]");
-    var zone = root.querySelector("[data-nvm-war-zone]");
-
-    if (clock) clock.textContent = two(jakartaDate.getUTCHours()) + ":" + two(jakartaDate.getUTCMinutes()) + ":" + two(jakartaDate.getUTCSeconds());
-    if (label) label.textContent = "CW " + (nextIndex + 1) + " starts in" + (tomorrow ? " (tomorrow)" : "");
-    if (timer) timer.textContent = two(Math.floor(secondsLeft / 3600)) + ":" + two(Math.floor(secondsLeft % 3600 / 60)) + ":" + two(secondsLeft % 60);
-    if (zone) zone.textContent = warZone;
-
-    var jakartaMidnightUTC = Math.floor((now + JAKARTA_OFFSET_MS) / 86400000) * 86400000 - JAKARTA_OFFSET_MS;
-    WAR_HOURS.forEach(function (hour, index) {
-      var slot = root.querySelector('[data-nvm-war-slot="' + index + '"]');
-      var local = root.querySelector('[data-nvm-war-local="' + index + '"]');
-      if (slot) slot.classList.toggle("is-next", index === nextIndex);
-      if (local) local.textContent = localTimeFormat.format(new Date(jakartaMidnightUTC + hour * 3600000)) + " local";
-    });
-  }
-
-  updateChipWar();
-  var warTimer = setInterval(function () {
-    if (!document.documentElement.contains(target)) {
-      clearInterval(warTimer);
-      return;
-    }
-    updateChipWar();
-  }, 1000);
 
   refresh();
 
