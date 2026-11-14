@@ -43,3 +43,7 @@
 @media(max-width:560px){#nvm-droplist .nvm-drop__results{grid-template-columns:1fr}#nvm-droplist .nvm-drop__hero{padding:12px}#nvm-droplist .nvm-drop__section{margin-top:15px}}
 @media(max-width:360px){#nvm-droplist .nvm-drop__toolbar{grid-template-columns:1fr}#nvm-droplist .nvm-drop__search{grid-column:auto}#nvm-droplist .nvm-drop__hero-mark{display:none}}
 @media(prefers-reduced-motion:reduce){#nvm-droplist *,#nvm-droplist *::before,#nvm-droplist *::after{transition:none!important;animation:none!important}}
+
+#nvm-droplist .nvm-drop__monster-note{margin-top:9px;padding:8px 10px;border-left:2px solid var(--drop-gold);background:rgba(242,197,107,.07);color:var(--drop-muted);font-size:11px;line-height:1.5}
+#nvm-droplist .nvm-drop__note--coming{margin-top:7px;border-left:3px solid var(--drop-gold)}
+#nvm-droplist .nvm-drop__note--coming b{color:var(--drop-gold);font-weight:600}
