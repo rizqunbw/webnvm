@@ -65,7 +65,7 @@
       var drops = m.drops.filter(function (d) {
         if (!d || typeof d.item !== "string") return false;
         var matchesCategory = !state.category || d.category === state.category;
-        var haystack = [m.monster, m.race, m.map, m.level, d.item, d.category, d.rate, d.notes].join(" ").toLowerCase();
+        var haystack = [m.monster, m.race, m.map, m.level, m.notes, d.item, d.category, d.rate, d.notes].join(" ").toLowerCase();
         return matchesCategory && (!term || haystack.indexOf(term) !== -1);
       });
       var matchesMonster = [m.monster, m.race, m.map, m.level].join(" ").toLowerCase().indexOf(term) !== -1;
@@ -97,6 +97,7 @@
       var map = document.createElement("span"); map.textContent = "Map: "; var mapValue = document.createElement("b"); mapValue.textContent = m.map || "Not specified"; map.appendChild(mapValue); meta.appendChild(map);
       if (m.race) { var race = document.createElement("span"); race.textContent = "Race: "; var raceValue = document.createElement("b"); raceValue.textContent = m.race; race.appendChild(raceValue); meta.appendChild(race); }
       card.appendChild(meta);
+      if (m.notes) addText(card, "nvm-drop__monster-note", m.notes);
       var items = document.createElement("div"); items.className = "nvm-drop__items";
       entry.drops.forEach(function (d) {
         var row = document.createElement("div"); row.className = "nvm-drop__item";
