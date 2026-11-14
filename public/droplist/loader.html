@@ -1,0 +1,165 @@
+<div id="nvm-droplist-loader"><p style="text-align:center;color:#72e5f3;padding:25px">Loading Drop List...</p></div>
+<script>
+(function () {
+  "use strict";
+  var REPO = "rizqunbw/webnvm";
+  var API = "https://api.github.com/repos/" + REPO + "/commits/main";
+  var RAW = "https://raw.githubusercontent.com/" + REPO + "/";
+  var TARGET_ID = "nvm-droplist-loader";
+  var STYLE_ID = "nvm-droplist-style";
+  var target = document.getElementById(TARGET_ID);
+  if (!target || target.dataset.nvmLiveStarted === "1") return;
+  target.dataset.nvmLiveStarted = "1";
+
+  var lastHTML = null, lastCSS = null, currentCommit = null, etag = null, busy = false, lastFallback = 0;
+  var state = { search: "", race: "", map: "", category: "" };
+
+  function getRaw(name, ref) {
+    return fetch(RAW + ref + "/public/droplist/" + name, { cache: "force-cache", headers: { "Accept": "text/plain" } })
+      .then(function (r) { if (!r.ok) throw Error(name + ": HTTP " + r.status); return r.text(); });
+  }
+  function makeOption(select, value, label) {
+    var option = document.createElement("option");
+    option.value = value; option.textContent = label; select.appendChild(option);
+  }
+  function showEmpty(title, description) {
+    var results = target.querySelector("#nvm-drop-results");
+    if (!results) return;
+    results.textContent = "";
+    var wrap = document.createElement("div"), icon = document.createElement("i");
+    var body = document.createElement("div"), heading = document.createElement("strong"), p = document.createElement("p");
+    wrap.className = "nvm-drop__empty"; icon.className = "fa-solid fa-circle-info"; icon.setAttribute("aria-hidden", "true");
+    heading.textContent = title; p.textContent = description; body.append(heading, p); wrap.append(icon, body); results.appendChild(wrap);
+  }
+  function addText(parent, className, value) {
+    var node = document.createElement("div"); node.className = className; node.textContent = value; parent.appendChild(node); return node;
+  }
+  function unique(values) {
+    return Array.from(new Set(values.filter(function (v) { return typeof v === "string" && v.trim(); }))).sort(function (a,b) { return a.localeCompare(b); });
+  }
+  function renderOptions(id, values, allLabel, selected) {
+    var select = target.querySelector("#" + id);
+    if (!select) return;
+    select.textContent = ""; makeOption(select, "", allLabel);
+    values.forEach(function (value) { makeOption(select, value, value); });
+    select.value = values.indexOf(selected) >= 0 ? selected : "";
+    state[id.replace("nvm-drop-", "")] = select.value;
+  }
+  function applyDirectory() {
+    var dataNode = target.querySelector("#nvm-drop-data"), results = target.querySelector("#nvm-drop-results");
+    if (!dataNode || !results) return;
+    var data;
+    try { data = JSON.parse(dataNode.textContent); if (!Array.isArray(data)) throw Error("Not an array"); }
+    catch (e) { showEmpty("Drop data error", "Check the JSON array in droplist.html."); return; }
+
+    var valid = data.filter(function (m) { return m && typeof m.monster === "string" && m.monster.trim() && Array.isArray(m.drops); });
+    var allRaces = unique(valid.map(function (m) { return m.race; }));
+    var allMaps = unique(valid.map(function (m) { return m.map; }));
+    var allCategories = unique(valid.reduce(function (out, m) { return out.concat(m.drops.map(function (d) { return d && d.category; })); }, []));
+    renderOptions("nvm-drop-race", allRaces, "All Races", state.race);
+    renderOptions("nvm-drop-map", allMaps, "All Maps", state.map);
+    renderOptions("nvm-drop-category", allCategories, "All Categories", state.category);
+
+    var term = state.search.trim().toLowerCase();
+    var filtered = valid.map(function (m) {
+      var drops = m.drops.filter(function (d) {
+        if (!d || typeof d.item !== "string") return false;
+        var matchesCategory = !state.category || d.category === state.category;
+        var haystack = [m.monster, m.race, m.map, m.level, d.item, d.category, d.rate, d.notes].join(" ").toLowerCase();
+        return matchesCategory && (!term || haystack.indexOf(term) !== -1);
+      });
+      var matchesMonster = [m.monster, m.race, m.map, m.level].join(" ").toLowerCase().indexOf(term) !== -1;
+      if (!state.category && matchesMonster && !term) drops = m.drops.filter(function (d) { return d && typeof d.item === "string"; });
+      return { monster: m, drops: drops, matchesMonster: matchesMonster };
+    }).filter(function (entry) {
+      var m = entry.monster;
+      var raceOK = !state.race || m.race === state.race;
+      var mapOK = !state.map || m.map === state.map;
+      return raceOK && mapOK && (entry.drops.length > 0 || entry.matchesMonster);
+    });
+
+    var count = target.querySelector("#nvm-drop-count");
+    if (count) count.textContent = filtered.length + " MONSTER" + (filtered.length === 1 ? "" : "S");
+    results.textContent = "";
+    if (!valid.length) { showEmpty("Drop list is being prepared", "Verified monster names, items, and drop rates will appear here once added to the directory."); return; }
+    if (!filtered.length) { showEmpty("No drops found", "Try another keyword or change the selected filters."); return; }
+
+    var fragment = document.createDocumentFragment();
+    filtered.forEach(function (entry) {
+      var m = entry.monster, card = document.createElement("article"), head = document.createElement("div");
+      var title = document.createElement("h4"), icon = document.createElement("i"), level = document.createElement("span");
+      card.className = "nvm-drop__card"; head.className = "nvm-drop__card-head";
+      title.className = "nvm-drop__monster"; icon.className = "fa-solid fa-dragon"; icon.setAttribute("aria-hidden", "true");
+      title.append(icon, document.createTextNode(m.monster)); head.appendChild(title);
+      if (m.level) { level.className = "nvm-drop__level"; level.textContent = "LV. " + m.level; head.appendChild(level); }
+      card.appendChild(head);
+      var meta = document.createElement("div"); meta.className = "nvm-drop__meta";
+      var map = document.createElement("span"); map.textContent = "Map: "; var mapValue = document.createElement("b"); mapValue.textContent = m.map || "Not specified"; map.appendChild(mapValue); meta.appendChild(map);
+      if (m.race) { var race = document.createElement("span"); race.textContent = "Race: "; var raceValue = document.createElement("b"); raceValue.textContent = m.race; race.appendChild(raceValue); meta.appendChild(race); }
+      card.appendChild(meta);
+      var items = document.createElement("div"); items.className = "nvm-drop__items";
+      entry.drops.forEach(function (d) {
+        var row = document.createElement("div"); row.className = "nvm-drop__item";
+        var name = document.createElement("div"); name.className = "nvm-drop__item-name"; name.textContent = d.item;
+        if (d.category) addText(name, "nvm-drop__item-category", d.category);
+        var rate = document.createElement("span"); rate.className = "nvm-drop__rate"; rate.textContent = d.rate || "Rate not published";
+        row.append(name, rate);
+        if (d.notes) addText(row, "nvm-drop__item-note", d.notes);
+        items.appendChild(row);
+      });
+      card.appendChild(items); fragment.appendChild(card);
+    });
+    results.appendChild(fragment);
+  }
+  function bindControls() {
+    var search = target.querySelector("#nvm-drop-search");
+    if (search) { search.value = state.search; search.addEventListener("input", function () { state.search = this.value; applyDirectory(); }); }
+    [["nvm-drop-race","race"],["nvm-drop-map","map"],["nvm-drop-category","category"]].forEach(function (pair) {
+      var select = target.querySelector("#" + pair[0]);
+      if (select) select.addEventListener("change", function () { state[pair[1]] = this.value; applyDirectory(); });
+    });
+  }
+  function render(files) {
+    if (!document.documentElement.contains(target)) return;
+    var native = document.querySelector(".sidebar h3, .sidebar h2, aside h3, aside h2, .left-sidebar h3, .left-sidebar h2, header nav a, .navbar a, nav a") || document.body;
+    target.style.setProperty("--nvm-native-font", getComputedStyle(native).fontFamily);
+    var style = document.getElementById(STYLE_ID);
+    if (!style) { style = document.createElement("style"); style.id = STYLE_ID; document.head.appendChild(style); }
+    if (files[1] !== lastCSS) { style.textContent = files[1] + "\n#nvm-droplist{font-family:var(--nvm-native-font,inherit)!important}"; lastCSS = files[1]; }
+    if (files[0] !== lastHTML) { target.innerHTML = files[0]; lastHTML = files[0]; bindControls(); }
+    applyDirectory();
+  }
+  function latestCommit() {
+    var headers = {"Accept":"application/vnd.github+json","X-GitHub-Api-Version":"2022-11-28","Cache-Control":"no-cache","Pragma":"no-cache"};
+    if (etag) headers["If-None-Match"] = etag;
+    return fetch(API, {cache:"no-store",headers:headers}).then(function (r) {
+      if (r.status === 304) return null;
+      if (!r.ok) throw Error("GitHub API HTTP " + r.status);
+      var next = r.headers.get("ETag"); if (next) etag = next; return r.json();
+    });
+  }
+  function refresh() {
+    if (busy || !document.documentElement.contains(target) || (document.hidden && lastHTML !== null)) return;
+    busy = true;
+    latestCommit().then(function (commit) {
+      if (!commit || !commit.sha || commit.sha === currentCommit) return;
+      var sha = commit.sha;
+      return Promise.all([getRaw("droplist.html", sha), getRaw("droplist.css", sha)]).then(function (files) {
+        render(files); currentCommit = sha; console.info("[NVM Drop List] Updated " + sha.slice(0,7));
+      });
+    }).catch(function (err) {
+      var now = Date.now(); if (now - lastFallback < 15000) return; lastFallback = now;
+      return Promise.all(["droplist.html","droplist.css"].map(function (name) {
+        return fetch(RAW + "refs/heads/main/public/droplist/" + name + "?cb=" + now, {cache:"no-store"}).then(function (r) { if (!r.ok) throw Error(name + " fallback HTTP " + r.status); return r.text(); });
+      })).then(function (files) { render(files); console.warn("[NVM Drop List] Branch fallback:", err.message); });
+    }).catch(function (err) {
+      if (lastHTML === null) target.textContent = "Drop List is being prepared...";
+      console.warn("[NVM Drop List]", err.message);
+    }).then(function () { busy = false; });
+  }
+  refresh();
+  var timer = setInterval(function () { if (!document.documentElement.contains(target)) { clearInterval(timer); return; } refresh(); }, 1000);
+  document.addEventListener("visibilitychange", function () { if (!document.hidden) refresh(); });
+  window.addEventListener("focus", refresh);
+})();
+</script>
