@@ -1,0 +1,51 @@
+<section id="nvm-droplist" class="nvm-drop" aria-labelledby="nvm-drop-title">
+  <header class="nvm-drop__hero">
+    <div>
+      <span class="nvm-drop__eyebrow">RF NEVERMIND · AGE OF PATRON</span>
+      <h2 id="nvm-drop-title">Monster <span>Drop List</span></h2>
+      <p>Find monsters, maps, and their available drops.</p>
+    </div>
+    <div class="nvm-drop__hero-mark" aria-hidden="true"><i class="fa-solid fa-box-open"></i></div>
+  </header>
+
+  <section class="nvm-drop__section" aria-labelledby="nvm-drop-directory-heading">
+    <div class="nvm-drop__heading">
+      <h3 id="nvm-drop-directory-heading"><i class="fa-solid fa-list"></i> Drop Directory</h3>
+      <span id="nvm-drop-count" class="nvm-drop__count" aria-live="polite">0 MONSTERS</span>
+    </div>
+
+    <div class="nvm-drop__toolbar">
+      <label class="nvm-drop__search">
+        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+        <span class="nvm-drop__sr-only">Search monster, item, map, or category</span>
+        <input id="nvm-drop-search" type="search" placeholder="Search monster, item, map..." autocomplete="off">
+      </label>
+      <label class="nvm-drop__filter-label">
+        <span class="nvm-drop__sr-only">Filter by race</span>
+        <select id="nvm-drop-race"><option value="">All Races</option></select>
+      </label>
+      <label class="nvm-drop__filter-label">
+        <span class="nvm-drop__sr-only">Filter by map</span>
+        <select id="nvm-drop-map"><option value="">All Maps</option></select>
+      </label>
+      <label class="nvm-drop__filter-label">
+        <span class="nvm-drop__sr-only">Filter by item category</span>
+        <select id="nvm-drop-category"><option value="">All Categories</option></select>
+      </label>
+    </div>
+
+    <div id="nvm-drop-results" class="nvm-drop__results" aria-live="polite">
+      <div class="nvm-drop__empty">
+        <i class="fa-solid fa-box-open" aria-hidden="true"></i>
+        <div><strong>Drop list is being prepared</strong><p>Verified monster drops and rates will be published here.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="nvm-drop__section" aria-labelledby="nvm-drop-info-heading">
+    <div class="nvm-drop__heading"><h3 id="nvm-drop-info-heading"><i class="fa-solid fa-circle-info"></i> Drop Information</h3></div>
+    <div class="nvm-drop__note">Drop rates are displayed only when verified. Actual drops may be affected by server settings, Premium Service, or other applicable modifiers.</div>
+  </section>
+
+  <script type="application/json" id="nvm-drop-data">[]</script>
+</section>
