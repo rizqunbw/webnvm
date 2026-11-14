@@ -2,165 +2,64 @@
 <script>
 (function () {
   "use strict";
-  var REPO = "rizqunbw/webnvm";
-  var API = "https://api.github.com/repos/" + REPO + "/commits/main";
-  var RAW = "https://raw.githubusercontent.com/" + REPO + "/";
-  var TARGET_ID = "nvm-droplist-loader";
-  var STYLE_ID = "nvm-droplist-style";
-  var target = document.getElementById(TARGET_ID);
-  if (!target || target.dataset.nvmLiveStarted === "1") return;
-  target.dataset.nvmLiveStarted = "1";
-
-  var lastHTML = null, lastCSS = null, currentCommit = null, etag = null, busy = false, lastFallback = 0;
-  var state = { search: "", race: "", map: "", category: "" };
-
-  function getRaw(name, ref) {
-    return fetch(RAW + ref + "/public/droplist/" + name, { cache: "force-cache", headers: { "Accept": "text/plain" } })
-      .then(function (r) { if (!r.ok) throw Error(name + ": HTTP " + r.status); return r.text(); });
-  }
-  function makeOption(select, value, label) {
-    var option = document.createElement("option");
-    option.value = value; option.textContent = label; select.appendChild(option);
-  }
-  function showEmpty(title, description) {
-    var results = target.querySelector("#nvm-drop-results");
-    if (!results) return;
-    results.textContent = "";
-    var wrap = document.createElement("div"), icon = document.createElement("i");
-    var body = document.createElement("div"), heading = document.createElement("strong"), p = document.createElement("p");
-    wrap.className = "nvm-drop__empty"; icon.className = "fa-solid fa-circle-info"; icon.setAttribute("aria-hidden", "true");
-    heading.textContent = title; p.textContent = description; body.append(heading, p); wrap.append(icon, body); results.appendChild(wrap);
-  }
-  function addText(parent, className, value) {
-    var node = document.createElement("div"); node.className = className; node.textContent = value; parent.appendChild(node); return node;
-  }
-  function unique(values) {
-    return Array.from(new Set(values.filter(function (v) { return typeof v === "string" && v.trim(); }))).sort(function (a,b) { return a.localeCompare(b); });
-  }
-  function renderOptions(id, values, allLabel, selected) {
-    var select = target.querySelector("#" + id);
-    if (!select) return;
-    select.textContent = ""; makeOption(select, "", allLabel);
-    values.forEach(function (value) { makeOption(select, value, value); });
-    select.value = values.indexOf(selected) >= 0 ? selected : "";
-    state[id.replace("nvm-drop-", "")] = select.value;
-  }
-  function applyDirectory() {
-    var dataNode = target.querySelector("#nvm-drop-data"), results = target.querySelector("#nvm-drop-results");
-    if (!dataNode || !results) return;
-    var data;
-    try { data = JSON.parse(dataNode.textContent); if (!Array.isArray(data)) throw Error("Not an array"); }
-    catch (e) { showEmpty("Drop data error", "Check the JSON array in droplist.html."); return; }
-
-    var valid = data.filter(function (m) { return m && typeof m.monster === "string" && m.monster.trim() && Array.isArray(m.drops); });
-    var allRaces = unique(valid.map(function (m) { return m.race; }));
-    var allMaps = unique(valid.map(function (m) { return m.map; }));
-    var allCategories = unique(valid.reduce(function (out, m) { return out.concat(m.drops.map(function (d) { return d && d.category; })); }, []));
-    renderOptions("nvm-drop-race", allRaces, "All Races", state.race);
-    renderOptions("nvm-drop-map", allMaps, "All Maps", state.map);
-    renderOptions("nvm-drop-category", allCategories, "All Categories", state.category);
-
-    var term = state.search.trim().toLowerCase();
-    var filtered = valid.map(function (m) {
-      var drops = m.drops.filter(function (d) {
-        if (!d || typeof d.item !== "string") return false;
-        var matchesCategory = !state.category || d.category === state.category;
-        var haystack = [m.monster, m.race, m.map, m.level, m.notes, d.item, d.category, d.rate, d.notes].join(" ").toLowerCase();
-        return matchesCategory && (!term || haystack.indexOf(term) !== -1);
-      });
-      var matchesMonster = [m.monster, m.race, m.map, m.level].join(" ").toLowerCase().indexOf(term) !== -1;
-      if (!state.category && matchesMonster && !term) drops = m.drops.filter(function (d) { return d && typeof d.item === "string"; });
-      return { monster: m, drops: drops, matchesMonster: matchesMonster };
-    }).filter(function (entry) {
-      var m = entry.monster;
-      var raceOK = !state.race || m.race === state.race;
-      var mapOK = !state.map || m.map === state.map;
-      return raceOK && mapOK && (entry.drops.length > 0 || entry.matchesMonster);
+  var REPO="rizqunbw/webnvm", API="https://api.github.com/repos/"+REPO+"/commits/main", RAW="https://raw.githubusercontent.com/"+REPO+"/";
+  var target=document.getElementById("nvm-droplist-loader"), STYLE_ID="nvm-droplist-style";
+  if(!target||target.dataset.nvmLiveStarted==="1")return;
+  target.dataset.nvmLiveStarted="1";
+  var lastHTML=null,lastCSS=null,currentCommit=null,etag=null,busy=false,lastFallback=0;
+  var state={search:"",map:"",category:""};
+  function getRaw(name,ref){return fetch(RAW+ref+"/public/droplist/"+name,{cache:"force-cache"}).then(function(r){if(!r.ok)throw Error(name+" HTTP "+r.status);return r.text();});}
+  function empty(message){var box=document.createElement("div");box.className="nvm-drop__empty";box.textContent=message;return box;}
+  function unique(values){return Array.from(new Set(values.filter(function(v){return typeof v==="string"&&v.trim();}))).sort(function(a,b){return a.localeCompare(b);});}
+  function options(id,values,label,selected){var el=target.querySelector("#"+id);if(!el)return;el.textContent="";var first=document.createElement("option");first.value="";first.textContent=label;el.appendChild(first);values.forEach(function(v){var o=document.createElement("option");o.value=v;o.textContent=v;el.appendChild(o);});el.value=values.indexOf(selected)>=0?selected:"";state[id==="nvm-drop-map"?"map":"category"]=el.value;}
+  function itemClass(category){var c=(category||"").toLowerCase();if(c==="material"||c==="booster"||c==="currency")return "nvm-drop__item--material";if(c==="accessory")return "nvm-drop__item--accessory";if(c==="other")return "nvm-drop__item--other";if(c==="jade")return "nvm-drop__item--jade";if(c==="info")return "nvm-drop__item--info";return "";}
+  function render(){
+    var node=target.querySelector("#nvm-drop-data"),root=target.querySelector("#nvm-drop-results");if(!node||!root)return;
+    var groups;try{groups=JSON.parse(node.textContent);if(!Array.isArray(groups))throw Error();}catch(e){root.replaceChildren(empty("Drop list data error. Check the JSON in droplist.html."));return;}
+    var races=[],maps=unique(groups.map(function(g){return g.map;})),cats=unique(groups.reduce(function(a,g){return a.concat((g.rows||[]).reduce(function(b,r){return b.concat((r.drops||[]).map(function(d){return d.category;}));},[]));},[]));
+    options("nvm-drop-map",maps,"All Maps",state.map);options("nvm-drop-category",cats,"All Categories",state.category);
+    var term=state.search.trim().toLowerCase(),count=0,visible=[];
+    groups.forEach(function(g){
+      var rows=(g.rows||[]).map(function(r){
+        var monsterText=(r.monsters||[]).join(", "),monsterMatch=monsterText.toLowerCase().includes(term);
+        var drops=(r.drops||[]).filter(function(d){return (!state.category||d.category===state.category)&&(!term||monsterMatch||[d.item,d.category,d.note].join(" ").toLowerCase().includes(term));});
+        return {row:r,drops:drops,monsterMatch:monsterMatch};
+      }).filter(function(x){return (!term||x.monsterMatch||x.drops.length>0)&&(!state.category||x.drops.length>0);});
+      if(state.map&&g.map!==state.map)return;
+      if(rows.length||g.comingSoon)visible.push({group:g,rows:rows});
+      rows.forEach(function(x){count+=(x.row.monsters||[]).length;});
     });
-
-    var count = target.querySelector("#nvm-drop-count");
-    if (count) count.textContent = filtered.length + " MONSTER" + (filtered.length === 1 ? "" : "S");
-    results.textContent = "";
-    if (!valid.length) { showEmpty("Drop list is being prepared", "Verified monster names, items, and drop rates will appear here once added to the directory."); return; }
-    if (!filtered.length) { showEmpty("No drops found", "Try another keyword or change the selected filters."); return; }
-
-    var fragment = document.createDocumentFragment();
-    filtered.forEach(function (entry) {
-      var m = entry.monster, card = document.createElement("article"), head = document.createElement("div");
-      var title = document.createElement("h4"), icon = document.createElement("i"), level = document.createElement("span");
-      card.className = "nvm-drop__card"; head.className = "nvm-drop__card-head";
-      title.className = "nvm-drop__monster"; icon.className = "fa-solid fa-dragon"; icon.setAttribute("aria-hidden", "true");
-      title.append(icon, document.createTextNode(m.monster)); head.appendChild(title);
-      if (m.level) { level.className = "nvm-drop__level"; level.textContent = "LV. " + m.level; head.appendChild(level); }
-      card.appendChild(head);
-      var meta = document.createElement("div"); meta.className = "nvm-drop__meta";
-      var map = document.createElement("span"); map.textContent = "Map: "; var mapValue = document.createElement("b"); mapValue.textContent = m.map || "Not specified"; map.appendChild(mapValue); meta.appendChild(map);
-      if (m.race) { var race = document.createElement("span"); race.textContent = "Race: "; var raceValue = document.createElement("b"); raceValue.textContent = m.race; race.appendChild(raceValue); meta.appendChild(race); }
-      card.appendChild(meta);
-      if (m.notes) addText(card, "nvm-drop__monster-note", m.notes);
-      var items = document.createElement("div"); items.className = "nvm-drop__items";
-      entry.drops.forEach(function (d) {
-        var row = document.createElement("div"); row.className = "nvm-drop__item";
-        var name = document.createElement("div"); name.className = "nvm-drop__item-name"; name.textContent = d.item;
-        if (d.category) addText(name, "nvm-drop__item-category", d.category);
-        var rate = document.createElement("span"); rate.className = "nvm-drop__rate"; rate.textContent = d.rate || "Rate not published";
-        row.append(name, rate);
-        if (d.notes) addText(row, "nvm-drop__item-note", d.notes);
-        items.appendChild(row);
-      });
-      card.appendChild(items); fragment.appendChild(card);
-    });
-    results.appendChild(fragment);
-  }
-  function bindControls() {
-    var search = target.querySelector("#nvm-drop-search");
-    if (search) { search.value = state.search; search.addEventListener("input", function () { state.search = this.value; applyDirectory(); }); }
-    [["nvm-drop-race","race"],["nvm-drop-map","map"],["nvm-drop-category","category"]].forEach(function (pair) {
-      var select = target.querySelector("#" + pair[0]);
-      if (select) select.addEventListener("change", function () { state[pair[1]] = this.value; applyDirectory(); });
+    var counter=target.querySelector("#nvm-drop-count");if(counter)counter.textContent=count+" MONSTERS";
+    root.textContent="";
+    if(!visible.length){root.appendChild(empty("No matching monsters or drops found."));return;}
+    visible.forEach(function(entry){
+      var g=entry.group,section=document.createElement("section");section.className="nvm-drop__map"+(g.map==="Pitboss"?" nvm-drop__map--pitboss":"");
+      var head=document.createElement("div"),ico=document.createElement("i"),title=document.createElement("span");
+      head.className="nvm-drop__map-title";ico.className="fa-solid "+(g.map==="Pitboss"?"fa-skull-crossbones":g.map==="HQ"?"fa-house":g.map==="Ether of Heaven"?"fa-cloud":"fa-mountain");ico.setAttribute("aria-hidden","true");title.textContent=g.map;head.append(ico,title);section.appendChild(head);
+      if(g.comingSoon){var soon=document.createElement("div");soon.className="nvm-drop__coming";soon.textContent="Pitboss Drop — Coming Soon.";section.appendChild(soon);}
+      else{
+        var rows=document.createElement("div");rows.className="nvm-drop__rows";
+        entry.rows.forEach(function(x){
+          var row=document.createElement("div");row.className="nvm-drop__row";
+          var monsters=document.createElement("div");monsters.className="nvm-drop__monsters";monsters.textContent=(x.row.monsters||[]).join(", ");
+          var arrow=document.createElement("span");arrow.className="nvm-drop__arrow";arrow.textContent="›";
+          var items=document.createElement("div");items.className="nvm-drop__items";
+          x.drops.forEach(function(d){var chip=document.createElement("span");chip.className="nvm-drop__item "+itemClass(d.category);chip.textContent=d.item;if(d.note){var note=document.createElement("small");note.textContent=d.note;chip.appendChild(note);}items.appendChild(chip);});
+          row.append(monsters,arrow,items);
+          if(x.row.level||x.row.note){var noteLine=document.createElement("div");noteLine.className="nvm-drop__row-note";noteLine.textContent=(x.row.level?"Level "+x.row.level+" · ":"")+ (x.row.note||"");row.appendChild(noteLine);}
+          rows.appendChild(row);
+        });
+        section.appendChild(rows);
+      }
+      root.appendChild(section);
     });
   }
-  function render(files) {
-    if (!document.documentElement.contains(target)) return;
-    var native = document.querySelector(".sidebar h3, .sidebar h2, aside h3, aside h2, .left-sidebar h3, .left-sidebar h2, header nav a, .navbar a, nav a") || document.body;
-    target.style.setProperty("--nvm-native-font", getComputedStyle(native).fontFamily);
-    var style = document.getElementById(STYLE_ID);
-    if (!style) { style = document.createElement("style"); style.id = STYLE_ID; document.head.appendChild(style); }
-    if (files[1] !== lastCSS) { style.textContent = files[1] + "\n#nvm-droplist{font-family:var(--nvm-native-font,inherit)!important}"; lastCSS = files[1]; }
-    if (files[0] !== lastHTML) { target.innerHTML = files[0]; lastHTML = files[0]; bindControls(); }
-    applyDirectory();
+  function bind(){var s=target.querySelector("#nvm-drop-search");if(s){s.value=state.search;s.addEventListener("input",function(){state.search=this.value;render();});}
+    [["nvm-drop-map","map"],["nvm-drop-category","category"]].forEach(function(p){var el=target.querySelector("#"+p[0]);if(el)el.addEventListener("change",function(){state[p[1]]=this.value;render();});});
   }
-  function latestCommit() {
-    var headers = {"Accept":"application/vnd.github+json","X-GitHub-Api-Version":"2022-11-28","Cache-Control":"no-cache","Pragma":"no-cache"};
-    if (etag) headers["If-None-Match"] = etag;
-    return fetch(API, {cache:"no-store",headers:headers}).then(function (r) {
-      if (r.status === 304) return null;
-      if (!r.ok) throw Error("GitHub API HTTP " + r.status);
-      var next = r.headers.get("ETag"); if (next) etag = next; return r.json();
-    });
-  }
-  function refresh() {
-    if (busy || !document.documentElement.contains(target) || (document.hidden && lastHTML !== null)) return;
-    busy = true;
-    latestCommit().then(function (commit) {
-      if (!commit || !commit.sha || commit.sha === currentCommit) return;
-      var sha = commit.sha;
-      return Promise.all([getRaw("droplist.html", sha), getRaw("droplist.css", sha)]).then(function (files) {
-        render(files); currentCommit = sha; console.info("[NVM Drop List] Updated " + sha.slice(0,7));
-      });
-    }).catch(function (err) {
-      var now = Date.now(); if (now - lastFallback < 15000) return; lastFallback = now;
-      return Promise.all(["droplist.html","droplist.css"].map(function (name) {
-        return fetch(RAW + "refs/heads/main/public/droplist/" + name + "?cb=" + now, {cache:"no-store"}).then(function (r) { if (!r.ok) throw Error(name + " fallback HTTP " + r.status); return r.text(); });
-      })).then(function (files) { render(files); console.warn("[NVM Drop List] Branch fallback:", err.message); });
-    }).catch(function (err) {
-      if (lastHTML === null) target.textContent = "Drop List is being prepared...";
-      console.warn("[NVM Drop List]", err.message);
-    }).then(function () { busy = false; });
-  }
-  refresh();
-  var timer = setInterval(function () { if (!document.documentElement.contains(target)) { clearInterval(timer); return; } refresh(); }, 1000);
-  document.addEventListener("visibilitychange", function () { if (!document.hidden) refresh(); });
-  window.addEventListener("focus", refresh);
+  function paint(files){if(!document.documentElement.contains(target))return;var style=document.getElementById(STYLE_ID);if(!style){style=document.createElement("style");style.id=STYLE_ID;document.head.appendChild(style);}if(files[1]!==lastCSS){style.textContent=files[1];lastCSS=files[1];}if(files[0]!==lastHTML){target.innerHTML=files[0];lastHTML=files[0];bind();}render();}
+  function latest(){var h={"Accept":"application/vnd.github+json","X-GitHub-Api-Version":"2022-11-28","Cache-Control":"no-cache"};if(etag)h["If-None-Match"]=etag;return fetch(API,{cache:"no-store",headers:h}).then(function(r){if(r.status===304)return null;if(!r.ok)throw Error("GitHub API HTTP "+r.status);etag=r.headers.get("ETag")||etag;return r.json();});}
+  function refresh(){if(busy||!document.documentElement.contains(target)||(document.hidden&&lastHTML!==null))return;busy=true;latest().then(function(c){if(!c||!c.sha||c.sha===currentCommit)return;return Promise.all([getRaw("droplist.html",c.sha),getRaw("droplist.css",c.sha)]).then(function(f){paint(f);currentCommit=c.sha;});}).catch(function(err){var now=Date.now();if(now-lastFallback<15000)return;lastFallback=now;return Promise.all(["droplist.html","droplist.css"].map(function(n){return fetch(RAW+"refs/heads/main/public/droplist/"+n+"?cb="+now,{cache:"no-store"}).then(function(r){if(!r.ok)throw Error(n+" fallback HTTP "+r.status);return r.text();});})).then(function(f){paint(f);console.warn("[NVM Drop List] Branch fallback:",err.message);});}).catch(function(err){if(lastHTML===null)target.textContent="Drop List is being prepared...";console.warn("[NVM Drop List]",err.message);}).then(function(){busy=false;});}
+  refresh();var timer=setInterval(function(){if(!document.documentElement.contains(target)){clearInterval(timer);return;}refresh();},1000);document.addEventListener("visibilitychange",function(){if(!document.hidden)refresh();});window.addEventListener("focus",refresh);
 })();
 </script>
