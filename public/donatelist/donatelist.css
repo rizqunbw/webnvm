@@ -140,5 +140,4 @@
 #nvm-donatelist .nvm-donate__coupon-get ul{display:grid;gap:5px;margin:7px 0 0;padding:0;list-style:none}
 #nvm-donatelist .nvm-donate__coupon-get li{color:var(--nvm-text);font-size:12px;line-height:1.55}
 #nvm-donatelist .nvm-donate__coupon-get li strong{color:var(--nvm-cyan);font-variant-numeric:tabular-nums}
-#nvm-donatelist .nvm-donate__code{color:var(--nvm-muted);font-size:11px}
 #nvm-donatelist .nvm-donate__note{color:var(--nvm-muted);font-size:11px}
