@@ -66,7 +66,7 @@
 #nvm-donatelist .nvm-donate__tier-coin{color:var(--nvm-cyan)}
 #nvm-donate__tier-prices{display:flex;gap:18px;align-items:baseline;justify-content:flex-end}
 #nvm-donate__tier-price{display:inline-flex;align-items:baseline;gap:5px;white-space:nowrap;color:var(--nvm-muted);font-size:13px}
-#nvm-donatelist .nvm-donate__tier-price i{font-style:normal;font-weight:650;letter-spacing:.06em}
+#nvm-donatelist .nvm-donate__tier-price i{font-size:12px}
 #nvm-donatelist .nvm-donate__tier-price strong{color:#fff;font-weight:650;font-variant-numeric:tabular-nums}
 #nvm-donatelist .nvm-donate__tier--premium{padding:12px;cursor:default}
 #nvm-donatelist .nvm-donate__tier--premium .nvm-donate__tier-name{display:flex;flex-direction:column;gap:3px;white-space:normal;font-size:17px}
@@ -76,7 +76,7 @@
 #nvm-donatelist .nvm-donate__tier-tag{margin-left:6px;padding:2px 6px;border:1px solid #735c34;border-radius:4px;color:var(--nvm-gold);font-size:11px;font-weight:650;letter-spacing:.08em;vertical-align:middle}
 #nvm-donate__tier--premium .nvm-donate__tier-prices{gap:22px}
 #nvm-donatelist .nvm-donate__tier--premium .nvm-donate__tier-price{font-size:18px}
-#nvm-donatelist .nvm-donate__tier--premium .nvm-donate__tier-price i{font-size:12px}
+#nvm-donatelist .nvm-donate__tier--premium .nvm-donate__tier-price i{font-size:14px}
 #nvm-donatelist .nvm-donate__topup-text{margin:0 0 6px;color:var(--nvm-muted);font-size:14px;line-height:1.55}
 #nvm-donatelist .nvm-donate__topup-text strong{color:var(--nvm-text)}
 #nvm-donatelist .nvm-donate__topup-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
