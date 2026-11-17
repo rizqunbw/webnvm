@@ -142,6 +142,16 @@
     chip.addEventListener("click", onChipClick);
     chip.addEventListener("keydown", onChipKey);
   });
+  // Section dropdowns behave like an accordion: opening one closes the others.
+  var groups = root.querySelectorAll(".nvm-donate__group");
+  Array.prototype.forEach.call(groups, function (group) {
+    group.addEventListener("toggle", function () {
+      if (!group.open) return;
+      Array.prototype.forEach.call(groups, function (other) {
+        if (other !== group && other.open) other.open = false;
+      });
+    });
+  });
   // Clicking a buy link must not also fill the calculator.
   Array.prototype.forEach.call(root.querySelectorAll(".nvm-donate__row-buy-btn"), function (btn) {
     btn.addEventListener("click", function (event) { event.stopPropagation(); });

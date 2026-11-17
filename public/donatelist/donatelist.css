@@ -119,7 +119,11 @@
 #nvm-donatelist .nvm-donate__row-buy-btn:hover{border-color:var(--nvm-cyan);background:rgba(105,228,242,.08)}
 #nvm-donatelist .nvm-donate__row-buy-btn i{font-size:11px}
 #nvm-donatelist .nvm-donate__group{margin:0 0 14px;border:1px solid var(--nvm-line);border-radius:10px;background:#101c29;overflow:hidden}
-#nvm-donatelist .nvm-donate__group-head{display:flex;align-items:center;gap:10px;padding:14px 16px;cursor:pointer;list-style:none}
+#nvm-donatelist .nvm-donate__group-head{display:flex;align-items:center;gap:10px;padding:14px 16px;cursor:pointer;list-style:none;transition:background .2s ease}
+#nvm-donatelist .nvm-donate__group-head:hover{background:#152434}
+#nvm-donatelist .nvm-donate__group-head:hover .nvm-donate__group-caret{color:var(--nvm-cyan)}
+#nvm-donatelist .nvm-donate__group:not([open ]) .nvm-donate__group-caret{animation:nvm-donate-caret-hint 2.2s ease-in-out infinite}
+@keyframes nvm-donate-caret-hint{0%,100%{transform:translateY(0)}50%{transform:translateY(3px)}}
 #nvm-donatelist .nvm-donate__group-head::-webkit-details-marker{display:none}
 #nvm-donatelist .nvm-donate__group-icon{color:var(--nvm-cyan);font-size:16px}
 #nvm-donatelist .nvm-donate__group-title{flex:1 1 auto;font-size:17px;font-weight:700}
