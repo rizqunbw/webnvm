@@ -29,14 +29,10 @@
 #nvm-donatelist .nvm-donate__coin-input{display:block;width:210px;max-width:100%;margin-top:9px;padding:8px 11px;border:1px solid var(--nvm-line);border-radius:6px;background:#152434;color:var(--nvm-text);font:inherit;font-size:12px;outline:0}
 #nvm-donatelist .nvm-donate__coin-input::placeholder{color:var(--nvm-muted)}
 #nvm-donatelist .nvm-donate__coin-input:focus{border-color:var(--nvm-cyan)}
-#nvm-donatelist .nvm-donate__coin-input::-webkit-outer-spin-button,#nvm-donatelist .nvm-donate__coin-input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
-#nvm-donatelist .nvm-donate__coin-input[type="number"]{-moz-appearance:textfield;appearance:textfield}
 #nvm-donatelist .nvm-donate__prices{white-space:nowrap}
 #nvm-donatelist .nvm-donate__price{display:inline-block;margin-right:18px;color:var(--nvm-cyan);font-size:12px;font-weight:650;letter-spacing:0;white-space:nowrap}
 #nvm-donatelist .nvm-donate__price:last-child{margin-right:0}
 #nvm-donatelist .nvm-donate__currency{margin-right:3px;color:var(--nvm-cyan)}
-#nvm-donatelist .nvm-donate__rate-note{margin:9px 0 0;color:var(--nvm-muted);font-size:11px;line-height:1.5}
-#nvm-donatelist .nvm-donate__rate-note span{color:var(--nvm-text)}
 #nvm-donatelist .nvm-donate__sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 #nvm-donatelist .nvm-donate__lightbox{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:20px;background:rgba(16,27,40,.92);cursor:pointer}
 #nvm-donatelist .nvm-donate__lightbox .nvm-donate__thumb{width:220px;height:220px;font-size:96px;cursor:pointer}

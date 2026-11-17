@@ -40,7 +40,7 @@ These are internal rates, not the market rate. On 17 Nov 2026 the market mid-rat
 
 Typical haircut when receiving money from abroad: PayPal international receiving is about 4.4% + $0.30 plus a 3–4% FX conversion markup; Wise is about 0.5–1% plus a small fixed fee; bank wires add a flat $15–45. For small donations the total is usually 5–10%. The 13–18% rate buffer covers that, plus FX spread and rounding.
 
-Change a rate by editing the `data-*` attributes in `donatelist.html`; the calculator, fixed rows, and the note under the table use the same values.
+Change a rate by editing the `data-*` attributes in `donatelist.html`; the calculator and fixed rows use the same values. The Cash Coin input formats itself with thousand separators as the player types (1000 becomes 1,000, 10000 becomes 10,000); only digits are kept.
 
 ## Images
 

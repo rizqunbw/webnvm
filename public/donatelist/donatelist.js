@@ -50,10 +50,35 @@
     });
   }
 
+  // Live thousand separators while typing: 1000 -> 1,000, 10000 -> 10,000.
+  // The input is type="text" (a number input cannot hold commas);
+  // only digits are kept, the rest is stripped as the player types.
+  function formatCoinInput() {
+    if (!input) return;
+    var caret = input.selectionStart || 0;
+    var digitsBeforeCaret = (input.value.slice(0, caret).match(/\d/g) || []).length;
+    var digits = input.value.replace(/\D/g, "");
+    var formatted = digits ? formatWhole(Number(digits)) : "";
+    if (formatted === input.value) return;
+    input.value = formatted;
+    var pos = 0;
+    var counted = 0;
+    while (pos < formatted.length && counted < digitsBeforeCaret) {
+      if (/\d/.test(formatted.charAt(pos))) counted++;
+      pos++;
+    }
+    try { input.setSelectionRange(pos, pos); } catch (e) { /* caret restore is best-effort */ }
+  }
+
+  function onCoinInput() {
+    formatCoinInput();
+    updateCoinPrices();
+  }
+
   function updateCoinPrices() {
     var cell = input ? input.closest("tr").querySelector("[data-nvm-donate-price-cell]") : null;
     if (!cell) return;
-    var coins = input ? Number(input.value) : 0;
+    var coins = input ? Number(input.value.replace(/\D/g, "") || 0) : 0;
     // Rate 1:10 — 10 Cash Coin per Rp1, so Rp10,000 = 100,000 Cash Coin.
     var idr = isFinite(coins) && coins > 0 ? Math.ceil(coins / COIN_PER_IDR) : 0;
     fillPrices(cell, idr);
@@ -100,14 +125,14 @@
   }
 
   window.nvmDonateDestroy = function () {
-    if (input) input.removeEventListener("input", updateCoinPrices);
+    if (input) input.removeEventListener("input", onCoinInput);
     thumbs.forEach(function (button) {
       button.removeEventListener("click", onThumbClick);
     });
     closeLightbox();
   };
 
-  if (input) input.addEventListener("input", updateCoinPrices);
+  if (input) input.addEventListener("input", onCoinInput);
   thumbs.forEach(function (button) {
     button.addEventListener("click", onThumbClick);
   });
