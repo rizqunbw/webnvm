@@ -74,39 +74,14 @@
 #nvm-donatelist .nvm-donate__coin-readout::after{content:"";position:absolute;inset:auto -30% -55% -30%;height:120px;background:radial-gradient(closest-side,rgba(105,228,242,.16),transparent);pointer-events:none}
 #nvm-donatelist .nvm-donate__readout-label{color:var(--nvm-muted);font-size:11px;font-weight:600;letter-spacing:.06em}
 #nvm-donatelist .nvm-donate__readout-prices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
-#nvm-donatelist .nvm-donate__price-tile{min-width:0;padding:8px 6px;border:1px solid var(--nvm-line);border-radius:6px;background:#101b28;text-align:center}
-#nvm-donatelist .nvm-donate__plan-prices .nvm-donate__price-tile strong{font-size:13px;white-space:normal;line-height:1.2}
 #nvm-donatelist .nvm-donate__price-label{display:block;margin-bottom:3px;color:var(--nvm-muted);font-size:10px;font-weight:650;letter-spacing:.08em}
-#nvm-donatelist .nvm-donate__price-tile strong{display:block;color:#fff;font-size:clamp(14px,1.8vw,17px);font-weight:650;line-height:1.2;font-variant-numeric:tabular-nums;letter-spacing:-.01em;white-space:nowrap}
-#nvm-donatelist .nvm-donate__price-tile strong>span:first-child{margin-right:2px;color:var(--nvm-cyan)}
 #nvm-donatelist .nvm-donate__coin-visual{position:relative;height:40px;margin-top:6px}
 #nvm-donatelist .nvm-donate__coin-disc{position:absolute;top:4px;display:flex;align-items:center;justify-content:center;width:32px;height:32px;border:1px solid rgba(242,197,107,.55);border-radius:50%;background:radial-gradient(circle at 35% 30%,#3a2f18,#1a1408 75%);color:var(--nvm-gold);font-size:14px;animation:nvm-donate-float 4s ease-in-out infinite}
 #nvm-donatelist .nvm-donate__coin-disc--1{left:0}
 #nvm-donatelist .nvm-donate__coin-disc--2{left:24px;animation-delay:.5s}
 #nvm-donatelist .nvm-donate__coin-disc--3{left:48px;animation-delay:1s}
 #nvm-donatelist .nvm-donate__section{margin-top:12px}
-#nvm-donatelist .nvm-donate__plans{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px;align-items:stretch}
-#nvm-donatelist .nvm-donate__plan{position:relative;display:flex;flex-direction:column;min-width:0;padding:12px;border:1px solid var(--nvm-line);border-radius:6px;background:var(--nvm-bg);overflow:hidden;transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
-#nvm-donatelist .nvm-donate__plan:hover{transform:translateY(-3px);border-color:rgba(105,228,242,.55);box-shadow:0 12px 28px rgba(0,0,0,.35)}
-#nvm-donatelist .nvm-donate__plan--featured{border-color:#735c34;background:linear-gradient(160deg,rgba(214,161,60,.12),rgba(16,27,40,.9) 55%);box-shadow:0 0 0 1px rgba(242,197,107,.08),0 14px 32px rgba(0,0,0,.35)}
-#nvm-donatelist .nvm-donate__plan--featured::after{content:"";position:absolute;top:0;bottom:0;width:70px;background:linear-gradient(100deg,transparent,rgba(255,255,255,.09),transparent);animation:nvm-donate-shine 5.5s ease-in-out infinite;pointer-events:none}
 @keyframes nvm-donate-shine{0%,55%{left:-90px}85%,100%{left:110%}}
-#nvm-donatelist .nvm-donate__plan--featured:hover{border-color:var(--nvm-gold)}
-#nvm-donatelist .nvm-donate__plan-badge{display:block;margin:-12px -12px 10px;padding:7px;border-bottom:1px solid #735c34;background:rgba(214,161,60,.12);color:var(--nvm-gold);font-size:10px;font-weight:650;letter-spacing:.1em;text-align:center}
-#nvm-donatelist .nvm-donate__plan-top{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:14px}
-#nvm-donatelist .nvm-donate__plan-days{color:var(--nvm-muted);font-size:10px;font-weight:600;letter-spacing:.06em}
-#nvm-donatelist .nvm-donate__plan-per{color:var(--nvm-muted);font-size:11px;font-variant-numeric:tabular-nums}
-#nvm-donatelist .nvm-donate__plan-per span{color:var(--nvm-text);font-weight:600}
-#nvm-donatelist .nvm-donate__plan-icon{display:flex;align-items:center;justify-content:center;width:40px;height:40px;margin:10px 0 8px;border:1px solid var(--nvm-line);border-radius:6px;background:#152434;color:var(--nvm-cyan);font-size:19px}
-#nvm-donatelist .nvm-donate__plan-icon--gold{border-color:#735c34;color:var(--nvm-gold)}
-#nvm-donatelist .nvm-donate__plan h4{margin:0;color:#fff;font-size:15px;font-weight:650;line-height:1.3}
-#nvm-donatelist .nvm-donate__plan h4 span{color:var(--nvm-cyan)}
-#nvm-donatelist .nvm-donate__plan--featured h4 span{color:var(--nvm-gold)}
-#nvm-donatelist .nvm-donate__features{margin:10px 0 0;padding:0;list-style:none;display:grid;gap:5px}
-#nvm-donatelist .nvm-donate__features li{display:flex;gap:9px;align-items:baseline;color:var(--nvm-text);font-size:12px;line-height:1.5}
-#nvm-donatelist .nvm-donate__features li i{color:var(--nvm-cyan);font-size:11px;flex:0 0 auto}
-#nvm-donatelist .nvm-donate__plan--featured .nvm-donate__features li i{color:var(--nvm-gold)}
-#nvm-donatelist .nvm-donate__plan-prices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:auto;padding-top:12px}
 #nvm-donatelist .nvm-donate__tier-hint{margin:0 0 8px;color:var(--nvm-muted);font-size:11px}
 #nvm-donatelist .nvm-donate__tiers{display:grid;gap:6px;margin:0;padding:0;list-style:none}
 #nvm-donatelist .nvm-donate__tier{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 10px;width:100%;padding:9px 12px;border:1px solid var(--nvm-line);border-radius:6px;background:#152434;color:var(--nvm-text);font:inherit;font-size:12px;text-align:left;cursor:pointer;transition:border-color .2s ease,transform .2s ease,background .2s ease}
@@ -114,12 +89,21 @@
 #nvm-donatelist .nvm-donate__tier:focus-visible{border-color:var(--nvm-cyan);outline:0}
 #nvm-donatelist .nvm-donate__tier.is-active{border-color:var(--nvm-cyan);background:rgba(105,228,242,.12);color:var(--nvm-cyan)}
 #nvm-donatelist .nvm-donate__tier-name{font-weight:650;white-space:nowrap}
-#nvm-donatelist .nvm-donate__tier-name span{color:var(--nvm-cyan)}
+#nvm-donatelist .nvm-donate__tier-coin{color:var(--nvm-cyan)}
 #nvm-donatelist .nvm-donate__tier-prices{display:grid;grid-template-columns:118px 84px 64px;gap:12px;justify-content:flex-end}
 #nvm-donatelist .nvm-donate__tier-price{display:flex;justify-content:space-between;gap:6px;white-space:nowrap;color:var(--nvm-muted);font-size:11px}
 #nvm-donatelist .nvm-donate__tier-price i{font-style:normal;font-weight:650;letter-spacing:.06em}
 #nvm-donatelist .nvm-donate__tier-price strong{color:#fff;font-weight:650;font-variant-numeric:tabular-nums}
 #nvm-donatelist .nvm-donate__tier-price strong>span:first-child{margin-right:1px;color:var(--nvm-cyan)}
+#nvm-donatelist .nvm-donate__tier--premium{padding:12px;cursor:default}
+#nvm-donatelist .nvm-donate__tier--premium .nvm-donate__tier-name{display:flex;flex-direction:column;gap:3px;white-space:normal;font-size:14px}
+#nvm-donatelist .nvm-donate__tier--premium .nvm-donate__tier-title{white-space:normal;line-height:1.4}
+#nvm-donatelist .nvm-donate__tier-perks{display:block;color:var(--nvm-muted);font-size:11px;font-weight:400;white-space:normal;line-height:1.55}
+#nvm-donatelist .nvm-donate__tier-perks span{color:var(--nvm-text);font-weight:600}
+#nvm-donatelist .nvm-donate__tier-tag{margin-left:6px;padding:2px 6px;border:1px solid #735c34;border-radius:4px;color:var(--nvm-gold);font-size:9px;font-weight:650;letter-spacing:.08em;vertical-align:middle}
+#nvm-donatelist .nvm-donate__tier--premium .nvm-donate__tier-prices{grid-template-columns:132px 92px 72px}
+#nvm-donatelist .nvm-donate__tier--premium .nvm-donate__tier-price{font-size:15px}
+#nvm-donatelist .nvm-donate__tier--premium .nvm-donate__tier-price i{font-size:11px}
 #nvm-donatelist .nvm-donate__topup-text{margin:0 0 6px;color:var(--nvm-muted);font-size:12px;line-height:1.55}
 #nvm-donatelist .nvm-donate__topup-text strong{color:var(--nvm-text)}
 #nvm-donatelist .nvm-donate__topup-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
@@ -130,14 +114,12 @@
 #nvm-donatelist .nvm-donate__topup-btn--intl i{color:#b3baff;font-size:15px}
 #nvm-donatelist .nvm-donate__topup-flag{font-size:16px;line-height:1}
 #nvm-donatelist i.fa-brands{font-family:"Font Awesome 6 Brands","Font Awesome 5 Brands",FontAwesome!important;font-style:normal;font-weight:400!important;display:inline-block}
-#nvm-donatelist .nvm-donate__plan--featured .nvm-donate__price-tile{border-color:#735c34;background:rgba(214,161,60,.07)}
-#nvm-donatelist .nvm-donate__plan--featured .nvm-donate__price-tile strong>span:first-child{color:var(--nvm-gold)}
 #nvm-donatelist .nvm-donate__sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 #nvm-donatelist i.fa-solid{font-family:"Font Awesome 6 Free","Font Awesome 5 Free",FontAwesome!important;font-style:normal;font-weight:900!important;display:inline-block}
 #nvm-donatelist .nvm-donate__reveal{opacity:1}
 #nvm-donatelist.nvm-donate--animated .nvm-donate__reveal{opacity:0;transform:translateY(16px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
 #nvm-donatelist.nvm-donate--animated .nvm-donate__reveal.is-in{opacity:1;transform:translateY(0)}
 @media(max-width:760px){#nvm-donatelist .nvm-donate__hero{flex-direction:column;align-items:flex-start;padding:14px}#nvm-donatelist .nvm-donate__hero-mark{flex-basis:auto;width:64px;height:64px}#nvm-donatelist .nvm-donate__orbit-core{inset:16px;font-size:16px}#nvm-donatelist .nvm-donate__orbit-ring{inset:7px}#nvm-donatelist .nvm-donate__orbit-dot{top:7px;animation-name:nvm-donate-orbit-mobile}@keyframes nvm-donate-orbit-mobile{to{transform:rotate(360deg);transform-origin:3px 25px}}#nvm-donatelist .nvm-donate__coin-body{grid-template-columns:1fr}}
-@media(max-width:420px){#nvm-donatelist .nvm-donate__hero{padding:12px}#nvm-donatelist .nvm-donate__panel{padding:10px}#nvm-donatelist .nvm-donate__plan{padding:10px}}
-@media(max-width:560px){#nvm-donatelist .nvm-donate__tier-prices{grid-template-columns:102px 74px 58px;gap:8px;width:100%;justify-content:flex-start}}
+@media(max-width:420px){#nvm-donatelist .nvm-donate__hero{padding:12px}#nvm-donatelist .nvm-donate__panel{padding:10px}}
+@media(max-width:560px){#nvm-donatelist .nvm-donate__tier-prices{grid-template-columns:102px 74px 58px;gap:8px;width:100%;justify-content:flex-start}#nvm-donatelist .nvm-donate__tier--premium .nvm-donate__tier-prices{grid-template-columns:112px 80px 62px}}
 @media(prefers-reduced-motion:reduce){#nvm-donatelist *,#nvm-donatelist *::before,#nvm-donatelist *::after{animation:none!important;transition:none!important}#nvm-donatelist.nvm-donate--animated .nvm-donate__reveal{opacity:1;transform:none}}
