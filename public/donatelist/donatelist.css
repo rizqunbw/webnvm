@@ -123,3 +123,22 @@
 @media(max-width:420px){#nvm-donatelist .nvm-donate__hero{padding:12px}#nvm-donatelist .nvm-donate__panel{padding:10px}}
 @media(max-width:560px){#nvm-donatelist .nvm-donate__tier-prices{grid-template-columns:102px 74px 58px;gap:8px;width:100%;justify-content:flex-start}#nvm-donatelist .nvm-donate__tier--premium .nvm-donate__tier-prices{grid-template-columns:112px 80px 62px}}
 @media(prefers-reduced-motion:reduce){#nvm-donatelist *,#nvm-donatelist *::before,#nvm-donatelist *::after{animation:none!important;transition:none!important}#nvm-donatelist.nvm-donate--animated .nvm-donate__reveal{opacity:1;transform:none}}
+
+/* NVM Patron Coupons — tap a row to see what you will get. */
+#nvm-donatelist .nvm-donate__subhead{margin:14px 0 6px;color:#f1f7fa;font-size:13px;font-weight:600;line-height:1.4}
+#nvm-donatelist .nvm-donate__subhead:first-of-type{margin-top:2px}
+#nvm-donatelist .nvm-donate__subhead i{color:var(--nvm-cyan);font-size:12px;margin-right:8px}
+#nvm-donatelist .nvm-donate__subhead span{margin-left:8px;color:var(--nvm-muted);font-size:10px;font-weight:600;letter-spacing:.06em}
+#nvm-donatelist .nvm-donate__coupon{margin:0}
+#nvm-donatelist .nvm-donate__coupon summary{list-style:none}
+#nvm-donatelist .nvm-donate__coupon summary::-webkit-details-marker{display:none}
+#nvm-donatelist .nvm-donate__coupon[open ] .nvm-donate__tier{border-color:rgba(105,228,242,.55);border-bottom-left-radius:0;border-bottom-right-radius:0}
+#nvm-donatelist .nvm-donate__coupon-caret{display:inline-block;margin-left:4px;color:var(--nvm-cyan);font-size:10px;transition:transform .2s ease}
+#nvm-donatelist .nvm-donate__coupon[open ] .nvm-donate__coupon-caret{transform:rotate(180deg)}
+#nvm-donatelist .nvm-donate__coupon-get{padding:10px 12px;border:1px solid var(--nvm-line);border-top:0;border-radius:0 0 6px 6px;background:var(--nvm-bg)}
+#nvm-donatelist .nvm-donate__coupon-get-title{color:var(--nvm-cyan);font-size:10px;font-weight:650;letter-spacing:.08em}
+#nvm-donatelist .nvm-donate__coupon-get ul{display:grid;gap:5px;margin:7px 0 0;padding:0;list-style:none}
+#nvm-donatelist .nvm-donate__coupon-get li{color:var(--nvm-text);font-size:12px;line-height:1.55}
+#nvm-donatelist .nvm-donate__coupon-get li strong{color:var(--nvm-cyan);font-variant-numeric:tabular-nums}
+#nvm-donatelist .nvm-donate__code{color:var(--nvm-muted);font-size:11px}
+#nvm-donatelist .nvm-donate__note{color:var(--nvm-muted);font-size:11px}
