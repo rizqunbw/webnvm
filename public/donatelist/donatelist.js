@@ -22,7 +22,6 @@
   var chips = Array.prototype.slice.call(root.querySelectorAll("[data-nvm-donate-coins]"));
   var meterFill = root.querySelector("[data-nvm-donate-meter-fill]");
   var meterLabel = root.querySelector("[data-nvm-donate-meter-label]");
-  var rafIds = [];
 
   function formatWhole(value) {
     // Whole numbers only, no decimals. Thousands use "," like the
@@ -30,56 +29,20 @@
     return new Intl.NumberFormat("en-US").format(value);
   }
 
-  function cancelAnims() {
-    rafIds.forEach(function (id) { cancelAnimationFrame(id); });
-    rafIds = [];
-  }
-
-  // Animated count between values so prices tick instead of jumping.
-  function animateNumber(el, target) {
-    if (!el) return;
-    var from = Number(el.getAttribute("data-nvm-value") || 0) || 0;
-    el.setAttribute("data-nvm-value", String(target));
-    if (from === target) {
-      el.textContent = formatWhole(target);
-      return;
-    }
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      el.textContent = formatWhole(target);
-      return;
-    }
-    var start = null;
-    var duration = 380;
-    function step(timestamp) {
-      if (start === null) start = timestamp;
-      var progress = Math.min((timestamp - start) / duration, 1);
-      var eased = 1 - Math.pow(1 - progress, 3);
-      el.textContent = formatWhole(Math.round(from + (target - from) * eased));
-      if (progress < 1) rafIds.push(requestAnimationFrame(step));
-    }
-    rafIds.push(requestAnimationFrame(step));
-  }
-
   // Single source of truth: the IDR price.
   // PHP and USD are always derived from IDR, never written in the HTML.
   // Both are rounded UP to whole pesos / whole dollars, so the fee buffer
   // is paid by the buyer: $0.67 -> $1, $3.33 -> $4, $6.67 -> $7.
-  function fillPrices(cell, idr, animate) {
+  function fillPrices(cell, idr) {
     if (!cell) return;
     var idrEl = cell.querySelector("[data-nvm-donate-price-idr]");
     var phpEl = cell.querySelector("[data-nvm-donate-price-php]");
     var usdEl = cell.querySelector("[data-nvm-donate-price-usd]");
     var php = idr > 0 ? Math.ceil(idr / PHP_RATE) : 0;
     var usd = idr > 0 ? Math.ceil(idr / USD_RATE) : 0;
-    if (animate) {
-      animateNumber(idrEl, idr);
-      animateNumber(phpEl, php);
-      animateNumber(usdEl, usd);
-    } else {
-      if (idrEl) { idrEl.setAttribute("data-nvm-value", String(idr)); idrEl.textContent = formatWhole(idr); }
-      if (phpEl) { phpEl.setAttribute("data-nvm-value", String(php)); phpEl.textContent = formatWhole(php); }
-      if (usdEl) { usdEl.setAttribute("data-nvm-value", String(usd)); usdEl.textContent = formatWhole(usd); }
-    }
+    if (idrEl) { idrEl.setAttribute("data-nvm-value", String(idr)); idrEl.textContent = formatWhole(idr); }
+    if (phpEl) { phpEl.setAttribute("data-nvm-value", String(php)); phpEl.textContent = formatWhole(php); }
+    if (usdEl) { usdEl.setAttribute("data-nvm-value", String(usd)); usdEl.textContent = formatWhole(usd); }
   }
 
   function renderFixedPrices() {
@@ -87,7 +50,7 @@
     // To change a price, change that one IDR number in donatelist.html.
     var cells = root.querySelectorAll("[data-nvm-donate-price-cell][data-nvm-donate-idr]");
     Array.prototype.forEach.call(cells, function (cell) {
-      fillPrices(cell, Number(cell.dataset.nvmDonateIdr) || 0, true);
+      fillPrices(cell, Number(cell.dataset.nvmDonateIdr) || 0);
     });
     // Per-day cost, derived from the same IDR price: ceil(IDR / days).
     var perDay = root.querySelectorAll("[data-nvm-donate-per-day]");
@@ -144,7 +107,7 @@
     var coins = coinAmount();
     // Rate 1:10 — 10 Cash Coin per Rp1, so Rp10,000 = 100,000 Cash Coin.
     var idr = isFinite(coins) && coins > 0 ? Math.ceil(coins / COIN_PER_IDR) : 0;
-    fillPrices(cell, idr, true);
+    fillPrices(cell, idr);
     syncChips(coins);
     syncMeter(coins);
   }
@@ -157,19 +120,7 @@
     input.focus();
   }
 
-  // Entrance stagger. The hidden state only exists when JS adds
-  // .nvm-donate--animated, so content never depends on JS to appear.
-  function reveal() {
-    root.classList.add("nvm-donate--animated");
-    var items = root.querySelectorAll(".nvm-donate__reveal");
-    Array.prototype.forEach.call(items, function (el, i) {
-      el.style.transitionDelay = (i * 110) + "ms";
-      requestAnimationFrame(function () { el.classList.add("is-in"); });
-    });
-  }
-
   window.nvmDonateDestroy = function () {
-    cancelAnims();
     if (input) input.removeEventListener("input", onCoinInput);
     chips.forEach(function (chip) {
       chip.removeEventListener("click", onChipClick);
@@ -180,7 +131,6 @@
   chips.forEach(function (chip) {
     chip.addEventListener("click", onChipClick);
   });
-  reveal();
   renderFixedPrices();
   updateCoinPrices();
 })();
