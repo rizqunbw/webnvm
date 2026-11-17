@@ -9,13 +9,16 @@
   if (!root) return;
 
   // Internal rates, set on the section in donatelist.html.
-  // $1 = Rp15,000 and ₱1 = Rp250: deliberately below the market rate
+  // $1 = Rp5,000 and ₱1 = Rp250: deliberately below the market rate
   // (about $1 = Rp18,275 and ₱1 = Rp286 on 17 Nov 2026) so the amount
   // received in IDR still covers the IDR price after international
-  // transfer fees and FX spreads.
+  // transfer fees and FX spreads. The USD divisor is 5,000 (not 15,000)
+  // because the smallest IDR step between packages is Rp5,000 — a larger
+  // divisor collapses neighbouring prices into the same whole-dollar
+  // amount, so every package would show a duplicate $ price.
   var COIN_PER_IDR = Number(root.dataset.coinPerIdr) || 10;
   var PHP_RATE = Number(root.dataset.phpRate) || 250;
-  var USD_RATE = Number(root.dataset.usdRate) || 15000;
+  var USD_RATE = Number(root.dataset.usdRate) || 5000;
   var METER_MAX = 100000000;
 
   var input = root.querySelector("#nvm-donate-coin-amount");
