@@ -120,16 +120,31 @@
     input.focus();
   }
 
+  // Package rows are divs now (links cannot live inside a <button>),
+  // so keyboard users get the same fill via Enter / Space.
+  function onChipKey(event) {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      event.currentTarget.click();
+    }
+  }
+
   window.nvmDonateDestroy = function () {
     if (input) input.removeEventListener("input", onCoinInput);
     chips.forEach(function (chip) {
       chip.removeEventListener("click", onChipClick);
+      chip.removeEventListener("keydown", onChipKey);
     });
   };
 
   if (input) input.addEventListener("input", onCoinInput);
   chips.forEach(function (chip) {
     chip.addEventListener("click", onChipClick);
+    chip.addEventListener("keydown", onChipKey);
+  });
+  // Clicking a buy link must not also fill the calculator.
+  Array.prototype.forEach.call(root.querySelectorAll(".nvm-donate__row-buy-btn"), function (btn) {
+    btn.addEventListener("click", function (event) { event.stopPropagation(); });
   });
   renderFixedPrices();
   updateCoinPrices();
