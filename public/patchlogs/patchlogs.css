@@ -69,6 +69,14 @@
 #nvm-patchlogs .nvm-patch__changes p{margin:2px 0 0;color:var(--nvm-muted);font-size:12px;line-height:1.55}
 #nvm-patchlogs .nvm-patch__changes a{color:var(--nvm-cyan);text-decoration:underline;text-underline-offset:2px}
 #nvm-patchlogs .nvm-patch__changes a:hover{color:#8ff0fa}
+#nvm-patchlogs .nvm-patch__recipes{width:100%;margin-top:10px;border-collapse:collapse;font-size:12px;font-variant-numeric:tabular-nums}
+#nvm-patchlogs .nvm-patch__recipes th{padding:6px 8px;border-bottom:1px solid var(--nvm-line);color:var(--nvm-muted);font-size:10px;font-weight:650;letter-spacing:.06em;text-align:left;text-transform:uppercase}
+#nvm-patchlogs .nvm-patch__recipes th:last-child,#nvm-patchlogs .nvm-patch__recipes td:last-child{text-align:right}
+#nvm-patchlogs .nvm-patch__recipes td{padding:6px 8px;border-bottom:1px solid var(--nvm-line);color:var(--nvm-text)}
+#nvm-patchlogs .nvm-patch__recipes tr:last-child td{border-bottom:0}
+#nvm-patchlogs .nvm-patch__recipes tbody tr{transition:background .2s ease}
+#nvm-patchlogs .nvm-patch__recipes tbody tr:hover{background:rgba(105,228,242,.06)}
+#nvm-patchlogs .nvm-patch__recipes td strong{color:var(--nvm-cyan);font-weight:650}
 #nvm-patchlogs .nvm-patch__foot{margin:12px 0 0;color:var(--nvm-muted);font-size:11px;text-align:center}
 #nvm-patchlogs i.fa-solid{font-family:"Font Awesome 6 Free","Font Awesome 5 Free",FontAwesome!important;font-style:normal;font-weight:900!important;display:inline-block}
 #nvm-patchlogs .nvm-patch__reveal{opacity:1}
