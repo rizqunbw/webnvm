@@ -21,20 +21,20 @@ The loader uses the latest GitHub commit to refresh assets and falls back to the
 
 ### 18 November 2026 — Cash Coin Potion Combine & Donation Open (LATEST, UPDATE)
 
-1. **Combine Cash Coin Potion +250 & +500** — farmed potions combine into bigger ones, up to 5 at a time, commit fee = output × 100. All 10 recipes verified against `potioncombine.tsv` (`cocsa95814`–`95823`, repo rfrizquprojects):
+1. **Combine Cash Coin Potion +250 & +500** — farmed potions combine into bigger ones, up to 5 stacks at a time (1 stack = 250 potions), commit fee = output × 100. All 10 recipes verified against `potioncombine.tsv` (`cocsa95814`–`95823`, repo rfrizquprojects). Material is written as Nx250 / Nx500 (N stacks of 250 potions each — e.g. 1x250 = 1 full stack of 250x Cash Coin Potion+250, not 1 potion):
 
 | Material | Result | Commit Fee |
 |---|---|---|
-| 1x Cash Coin Potion+250 | +62,500 Cash Coin | 6,250,000 |
-| 2x Cash Coin Potion+250 | +125,000 Cash Coin | 12,500,000 |
-| 1x Cash Coin Potion+500 | +125,000 Cash Coin | 12,500,000 |
-| 3x Cash Coin Potion+250 | +187,500 Cash Coin | 18,750,000 |
-| 4x Cash Coin Potion+250 | +250,000 Cash Coin | 25,000,000 |
-| 2x Cash Coin Potion+500 | +250,000 Cash Coin | 25,000,000 |
-| 5x Cash Coin Potion+250 | +312,500 Cash Coin | 31,250,000 |
-| 3x Cash Coin Potion+500 | +375,000 Cash Coin | 37,500,000 |
-| 4x Cash Coin Potion+500 | +500,000 Cash Coin | 50,000,000 |
-| 5x Cash Coin Potion+500 | +625,000 Cash Coin | 62,500,000 |
+| 1x250 Cash Coin Potion+250 | +62,500 Cash Coin | 6,250,000 |
+| 2x250 Cash Coin Potion+250 | +125,000 Cash Coin | 12,500,000 |
+| 1x500 Cash Coin Potion+500 | +125,000 Cash Coin | 12,500,000 |
+| 3x250 Cash Coin Potion+250 | +187,500 Cash Coin | 18,750,000 |
+| 4x250 Cash Coin Potion+250 | +250,000 Cash Coin | 25,000,000 |
+| 2x500 Cash Coin Potion+500 | +250,000 Cash Coin | 25,000,000 |
+| 5x250 Cash Coin Potion+250 | +312,500 Cash Coin | 31,250,000 |
+| 3x500 Cash Coin Potion+500 | +375,000 Cash Coin | 37,500,000 |
+| 4x500 Cash Coin Potion+500 | +500,000 Cash Coin | 50,000,000 |
+| 5x500 Cash Coin Potion+500 | +625,000 Cash Coin | 62,500,000 |
 
 2. **Donation is now open!** — linked to https://rfnvm.com/donate
 
