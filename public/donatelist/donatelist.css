@@ -66,7 +66,10 @@
 #nvm-donatelist .nvm-donate__tier-coin{color:var(--nvm-cyan)}
 #nvm-donatelist .nvm-donate__tier-prices{display:flex;gap:0;align-items:baseline;justify-content:flex-end}
 #nvm-donatelist .nvm-donate__tier-price + .nvm-donate__tier-price{margin-left:18px}
-#nvm-donatelist .nvm-donate__tier-price{display:inline-flex;align-items:baseline;gap:5px;white-space:nowrap;color:var(--nvm-muted);font-size:13px}
+#nvm-donatelist .nvm-donate__tier-price{display:inline-flex;align-items:baseline;gap:5px;white-space:nowrap;color:var(--nvm-muted);font-size:13px;justify-content:flex-end}
+#nvm-donatelist .nvm-donate__tier-price:nth-child(1){width:100px}
+#nvm-donatelist .nvm-donate__tier-price:nth-child(2){width:68px}
+#nvm-donatelist .nvm-donate__tier-price:nth-child(3){width:52px}
 #nvm-donatelist .nvm-donate__tier-price i{font-size:12px}
 #nvm-donatelist .nvm-donate__tier-price strong{color:#fff;font-weight:650;font-variant-numeric:tabular-nums}
 #nvm-donatelist .nvm-donate__tier--premium{padding:12px;cursor:default}
