@@ -1,0 +1,105 @@
+<div id="nvm-patchlogs-loader">
+  <p style="text-align:center;color:#72e5f3;padding:25px">Loading Patch Logs...</p>
+</div>
+<script>
+(function () {
+  "use strict";
+
+  var target = document.getElementById("nvm-patchlogs-loader");
+  if (!target || target.dataset.nvmLiveStarted === "1") return;
+  target.dataset.nvmLiveStarted = "1";
+
+  var BASE = "https://raw.githubusercontent.com/rizqunbw/webnvm/main/public/patchlogs/";
+  var STYLE_ID = "nvm-patchlogs-style";
+  var lastHTML = null;
+  var lastCSS = null;
+  var lastJS = null;
+  var script = null;
+  var busy = false;
+  var refreshTimer = null;
+
+  function getFile(name, required) {
+    var url = BASE + name + "?v=" + Date.now();
+    return fetch(url, { cache: "no-store" }).then(function (response) {
+      if (!response.ok) throw new Error(name + " HTTP " + response.status);
+      return response.text();
+    }).catch(function (error) {
+      if (required) throw error;
+      console.warn("[NVM Patch Logs] Optional " + name + ":", error.message);
+      return null;
+    });
+  }
+
+  function applyHTML(html) {
+    if (html === lastHTML) return false;
+    var parsed = document.createElement("div");
+    parsed.innerHTML = html;
+    if (!parsed.querySelector("#nvm-patchlogs")) throw new Error("Patch Logs HTML is missing its root element");
+    target.innerHTML = parsed.innerHTML;
+    lastHTML = html;
+    return true;
+  }
+
+  function applyCSS(css) {
+    if (css === lastCSS) return;
+    var nativeElement = document.querySelector(".sidebar h3, aside h3, header nav a, .navbar a, nav a") || document.body;
+    target.style.setProperty("--nvm-native-font", window.getComputedStyle(nativeElement).fontFamily);
+    var style = document.getElementById(STYLE_ID);
+    if (!style) {
+      style = document.createElement("style");
+      style.id = STYLE_ID;
+      document.head.appendChild(style);
+    }
+    style.textContent = css + "\n#nvm-patchlogs{font-family:var(--nvm-native-font,inherit)!important}";
+    lastCSS = css;
+  }
+
+  function applyJS(js, htmlChanged) {
+    if (!js || (!htmlChanged && js === lastJS)) return;
+    if (typeof window.nvmPatchDestroy === "function") window.nvmPatchDestroy();
+    if (script) script.remove();
+    script = document.createElement("script");
+    script.textContent = js;
+    document.head.appendChild(script);
+    lastJS = js;
+  }
+
+  function refresh() {
+    if (busy || !document.documentElement.contains(target)) return;
+    if (document.hidden && lastHTML !== null) return;
+    busy = true;
+
+    // HTML must never depend on CSS or the optional script succeeding.
+    getFile("patchlogs.html", true).then(function (html) {
+      var changed = applyHTML(html);
+      return Promise.all([
+        getFile("patchlogs.css", false).then(function (css) {
+          if (css) applyCSS(css);
+        }),
+        getFile("patchlogs.js", false).then(function (js) {
+          if (js) applyJS(js, changed);
+        })
+      ]);
+    }).catch(function (error) {
+      console.error("[NVM Patch Logs] Failed to load HTML:", error);
+      if (lastHTML === null) {
+        target.innerHTML = '<p style="color:#ffafa7;padding:14px">Patch Logs failed to load. Check browser console for the GitHub request error.</p>';
+      }
+    }).then(function () { busy = false; });
+  }
+
+  refresh();
+  refreshTimer = setInterval(function () {
+    if (!document.documentElement.contains(target)) {
+      clearInterval(refreshTimer);
+      if (typeof window.nvmPatchDestroy === "function") window.nvmPatchDestroy();
+      return;
+    }
+    refresh();
+  }, 30000);
+
+  document.addEventListener("visibilitychange", function () {
+    if (!document.hidden) refresh();
+  });
+})();
+</script>

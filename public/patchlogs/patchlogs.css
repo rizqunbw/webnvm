@@ -1,0 +1,79 @@
+/* Patch Logs — timeline, simple list going down.
+   Follows public/serverrate typography, colors and the CKEditor live-loader
+   pattern, same as Donate List: --nvm-bg #101b28, --nvm-line #2a3a4c,
+   --nvm-text #eaf2f8, --nvm-muted #b2c0ce, --nvm-cyan #69e4f2, panel #152434,
+   gold #f2c56b for the LATEST tag only. Base font 13px / 1.45, radius 6px.
+   No images: every visual is CSS + Font Awesome. Motion is purposeful:
+   entrance stagger, hover lift on each entry, drifting scan beam, pulsing
+   live dot, floating hero mark, and a glowing timeline dot. */
+#nvm-patchlogs{--nvm-bg:#101b28;--nvm-line:#2a3a4c;--nvm-text:#eaf2f8;--nvm-muted:#b2c0ce;--nvm-cyan:#69e4f2;--nvm-green:#a6edc8;--nvm-red:#ffafa7;--nvm-gold:#f2c56b;position:relative;width:100%;max-width:100%;box-sizing:border-box;overflow:hidden;color:var(--nvm-text);font-family:inherit;line-height:1.45;font-size:13px}
+#nvm-patchlogs *,#nvm-patchlogs *::before,#nvm-patchlogs *::after{box-sizing:border-box}
+#nvm-patchlogs .nvm-patch__bg{position:absolute;inset:0;pointer-events:none;background:radial-gradient(420px 180px at 85% -10%,rgba(105,228,242,.14),transparent 65%),radial-gradient(360px 200px at 0% 110%,rgba(242,197,107,.07),transparent 65%),linear-gradient(rgba(105,228,242,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(105,228,242,.05) 1px,transparent 1px);background-size:auto,auto,34px 34px,34px 34px;opacity:.9}
+#nvm-patchlogs .nvm-patch__beam{position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,transparent,rgba(105,228,242,.7),transparent);animation:nvm-patch-scan 9s linear infinite}
+@keyframes nvm-patch-scan{0%{transform:translateY(0);opacity:0}8%{opacity:1}92%{opacity:1}100%{transform:translateY(900px);opacity:0}}
+#nvm-patchlogs .nvm-patch__hero,#nvm-patchlogs .nvm-patch__timeline,#nvm-patchlogs .nvm-patch__foot{position:relative}
+#nvm-patchlogs .nvm-patch__hero{position:relative;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 16px;border:1px solid var(--nvm-line);border-left:3px solid var(--nvm-cyan);border-radius:6px;background:linear-gradient(120deg,rgba(21,36,52,.95),rgba(16,27,40,.92) 60%,rgba(105,228,242,.08));overflow:hidden;box-shadow:0 0 0 1px rgba(105,228,242,.04),0 10px 24px rgba(0,0,0,.28)}
+#nvm-patchlogs .nvm-patch__particles{position:absolute;inset:0;pointer-events:none}
+#nvm-patchlogs .nvm-patch__particles span{position:absolute;width:5px;height:5px;border-radius:50%;background:var(--nvm-cyan);opacity:.55;animation:nvm-patch-particle 7s ease-in-out infinite}
+#nvm-patchlogs .nvm-patch__particles span:nth-child(1){top:22%;left:46%;animation-delay:0s}
+#nvm-patchlogs .nvm-patch__particles span:nth-child(2){top:68%;left:58%;width:4px;height:4px;background:var(--nvm-gold);animation-delay:1.2s;animation-duration:8s}
+#nvm-patchlogs .nvm-patch__particles span:nth-child(3){top:16%;left:72%;width:4px;height:4px;animation-delay:2s;animation-duration:6s}
+#nvm-patchlogs .nvm-patch__particles span:nth-child(4){top:78%;left:38%;animation-delay:.6s;animation-duration:9s}
+#nvm-patchlogs .nvm-patch__particles span:nth-child(5){top:38%;left:88%;width:3px;height:3px;background:var(--nvm-gold);animation-delay:1.8s}
+#nvm-patchlogs .nvm-patch__particles span:nth-child(6){top:84%;left:82%;width:3px;height:3px;animation-delay:2.6s;animation-duration:7.5s}
+@keyframes nvm-patch-particle{0%,100%{transform:translateY(0);opacity:.25}50%{transform:translateY(-12px);opacity:.8}}
+#nvm-patchlogs .nvm-patch__eyebrow{display:flex;align-items:center;gap:8px;margin-bottom:6px;color:var(--nvm-muted);font-size:10px;font-weight:650;letter-spacing:.08em}
+#nvm-patchlogs .nvm-patch__live-dot{width:7px;height:7px;border-radius:50%;background:var(--nvm-cyan);box-shadow:0 0 0 0 rgba(105,228,242,.6);animation:nvm-patch-pulse 2.2s ease-out infinite}
+@keyframes nvm-patch-pulse{0%{box-shadow:0 0 0 0 rgba(105,228,242,.55)}70%{box-shadow:0 0 0 8px rgba(105,228,242,0)}100%{box-shadow:0 0 0 0 rgba(105,228,242,0)}}
+#nvm-patchlogs .nvm-patch__title{margin:0;color:#fff;font-size:clamp(24px,3.5vw,32px);font-weight:650;line-height:1.05;letter-spacing:-.02em;text-shadow:0 2px 18px rgba(105,228,242,.25)}
+#nvm-patchlogs .nvm-patch__title span{color:var(--nvm-cyan)}
+#nvm-patchlogs .nvm-patch__accent-line{width:56px;height:3px;margin-top:8px;border-radius:999px;background:linear-gradient(90deg,var(--nvm-cyan),rgba(105,228,242,0));transform-origin:left;animation:nvm-patch-accent 3.5s ease-in-out infinite}
+@keyframes nvm-patch-accent{0%,100%{transform:scaleX(1);opacity:1}50%{transform:scaleX(1.7);opacity:.55}}
+#nvm-patchlogs .nvm-patch__subtitle{margin:6px 0 0;max-width:56ch;color:var(--nvm-muted);font-size:12px;line-height:1.5}
+#nvm-patchlogs .nvm-patch__stats{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 0;padding:0;list-style:none}
+#nvm-patchlogs .nvm-patch__stats li{display:flex;align-items:baseline;gap:7px;min-width:0;padding:6px 10px;border:1px solid var(--nvm-line);border-radius:999px;background:#152434;transition:border-color .2s ease,transform .2s ease}
+#nvm-patchlogs .nvm-patch__stats li:hover{border-color:rgba(105,228,242,.55);transform:translateY(-1px)}
+#nvm-patchlogs .nvm-patch__stats strong{display:block;color:#fff;font-size:13px;font-weight:650;font-variant-numeric:tabular-nums}
+#nvm-patchlogs .nvm-patch__stats span{color:var(--nvm-muted);font-size:10px}
+#nvm-patchlogs .nvm-patch__hero-mark{position:relative;flex:0 0 76px;width:76px;height:76px;filter:drop-shadow(0 0 14px rgba(105,228,242,.25))}
+#nvm-patchlogs .nvm-patch__orbit-core{position:absolute;inset:19px;display:flex;align-items:center;justify-content:center;border:1px solid var(--nvm-line);border-radius:50%;background:radial-gradient(circle at 35% 30%,#1d3a4f,#101b28 70%);color:var(--nvm-gold);font-size:18px;animation:nvm-patch-float 4.5s ease-in-out infinite}
+@keyframes nvm-patch-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+#nvm-patchlogs .nvm-patch__orbit-ring{position:absolute;inset:8px;border:1px dashed rgba(105,228,242,.4);border-radius:50%;animation:nvm-patch-spin 22s linear infinite}
+#nvm-patchlogs .nvm-patch__orbit-ring--2{inset:0;border-color:rgba(178,192,206,.22);animation-duration:34s;animation-direction:reverse}
+@keyframes nvm-patch-spin{to{transform:rotate(360deg)}}
+#nvm-patchlogs .nvm-patch__orbit-dot{position:absolute;top:8px;left:50%;width:7px;height:7px;margin-left:-3px;border-radius:50%;background:var(--nvm-cyan);box-shadow:0 0 12px var(--nvm-cyan);animation:nvm-patch-orbit 22s linear infinite}
+@keyframes nvm-patch-orbit{to{transform:rotate(360deg);transform-origin:3px 30px}}
+/* Timeline: one vertical line, one glowing dot per entry, entries stacked down. */
+#nvm-patchlogs .nvm-patch__timeline{position:relative;margin:14px 0 0;padding:0 0 0 26px;list-style:none}
+#nvm-patchlogs .nvm-patch__timeline::before{content:"";position:absolute;left:8px;top:10px;bottom:10px;width:2px;border-radius:2px;background:linear-gradient(var(--nvm-cyan),rgba(105,228,242,.15))}
+#nvm-patchlogs .nvm-patch__entry{position:relative;margin:0 0 12px}
+#nvm-patchlogs .nvm-patch__entry:last-child{margin-bottom:0}
+#nvm-patchlogs .nvm-patch__dot{position:absolute;left:-26px;top:22px;width:18px;height:18px;border:3px solid var(--nvm-bg);border-radius:50%;background:var(--nvm-cyan);box-shadow:0 0 0 2px rgba(105,228,242,.45),0 0 14px rgba(105,228,242,.55);animation:nvm-patch-pulse 2.2s ease-out infinite}
+#nvm-patchlogs .nvm-patch__card{padding:12px;border:1px solid var(--nvm-line);border-radius:6px;background:var(--nvm-bg);transition:border-color .2s ease,transform .2s ease,box-shadow .2s ease}
+#nvm-patchlogs .nvm-patch__card:hover{border-color:rgba(105,228,242,.55);transform:translateY(-1px);box-shadow:0 10px 24px rgba(0,0,0,.28)}
+#nvm-patchlogs .nvm-patch__card-head{display:flex;align-items:flex-start;gap:12px}
+#nvm-patchlogs .nvm-patch__date{flex:0 0 auto;display:flex;align-items:center;gap:7px;padding:7px 10px;border:1px solid var(--nvm-line);border-radius:6px;background:#152434}
+#nvm-patchlogs .nvm-patch__date strong{color:#fff;font-size:22px;font-weight:650;line-height:1;font-variant-numeric:tabular-nums}
+#nvm-patchlogs .nvm-patch__date span{color:var(--nvm-muted);font-size:10px;font-weight:650;letter-spacing:.06em;line-height:1.35;text-transform:uppercase}
+#nvm-patchlogs .nvm-patch__head-copy{flex:1;min-width:0}
+#nvm-patchlogs .nvm-patch__head-copy h3{margin:0;color:#f1f7fa;font-size:16px;font-weight:600;line-height:1.4}
+#nvm-patchlogs .nvm-patch__meta{margin:2px 0 0;color:var(--nvm-muted);font-size:11px}
+#nvm-patchlogs .nvm-patch__tags{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:6px}
+#nvm-patchlogs .nvm-patch__tag{padding:4px 8px;border:1px solid rgba(105,228,242,.4);border-radius:4px;color:var(--nvm-cyan);font-size:10px;font-weight:650;letter-spacing:.06em;white-space:nowrap}
+#nvm-patchlogs .nvm-patch__tag--latest{border-color:#735c34;color:var(--nvm-gold)}
+#nvm-patchlogs .nvm-patch__changes{margin:12px 0 0;padding:0;list-style:none;border-top:1px solid var(--nvm-line)}
+#nvm-patchlogs .nvm-patch__changes li{display:flex;gap:10px;padding:10px 2px;border-bottom:1px solid var(--nvm-line)}
+#nvm-patchlogs .nvm-patch__changes li:last-child{border-bottom:0;padding-bottom:2px}
+#nvm-patchlogs .nvm-patch__icon{flex:0 0 30px;display:flex;align-items:center;justify-content:center;width:30px;height:30px;border:1px solid var(--nvm-line);border-radius:6px;background:#152434;color:var(--nvm-cyan);font-size:13px}
+#nvm-patchlogs .nvm-patch__changes b{display:block;color:#fff;font-size:13px;font-weight:650;line-height:1.4}
+#nvm-patchlogs .nvm-patch__changes p{margin:2px 0 0;color:var(--nvm-muted);font-size:12px;line-height:1.55}
+#nvm-patchlogs .nvm-patch__changes a{color:var(--nvm-cyan);text-decoration:underline;text-underline-offset:2px}
+#nvm-patchlogs .nvm-patch__changes a:hover{color:#8ff0fa}
+#nvm-patchlogs .nvm-patch__foot{margin:12px 0 0;color:var(--nvm-muted);font-size:11px;text-align:center}
+#nvm-patchlogs i.fa-solid{font-family:"Font Awesome 6 Free","Font Awesome 5 Free",FontAwesome!important;font-style:normal;font-weight:900!important;display:inline-block}
+#nvm-patchlogs .nvm-patch__reveal{opacity:1}
+#nvm-patchlogs.nvm-patch--animated .nvm-patch__reveal{opacity:0;transform:translateY(16px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+#nvm-patchlogs.nvm-patch--animated .nvm-patch__reveal.is-in{opacity:1;transform:translateY(0)}
+@media(max-width:760px){#nvm-patchlogs .nvm-patch__hero{flex-direction:column;align-items:flex-start;padding:14px}#nvm-patchlogs .nvm-patch__hero-mark{flex-basis:auto;width:64px;height:64px}#nvm-patchlogs .nvm-patch__orbit-core{inset:16px;font-size:16px}#nvm-patchlogs .nvm-patch__orbit-ring{inset:7px}#nvm-patchlogs .nvm-patch__orbit-dot{top:7px;animation-name:nvm-patch-orbit-mobile}@keyframes nvm-patch-orbit-mobile{to{transform:rotate(360deg);transform-origin:3px 25px}}}
+@media(max-width:560px){#nvm-patchlogs .nvm-patch__card-head{flex-wrap:wrap}#nvm-patchlogs .nvm-patch__tags{justify-content:flex-start}}
+@media(prefers-reduced-motion:reduce){#nvm-patchlogs *,#nvm-patchlogs *::before,#nvm-patchlogs *::after{animation:none!important;transition:none!important}#nvm-patchlogs.nvm-patch--animated .nvm-patch__reveal{opacity:1;transform:none}}
