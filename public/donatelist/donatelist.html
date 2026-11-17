@@ -32,11 +32,14 @@
     </div>
   </section>
 
-<section class="nvm-donate__section nvm-donate__reveal" aria-labelledby="nvm-donate-premium-title">
-    <div class="nvm-donate__section-head">
-      <h3 id="nvm-donate-premium-title"><i class="fa-solid fa-crown" aria-hidden="true"></i> Premium Service</h3>
-      <span class="nvm-donate__count">2 PLANS</span>
-    </div>
+<details class="nvm-donate__group">
+  <summary class="nvm-donate__group-head">
+    <span class="nvm-donate__group-icon"><i class="fa-solid fa-crown" aria-hidden="true"></i></span>
+    <span class="nvm-donate__group-title">Premium Service</span>
+    <span class="nvm-donate__group-meta">2 PLANS · FROM Rp50,000</span>
+    <span class="nvm-donate__group-caret" aria-hidden="true">▾</span>
+  </summary>
+  <div class="nvm-donate__group-body">
     <ul class="nvm-donate__tiers">
       <li>
         <div class="nvm-donate__tier nvm-donate__tier--premium">
@@ -63,13 +66,17 @@
         </div>
       </li>
     </ul>
-  </section>
+  </div>
+</details>
 
-<section class="nvm-donate__panel nvm-donate__coin nvm-donate__reveal" aria-labelledby="nvm-donate-coin-title">
-    <div class="nvm-donate__panel-head">
-      <h3 id="nvm-donate-coin-title"><i class="fa-solid fa-coins" aria-hidden="true"></i> Cash Coin</h3>
-      <span class="nvm-donate__tag">RATE 1:10</span>
-    </div>
+<details class="nvm-donate__group nvm-donate__coin" open>
+  <summary class="nvm-donate__group-head">
+    <span class="nvm-donate__group-icon"><i class="fa-solid fa-coins" aria-hidden="true"></i></span>
+    <span class="nvm-donate__group-title">Cash Coin</span>
+    <span class="nvm-donate__group-meta">9 PACKAGES · RATE 1:10</span>
+    <span class="nvm-donate__group-caret" aria-hidden="true">▾</span>
+  </summary>
+  <div class="nvm-donate__group-body">
     <div class="nvm-donate__coin-body">
       <div class="nvm-donate__coin-form">
         <label class="nvm-donate__label" for="nvm-donate-coin-amount">How many Cash Coin?</label>
@@ -97,19 +104,13 @@
       <div class="nvm-donate__coin-readout">
         <span class="nvm-donate__readout-label">Your price</span>
         <div class="nvm-donate__readout-prices" data-nvm-donate-price-cell>
-          <div class="nvm-donate__price-tile"><span class="nvm-donate__price-label">IDR</span><strong><span>Rp</span><span data-nvm-donate-price-idr>0</span></strong></div>
-          <div class="nvm-donate__price-tile"><span class="nvm-donate__price-label">PHP</span><strong><span>₱</span><span data-nvm-donate-price-php>0</span></strong></div>
-          <div class="nvm-donate__price-tile"><span class="nvm-donate__price-label">USD</span><strong><span>$</span><span data-nvm-donate-price-usd>0</span></strong></div>
+          <div class="nvm-donate__price-row"><span class="nvm-donate__price-row-label"><i class="fa-solid fa-rupiah-sign" aria-hidden="true"></i> IDR</span><strong><span data-nvm-donate-price-idr>0</span></strong></div>
+          <div class="nvm-donate__price-row"><span class="nvm-donate__price-row-label"><i class="fa-solid fa-peso-sign" aria-hidden="true"></i> PHP</span><strong><span data-nvm-donate-price-php>0</span></strong></div>
+          <div class="nvm-donate__price-row"><span class="nvm-donate__price-row-label"><i class="fa-solid fa-dollar-sign" aria-hidden="true"></i> USD</span><strong><span data-nvm-donate-price-usd>0</span></strong></div>
         </div>
       </div>
     </div>
-  </section>
-
-    <section class="nvm-donate__section nvm-donate__reveal" aria-labelledby="nvm-donate-coin-packages-title">
-    <div class="nvm-donate__section-head">
-      <h3 id="nvm-donate-coin-packages-title"><i class="fa-solid fa-coins" aria-hidden="true"></i> Cash Coin Packages</h3>
-      <span class="nvm-donate__count">9 PACKAGES · RATE 1:10</span>
-    </div>
+    <h4 class="nvm-donate__subhead"><i class="fa-solid fa-coins" aria-hidden="true"></i> Cash Coin Packages <span>9 PACKAGES</span></h4>
     <p class="nvm-donate__tier-hint">Tap a package to fill the calculator above.</p>
     <ul class="nvm-donate__tiers">
       <li>
@@ -194,13 +195,17 @@
         </div>
       </li>
     </ul>
-  </section>
+  </div>
+</details>
 
-<section class="nvm-donate__section nvm-donate__reveal" aria-labelledby="nvm-donate-coupon-title">
-    <div class="nvm-donate__section-head">
-      <h3 id="nvm-donate-coupon-title"><i class="fa-solid fa-gem" aria-hidden="true"></i> NVM Patron Coupons</h3>
-      <span class="nvm-donate__count">33 PACKAGES</span>
-    </div>
+<details class="nvm-donate__group">
+  <summary class="nvm-donate__group-head">
+    <span class="nvm-donate__group-icon"><i class="fa-solid fa-gem" aria-hidden="true"></i></span>
+    <span class="nvm-donate__group-title">NVM Patron Coupons</span>
+    <span class="nvm-donate__group-meta">33 PACKAGES · FROM Rp15,000</span>
+    <span class="nvm-donate__group-caret" aria-hidden="true">▾</span>
+  </summary>
+  <div class="nvm-donate__group-body">
     <p class="nvm-donate__tier-hint">Tap a coupon to see what you will get. Buy it in GameCP — Topup Now above.</p>
     <h4 class="nvm-donate__subhead"><i class="fa-solid fa-sword" aria-hidden="true"></i> Weapon <span>11 COUPONS</span></h4>
     <ul class="nvm-donate__tiers">
@@ -865,5 +870,6 @@
         </details>
       </li>
     </ul>
-  </section>
+  </div>
+</details>
 </section>
