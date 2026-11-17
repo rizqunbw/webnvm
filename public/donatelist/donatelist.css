@@ -124,8 +124,9 @@
 #nvm-donatelist .nvm-donate__group-head:hover .nvm-donate__group-caret{color:var(--nvm-cyan)}
 #nvm-donatelist .nvm-donate__group:not([open ]) .nvm-donate__group-caret{animation:nvm-donate-caret-hint 2.2s ease-in-out infinite}
 @keyframes nvm-donate-caret-hint{0%,100%{transform:translateY(0)}50%{transform:translateY(3px)}}
-#nvm-donatelist .nvm-donate__group:not([open ]){animation:nvm-donate-group-hint 2.6s ease-in-out infinite}
-@keyframes nvm-donate-group-hint{0%,100%{border-color:var(--nvm-line);background-color:#101c29;box-shadow:0 0 0 rgba(105,228,242,0)}50%{border-color:rgba(105,228,242,.9);background-color:#173349;box-shadow:0 0 24px rgba(105,228,242,.35),0 0 6px rgba(105,228,242,.45)}}
+@property --nvm-border-angle{syntax:"<angle>";initial-value:0deg;inherits:false}
+#nvm-donatelist .nvm-donate__group:not([open ]){--nvm-border-angle:0deg;border:2px solid transparent;background:linear-gradient(#101c29,#101c29) padding-box,conic-gradient(from var(--nvm-border-angle),rgba(105,228,242,.22) 0deg,rgba(105,228,242,.22) 250deg,#69e4f2 290deg,#e6feff 320deg,rgba(105,228,242,.22) 360deg) border-box;animation:nvm-donate-border-spin 3s linear infinite}
+@keyframes nvm-donate-border-spin{to{--nvm-border-angle:360deg}}
 #nvm-donatelist .nvm-donate__group-head::-webkit-details-marker{display:none}
 #nvm-donatelist .nvm-donate__group-icon{color:var(--nvm-cyan);font-size:16px}
 #nvm-donatelist .nvm-donate__group-title{flex:1 1 auto;font-size:17px;font-weight:700}
