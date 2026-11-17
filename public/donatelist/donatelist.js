@@ -16,7 +16,7 @@
   var COIN_PER_IDR = Number(root.dataset.coinPerIdr) || 10;
   var PHP_RATE = Number(root.dataset.phpRate) || 250;
   var USD_RATE = Number(root.dataset.usdRate) || 15000;
-  var METER_MAX = 1000000;
+  var METER_MAX = 100000000;
 
   var input = root.querySelector("#nvm-donate-coin-amount");
   var chips = Array.prototype.slice.call(root.querySelectorAll("[data-nvm-donate-coins]"));
