@@ -13,9 +13,10 @@ The loader uses the latest GitHub commit to refresh assets and falls back to the
 
 ## What the player sees
 
-- **Hero** — big title, live pulse dot, three stat tiles (1:10 Cash Coin rate, 3 items, IDR · PHP · USD), and an animated orbit mark: a floating coin core, two counter-rotating dashed rings, and a glowing orbiting dot.
-- **Ticker** — a slow scrolling strip with the three items and their IDR prices.
-- **Cash Coin calculator** — a large input that formats itself with thousand separators as the player types (1000 becomes 1,000), quick-amount chips (100,000 / 250,000 / 500,000 / 1,000,000), an amount meter scaled to 100,000,000 CC, and a price readout with three equal tiles — IDR, PHP, and USD all the same size. Three CSS coin discs float beside it.
+- **Hero** — big title, live pulse dot, three stat tiles (1:10 Cash Coin rate, 11 packages, IDR · PHP · USD), and an animated orbit mark: a floating coin core, two counter-rotating dashed rings, and a glowing orbiting dot.
+- **Ticker** — a slow scrolling strip with the rate, the two Premium prices, and the Cash Coin minimum (from Rp25,000).
+- **Cash Coin calculator** — a large input that formats itself with thousand separators as the player types (1000 becomes 1,000), quick-amount chips (250,000 / 500,000 / 1,000,000 / 2,500,000), an amount meter scaled to 100,000,000 CC, and a price readout with three equal tiles — IDR, PHP, and USD all the same size. Three CSS coin discs float beside it.
+- **Cash Coin Packages** — 9 fixed tiers matching the GameCP packages (03)–(11), from 250,000 CC (Rp25,000, minimum) to 100,000,000 CC (Rp10,000,000), each as a compact card with prices in three equal tiles (IDR, PHP, USD same size). The card top shows its GameCP package number so players can match it to the Topup dropdown.
 - **Premium Service** — compact cards, 30 Days and 60 Days, with feature checklists, per-day cost, and prices in three equal tiles (IDR, PHP, USD same size). The 60-day card is the featured one: gold accents, a top badge strip, and a slow shine sweep. Hovering a card lifts it and lights its border.
 - **Compact by design** — the hero, calculator, and cards use tight spacing so the page stays short even as items are added. The plan grid is `repeat(auto-fill, minmax(230px, 1fr))`: adding a new Premium card in the HTML automatically wraps it into the grid, no CSS change needed. All animation is kept: entrance stagger, ticker, orbit, shine, price ticks, and hover lift.
 - **Motion** — staggered entrance, drifting scan beam, pulsing live dot, floating coins, and animated price ticks. All animation is disabled under `prefers-reduced-motion`, and the entrance hidden state is only applied by JS, so the page never depends on JS to appear.
@@ -24,9 +25,20 @@ The loader uses the latest GitHub commit to refresh assets and falls back to the
 
 | # | Item | IDR (written in HTML) | PHP (auto) | USD (auto) |
 |---|---|---|---|---|
-| 1 | Cash Coin (Rate 1:10) — Rp10,000 = 100,000 Cash Coin | calculated from coin amount | calculated | calculated |
-| 2 | Premium Service 30 Days | Rp50,000 | ₱200 | $4 |
-| 3 | Premium Service 60 Days | Rp100,000 | ₱400 | $7 |
+| 1 | Cash Coin calculator (Rate 1:10) — minimum Rp25,000 = 250,000 Cash Coin | calculated from coin amount | calculated | calculated |
+| 2 | (03) Cash Coin 250,000 | Rp25,000 | ₱100 | $2 |
+| 3 | (04) Cash Coin 500,000 | Rp50,000 | ₱200 | $4 |
+| 4 | (05) Cash Coin 1,000,000 | Rp100,000 | ₱400 | $7 |
+| 5 | (06) Cash Coin 2,500,000 | Rp250,000 | ₱1,000 | $17 |
+| 6 | (07) Cash Coin 5,000,000 | Rp500,000 | ₱2,000 | $34 |
+| 7 | (08) Cash Coin 10,000,000 | Rp1,000,000 | ₱4,000 | $67 |
+| 8 | (09) Cash Coin 25,000,000 | Rp2,500,000 | ₱10,000 | $167 |
+| 9 | (10) Cash Coin 50,000,000 | Rp5,000,000 | ₱20,000 | $334 |
+| 10 | (11) Cash Coin 100,000,000 | Rp10,000,000 | ₱40,000 | $667 |
+| 11 | (01) Premium Service 30 Days | Rp50,000 | ₱200 | $4 |
+| 12 | (02) Premium Service 60 Days | Rp100,000 | ₱400 | $7 |
+
+The (01)–(11) numbers are the GameCP package numbers, in the same order as the Topup > Donation dropdown (Premium first, then Cash Coin ascending). The website shows them on the Cash Coin package cards so players can match a card to the dropdown entry.
 
 Premium descriptions: 30 Days + Bonus PC Cafe +100% EXP Gain Rate, +4% Attack, 3% Defense; 60 Days + Bonus PC Cafe +100% EXP Gain Rate, +5% Attack, 4% Defense. Per-day cost is derived from the same IDR price (Rp1,667 / day for both plans).
 
