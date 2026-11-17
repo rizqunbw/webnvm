@@ -62,10 +62,11 @@
 #nvm-donatelist .nvm-donate__tier:hover{border-color:rgba(105,228,242,.55)}
 #nvm-donatelist .nvm-donate__tier:focus-visible{border-color:var(--nvm-cyan);outline:0}
 #nvm-donatelist .nvm-donate__tier.is-active{border-color:var(--nvm-cyan);background:rgba(105,228,242,.12);color:var(--nvm-cyan)}
-#nvm-donate__tier-name{flex:1 1 auto;min-width:0;font-weight:650;white-space:nowrap}
+#nvm-donatelist .nvm-donate__tier-name{flex:1 1 auto;min-width:0;font-weight:650;white-space:nowrap}
 #nvm-donatelist .nvm-donate__tier-coin{color:var(--nvm-cyan)}
-#nvm-donate__tier-prices{display:flex;gap:18px;align-items:baseline;justify-content:flex-end}
-#nvm-donate__tier-price{display:inline-flex;align-items:baseline;gap:5px;white-space:nowrap;color:var(--nvm-muted);font-size:13px}
+#nvm-donatelist .nvm-donate__tier-prices{display:flex;gap:0;align-items:baseline;justify-content:flex-end}
+#nvm-donatelist .nvm-donate__tier-price + .nvm-donate__tier-price{margin-left:18px}
+#nvm-donatelist .nvm-donate__tier-price{display:inline-flex;align-items:baseline;gap:5px;white-space:nowrap;color:var(--nvm-muted);font-size:13px}
 #nvm-donatelist .nvm-donate__tier-price i{font-size:12px}
 #nvm-donatelist .nvm-donate__tier-price strong{color:#fff;font-weight:650;font-variant-numeric:tabular-nums}
 #nvm-donatelist .nvm-donate__tier--premium{padding:12px;cursor:default}
@@ -74,7 +75,7 @@
 #nvm-donatelist .nvm-donate__tier-perks{display:block;color:var(--nvm-muted);font-size:13px;font-weight:400;white-space:normal;line-height:1.55}
 #nvm-donatelist .nvm-donate__tier-perks span{color:var(--nvm-text);font-weight:600}
 #nvm-donatelist .nvm-donate__tier-tag{margin-left:6px;padding:2px 6px;border:1px solid #735c34;border-radius:4px;color:var(--nvm-gold);font-size:11px;font-weight:650;letter-spacing:.08em;vertical-align:middle}
-#nvm-donate__tier--premium .nvm-donate__tier-prices{gap:22px}
+#nvm-donatelist .nvm-donate__tier--premium .nvm-donate__tier-price + .nvm-donate__tier-price{margin-left:22px}
 #nvm-donatelist .nvm-donate__tier--premium .nvm-donate__tier-price{font-size:18px}
 #nvm-donatelist .nvm-donate__tier--premium .nvm-donate__tier-price i{font-size:14px}
 #nvm-donatelist .nvm-donate__topup-text{margin:0 0 6px;color:var(--nvm-muted);font-size:14px;line-height:1.55}
@@ -92,7 +93,7 @@
 #nvm-donatelist .nvm-donate__reveal{opacity:1}
 @media(max-width:760px){#nvm-donatelist .nvm-donate__hero{flex-direction:column;align-items:flex-start;padding:14px}#nvm-donatelist .nvm-donate__hero-mark{flex-basis:auto;width:64px;height:64px}#nvm-donatelist .nvm-donate__orbit-core{inset:16px;font-size:16px}#nvm-donatelist .nvm-donate__orbit-ring{inset:7px}#nvm-donatelist .nvm-donate__coin-body{grid-template-columns:1fr}}
 @media(max-width:420px){#nvm-donatelist .nvm-donate__hero{padding:12px}#nvm-donatelist .nvm-donate__panel{padding:10px}}
-@media(max-width:560px){#nvm-donate__tier-prices{gap:14px;flex-wrap:wrap;width:100%;justify-content:flex-start}#nvm-donatelist .nvm-donate__row-buy{margin-left:auto}}
+@media(max-width:560px){#nvm-donatelist .nvm-donate__tier-prices{gap:0;flex-wrap:wrap;width:100%;justify-content:flex-start}#nvm-donatelist .nvm-donate__tier-price + .nvm-donate__tier-price{margin-left:14px}#nvm-donatelist .nvm-donate__row-buy{margin-left:auto}}
 @media(prefers-reduced-motion:reduce){#nvm-donatelist *,#nvm-donatelist *::before,#nvm-donatelist *::after{animation:none!important;transition:none!important}}
 
 /* NVM Patron Coupons — tap a row to see what you will get. */
