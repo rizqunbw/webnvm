@@ -62,20 +62,19 @@
 #nvm-donatelist .nvm-donate__tier:hover{border-color:rgba(105,228,242,.55)}
 #nvm-donatelist .nvm-donate__tier:focus-visible{border-color:var(--nvm-cyan);outline:0}
 #nvm-donatelist .nvm-donate__tier.is-active{border-color:var(--nvm-cyan);background:rgba(105,228,242,.12);color:var(--nvm-cyan)}
-#nvm-donatelist .nvm-donate__tier-name{font-weight:650;white-space:nowrap}
+#nvm-donate__tier-name{flex:1 1 auto;min-width:0;font-weight:650;white-space:nowrap}
 #nvm-donatelist .nvm-donate__tier-coin{color:var(--nvm-cyan)}
-#nvm-donatelist .nvm-donate__tier-prices{display:grid;grid-template-columns:132px 96px 72px;gap:12px;justify-content:flex-end}
-#nvm-donatelist .nvm-donate__tier-price{display:flex;justify-content:space-between;gap:6px;white-space:nowrap;color:var(--nvm-muted);font-size:13px}
+#nvm-donate__tier-prices{display:flex;gap:18px;align-items:baseline;justify-content:flex-end}
+#nvm-donate__tier-price{display:inline-flex;align-items:baseline;gap:5px;white-space:nowrap;color:var(--nvm-muted);font-size:13px}
 #nvm-donatelist .nvm-donate__tier-price i{font-style:normal;font-weight:650;letter-spacing:.06em}
 #nvm-donatelist .nvm-donate__tier-price strong{color:#fff;font-weight:650;font-variant-numeric:tabular-nums}
-#nvm-donatelist .nvm-donate__tier-price strong>span:first-child{margin-right:1px;color:var(--nvm-cyan)}
 #nvm-donatelist .nvm-donate__tier--premium{padding:12px;cursor:default}
 #nvm-donatelist .nvm-donate__tier--premium .nvm-donate__tier-name{display:flex;flex-direction:column;gap:3px;white-space:normal;font-size:17px}
 #nvm-donatelist .nvm-donate__tier--premium .nvm-donate__tier-title{white-space:normal;line-height:1.4}
 #nvm-donatelist .nvm-donate__tier-perks{display:block;color:var(--nvm-muted);font-size:13px;font-weight:400;white-space:normal;line-height:1.55}
 #nvm-donatelist .nvm-donate__tier-perks span{color:var(--nvm-text);font-weight:600}
 #nvm-donatelist .nvm-donate__tier-tag{margin-left:6px;padding:2px 6px;border:1px solid #735c34;border-radius:4px;color:var(--nvm-gold);font-size:11px;font-weight:650;letter-spacing:.08em;vertical-align:middle}
-#nvm-donatelist .nvm-donate__tier--premium .nvm-donate__tier-prices{grid-template-columns:148px 104px 80px}
+#nvm-donate__tier--premium .nvm-donate__tier-prices{gap:22px}
 #nvm-donatelist .nvm-donate__tier--premium .nvm-donate__tier-price{font-size:18px}
 #nvm-donatelist .nvm-donate__tier--premium .nvm-donate__tier-price i{font-size:12px}
 #nvm-donatelist .nvm-donate__topup-text{margin:0 0 6px;color:var(--nvm-muted);font-size:14px;line-height:1.55}
@@ -87,18 +86,13 @@
 #nvm-donatelist .nvm-donate__topup-btn--intl:hover{border-color:#8b95f5;box-shadow:0 10px 24px rgba(88,101,242,.35)}
 #nvm-donatelist .nvm-donate__topup-btn--intl i{color:#b3baff;font-size:15px}
 #nvm-donatelist .nvm-donate__topup-flag{font-size:18px;line-height:1}
-#nvm-donatelist .nvm-donate__buy{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-#nvm-donatelist .nvm-donate__buy-btn{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border:1px solid rgba(105,228,242,.4);border-radius:999px;background:transparent;color:var(--nvm-text);font-size:12px;font-weight:600;text-decoration:none;transition:border-color .2s ease,background .2s ease}
-#nvm-donatelist .nvm-donate__buy-btn:hover{border-color:var(--nvm-cyan);background:rgba(105,228,242,.08)}
-#nvm-donatelist .nvm-donate__buy-btn--intl{border-color:rgba(139,149,245,.55)}
-#nvm-donatelist .nvm-donate__buy-btn--intl:hover{border-color:#8b95f5;background:rgba(88,101,242,.14)}
 #nvm-donatelist i.fa-brands{font-family:"Font Awesome 6 Brands","Font Awesome 5 Brands",FontAwesome!important;font-style:normal;font-weight:400!important;display:inline-block}
 #nvm-donatelist .nvm-donate__sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 #nvm-donatelist i.fa-solid{font-family:"Font Awesome 6 Free","Font Awesome 5 Free",FontAwesome!important;font-style:normal;font-weight:900!important;display:inline-block}
 #nvm-donatelist .nvm-donate__reveal{opacity:1}
 @media(max-width:760px){#nvm-donatelist .nvm-donate__hero{flex-direction:column;align-items:flex-start;padding:14px}#nvm-donatelist .nvm-donate__hero-mark{flex-basis:auto;width:64px;height:64px}#nvm-donatelist .nvm-donate__orbit-core{inset:16px;font-size:16px}#nvm-donatelist .nvm-donate__orbit-ring{inset:7px}#nvm-donatelist .nvm-donate__coin-body{grid-template-columns:1fr}}
 @media(max-width:420px){#nvm-donatelist .nvm-donate__hero{padding:12px}#nvm-donatelist .nvm-donate__panel{padding:10px}}
-@media(max-width:560px){#nvm-donatelist .nvm-donate__tier-prices{grid-template-columns:118px 84px 64px;gap:8px;width:100%;justify-content:flex-start}#nvm-donate__tier--premium .nvm-donate__tier-prices{grid-template-columns:124px 88px 68px}}
+@media(max-width:560px){#nvm-donate__tier-prices{gap:14px;flex-wrap:wrap;width:100%;justify-content:flex-start}}
 @media(prefers-reduced-motion:reduce){#nvm-donatelist *,#nvm-donatelist *::before,#nvm-donatelist *::after{animation:none!important;transition:none!important}}
 
 /* NVM Patron Coupons — tap a row to see what you will get. */
@@ -113,6 +107,12 @@
 #nvm-donatelist .nvm-donate__coupon-caret{display:inline-block;margin-left:4px;color:var(--nvm-cyan);font-size:10px;transition:transform .2s ease}
 #nvm-donatelist .nvm-donate__coupon[open ] .nvm-donate__coupon-caret{transform:rotate(180deg)}
 #nvm-donatelist .nvm-donate__coupon-get{padding:10px 12px;border:1px solid var(--nvm-line);border-top:0;border-radius:0 0 6px 6px;background:var(--nvm-bg)}
+#nvm-donatelist .nvm-donate__tier-row{display:flex;gap:8px;align-items:center}
+#nvm-donatelist .nvm-donate__tier-row .nvm-donate__tier{flex:1 1 auto;min-width:0}
+#nvm-donatelist .nvm-donate__row-buy{display:inline-flex;gap:6px;align-items:center;flex:0 0 auto}
+#nvm-donatelist .nvm-donate__row-buy-btn{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border:1px solid var(--nvm-line);border-radius:6px;background:#101b28;color:var(--nvm-text);font-size:14px;text-decoration:none;transition:border-color .2s ease,background .2s ease}
+#nvm-donatelist .nvm-donate__row-buy-btn:hover{border-color:var(--nvm-cyan);background:rgba(105,228,242,.08)}
+#nvm-donatelist .nvm-donate__row-buy-btn i{font-size:13px}
 #nvm-donatelist .nvm-donate__coupon-get-title{color:var(--nvm-cyan);font-size:12px;font-weight:650;letter-spacing:.08em}
 #nvm-donatelist .nvm-donate__coupon-get ul{display:grid;gap:5px;margin:7px 0 0;padding:0;list-style:none}
 #nvm-donatelist .nvm-donate__coupon-get li{color:var(--nvm-text);font-size:14px;line-height:1.55}
