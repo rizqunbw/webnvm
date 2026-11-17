@@ -55,11 +55,6 @@
 #nvm-donatelist .nvm-donate__readout-label{color:var(--nvm-muted);font-size:13px;font-weight:600;letter-spacing:.06em}
 #nvm-donatelist .nvm-donate__readout-prices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
 #nvm-donatelist .nvm-donate__price-label{display:block;margin-bottom:3px;color:var(--nvm-muted);font-size:12px;font-weight:650;letter-spacing:.08em}
-#nvm-donatelist .nvm-donate__coin-visual{position:relative;height:40px;margin-top:6px}
-#nvm-donatelist .nvm-donate__coin-disc{position:absolute;top:4px;display:flex;align-items:center;justify-content:center;width:32px;height:32px;border:1px solid rgba(242,197,107,.55);border-radius:50%;background:radial-gradient(circle at 35% 30%,#3a2f18,#1a1408 75%);color:var(--nvm-gold);font-size:14px;}
-#nvm-donatelist .nvm-donate__coin-disc--1{left:0}
-#nvm-donatelist .nvm-donate__coin-disc--2{left:24px;}
-#nvm-donatelist .nvm-donate__coin-disc--3{left:48px;}
 #nvm-donatelist .nvm-donate__section{margin-top:12px}
 #nvm-donatelist .nvm-donate__tier-hint{margin:0 0 8px;color:var(--nvm-muted);font-size:13px}
 #nvm-donatelist .nvm-donate__tiers{display:grid;gap:6px;margin:0;padding:0;list-style:none}
@@ -92,6 +87,11 @@
 #nvm-donatelist .nvm-donate__topup-btn--intl:hover{border-color:#8b95f5;box-shadow:0 10px 24px rgba(88,101,242,.35)}
 #nvm-donatelist .nvm-donate__topup-btn--intl i{color:#b3baff;font-size:15px}
 #nvm-donatelist .nvm-donate__topup-flag{font-size:18px;line-height:1}
+#nvm-donatelist .nvm-donate__buy{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+#nvm-donatelist .nvm-donate__buy-btn{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border:1px solid rgba(105,228,242,.4);border-radius:999px;background:transparent;color:var(--nvm-text);font-size:12px;font-weight:600;text-decoration:none;transition:border-color .2s ease,background .2s ease}
+#nvm-donatelist .nvm-donate__buy-btn:hover{border-color:var(--nvm-cyan);background:rgba(105,228,242,.08)}
+#nvm-donatelist .nvm-donate__buy-btn--intl{border-color:rgba(139,149,245,.55)}
+#nvm-donatelist .nvm-donate__buy-btn--intl:hover{border-color:#8b95f5;background:rgba(88,101,242,.14)}
 #nvm-donatelist i.fa-brands{font-family:"Font Awesome 6 Brands","Font Awesome 5 Brands",FontAwesome!important;font-style:normal;font-weight:400!important;display:inline-block}
 #nvm-donatelist .nvm-donate__sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 #nvm-donatelist i.fa-solid{font-family:"Font Awesome 6 Free","Font Awesome 5 Free",FontAwesome!important;font-style:normal;font-weight:900!important;display:inline-block}
