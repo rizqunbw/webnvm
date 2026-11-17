@@ -1,26 +1,67 @@
-<section id="nvm-donatelist" class="nvm-donate">
-  <header class="nvm-donate__hero">
-    <div class="nvm-donate__hero-heading">
-      <span class="nvm-donate__eyebrow">RF NEVERMIND · AGE OF PATRON</span>
-      <h2 class="nvm-donate__title">Donate <span>List</span></h2>
-      <p class="nvm-donate__subtitle">Donation packages for RF Nevermind.</p>
-    </div>
-    <div class="nvm-donate__level" aria-label="Number of donation packages"><span>PACKAGES</span><strong data-nvm-donate-count>0</strong></div>
-  </header>
-
-  <section class="nvm-donate__section" aria-labelledby="nvm-donate-directory-title">
-    <div class="nvm-donate__section-head"><h3 id="nvm-donate-directory-title"><i class="fa-solid fa-hand-holding-heart" aria-hidden="true"></i> Donation Packages</h3><span id="nvm-donate-count" class="nvm-donate__count">0 PACKAGES</span></div>
-    <div class="nvm-donate__toolbar">
-      <label class="nvm-donate__search"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i><span class="nvm-donate__sr-only">Search donation package</span><input id="nvm-donate-search" type="search" placeholder="Search package or reward..." autocomplete="off"></label>
-      <label><span class="nvm-donate__sr-only">Filter by category</span><select id="nvm-donate-category"><option value="">All Categories</option></select></label>
-    </div>
-    <div id="nvm-donate-results" class="nvm-donate__results" aria-live="polite"></div>
-  </section>
-
-  <section class="nvm-donate__section" aria-labelledby="nvm-donate-note-title">
-    <div class="nvm-donate__section-head"><h3 id="nvm-donate-note-title"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> About This List</h3></div>
-    <div class="nvm-donate__notice"><i class="fa-solid fa-circle-info" aria-hidden="true"></i><div><b>Donate list is being prepared</b><p>Donation packages, prices, and rewards will be published here once verified. No package is listed yet.</p></div></div>
-  </section>
-
-  <script type="application/json" id="nvm-donate-data">[]</script>
+<section id="nvm-donatelist" class="nvm-donate" data-coin-per-idr="10" data-php-rate="250" data-usd-rate="15000">
+  <div class="nvm-donate__table-wrap">
+    <table class="nvm-donate__table">
+      <thead>
+        <tr>
+          <th class="nvm-donate__col-no"><i class="fa-solid fa-hashtag" aria-hidden="true"></i> NO</th>
+          <th class="nvm-donate__col-image"><i class="fa-solid fa-image" aria-hidden="true"></i> IMAGE</th>
+          <th class="nvm-donate__col-item"><i class="fa-solid fa-file-pen" aria-hidden="true"></i> ITEM NAME</th>
+          <th class="nvm-donate__col-price"><i class="fa-solid fa-money-bill" aria-hidden="true"></i> PRICE</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="nvm-donate__no">1</td>
+          <td class="nvm-donate__image-cell">
+            <button type="button" class="nvm-donate__thumb" data-nvm-donate-preview="Cash Coin" data-nvm-donate-icon="fa-coins" aria-label="Preview Cash Coin"><i class="fa-solid fa-coins" aria-hidden="true"></i></button>
+            <span class="nvm-donate__preview-label">Click to preview</span>
+          </td>
+          <td class="nvm-donate__item-cell">
+            <strong class="nvm-donate__item">Cash Coin (Rate 1:10)</strong>
+            <p class="nvm-donate__desc">Donate Rp10,000 get 100,000 Cash Coin</p>
+            <label class="nvm-donate__sr-only" for="nvm-donate-coin-amount">Enter Coin Amount</label>
+            <input id="nvm-donate-coin-amount" class="nvm-donate__coin-input" type="number" min="0" step="1000" inputmode="numeric" placeholder="Enter Coin Amount" autocomplete="off">
+          </td>
+          <td class="nvm-donate__prices">
+            <span class="nvm-donate__price"><span class="nvm-donate__currency">Rp</span><span data-nvm-donate-price-idr>0</span></span>
+            <span class="nvm-donate__price"><span class="nvm-donate__currency">₱</span><span data-nvm-donate-price-php>0</span></span>
+            <span class="nvm-donate__price"><span class="nvm-donate__currency">$</span><span data-nvm-donate-price-usd>0</span></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="nvm-donate__no">2</td>
+          <td class="nvm-donate__image-cell">
+            <button type="button" class="nvm-donate__thumb" data-nvm-donate-preview="Premium Service 30 Days" data-nvm-donate-icon="fa-crown" aria-label="Preview Premium Service 30 Days"><i class="fa-solid fa-crown" aria-hidden="true"></i></button>
+            <span class="nvm-donate__preview-label">Click to preview</span>
+          </td>
+          <td class="nvm-donate__item-cell">
+            <strong class="nvm-donate__item">Premium Service 30 Days</strong>
+            <p class="nvm-donate__desc">+ Bonus PC Cafe +100% EXP Gain Rate, +4% Attack, 3% Defense</p>
+          </td>
+          <td class="nvm-donate__prices">
+            <span class="nvm-donate__price"><span class="nvm-donate__currency">Rp</span>50,000</span>
+            <span class="nvm-donate__price"><span class="nvm-donate__currency">₱</span>200</span>
+            <span class="nvm-donate__price"><span class="nvm-donate__currency">$</span>3.50</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="nvm-donate__no">3</td>
+          <td class="nvm-donate__image-cell">
+            <button type="button" class="nvm-donate__thumb" data-nvm-donate-preview="Premium Service 60 Days" data-nvm-donate-icon="fa-crown" aria-label="Preview Premium Service 60 Days"><i class="fa-solid fa-crown" aria-hidden="true"></i></button>
+            <span class="nvm-donate__preview-label">Click to preview</span>
+          </td>
+          <td class="nvm-donate__item-cell">
+            <strong class="nvm-donate__item">Premium Service 60 Days</strong>
+            <p class="nvm-donate__desc">+ Bonus PC Cafe +100% EXP Gain Rate, +5% Attack, 4% Defense</p>
+          </td>
+          <td class="nvm-donate__prices">
+            <span class="nvm-donate__price"><span class="nvm-donate__currency">Rp</span>87,500</span>
+            <span class="nvm-donate__price"><span class="nvm-donate__currency">₱</span>350</span>
+            <span class="nvm-donate__price"><span class="nvm-donate__currency">$</span>6.00</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="nvm-donate__rate-note">Cash Coin rate 1:10 — Rp10,000 = 100,000 Cash Coin. Internal rates: $1 = Rp15,000 · ₱1 = Rp250. Rates are set below the market rate to cover international transfer fees.</p>
 </section>

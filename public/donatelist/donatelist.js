@@ -6,161 +6,98 @@
   }
 
   var root = document.getElementById("nvm-donatelist");
-  var searchEl = null;
-  var categoryEl = null;
-  var searchValue = "";
-  var categoryValue = "";
-
   if (!root) return;
 
-  function onSearch() {
-    searchValue = searchEl ? searchEl.value : "";
-    render();
+  // Internal rates, set on the section in donatelist.html.
+  // $1 = Rp15,000 and ₱1 = Rp250: deliberately below the market rate
+  // (about $1 = Rp18,275 and ₱1 = Rp286 on 17 Nov 2026) so the amount
+  // received in IDR still covers the IDR price after international
+  // transfer fees and FX spreads.
+  var COIN_PER_IDR = Number(root.dataset.coinPerIdr) || 10;
+  var PHP_RATE = Number(root.dataset.phpRate) || 250;
+  var USD_RATE = Number(root.dataset.usdRate) || 15000;
+
+  var input = root.querySelector("#nvm-donate-coin-amount");
+  var idrEl = root.querySelector("[data-nvm-donate-price-idr]");
+  var phpEl = root.querySelector("[data-nvm-donate-price-php]");
+  var usdEl = root.querySelector("[data-nvm-donate-price-usd]");
+  var thumbs = Array.prototype.slice.call(root.querySelectorAll("[data-nvm-donate-preview]"));
+  var lightbox = null;
+
+  function formatIdr(value) {
+    return new Intl.NumberFormat("id-ID").format(value);
   }
 
-  function onCategory() {
-    categoryValue = categoryEl ? categoryEl.value : "";
-    render();
+  function updatePrices() {
+    if (!input || !idrEl || !phpEl || !usdEl) return;
+    var coins = Number(input.value);
+    if (!isFinite(coins) || coins <= 0) {
+      idrEl.textContent = "0";
+      phpEl.textContent = "0";
+      usdEl.textContent = "0";
+      return;
+    }
+    // Rate 1:10 — 10 Cash Coin per Rp1, so Rp10,000 = 100,000 Cash Coin.
+    var idr = Math.ceil(coins / COIN_PER_IDR);
+    // Round foreign prices UP: the buyer covers the fee buffer, never the seller.
+    var php = Math.ceil(idr / PHP_RATE);
+    var usd = Math.ceil((idr / USD_RATE) * 100) / 100;
+    idrEl.textContent = formatIdr(idr);
+    phpEl.textContent = formatIdr(php);
+    usdEl.textContent = usd.toFixed(2);
   }
 
-  function emptyState(container, title, text) {
-    container.textContent = "";
-    var wrap = document.createElement("div");
-    wrap.className = "nvm-donate__empty";
-    var icon = document.createElement("i");
-    icon.className = "fa-solid fa-circle-info";
-    icon.setAttribute("aria-hidden", "true");
-    var body = document.createElement("div");
-    var heading = document.createElement("strong");
-    var p = document.createElement("p");
-    heading.textContent = title;
-    p.textContent = text;
-    body.append(heading, p);
-    wrap.append(icon, body);
-    container.appendChild(wrap);
+  function closeLightbox() {
+    if (lightbox) {
+      lightbox.remove();
+      lightbox = null;
+    }
+    document.removeEventListener("keydown", onKeydown);
   }
 
-  function render() {
-    var dataNode = root.querySelector("#nvm-donate-data");
-    var results = root.querySelector("#nvm-donate-results");
-    if (!dataNode || !results) return;
+  function onKeydown(event) {
+    if (event.key === "Escape") closeLightbox();
+  }
 
-    var data;
-    try {
-      data = JSON.parse(dataNode.textContent);
-      if (!Array.isArray(data)) throw new Error("Not an array");
-    } catch (e) {
-      emptyState(results, "Donate list data error", "Check the JSON array in donatelist.html.");
-      return;
-    }
+  function openLightbox(button) {
+    closeLightbox();
+    var name = button.getAttribute("data-nvm-donate-preview") || "Item";
+    var icon = button.getAttribute("data-nvm-donate-icon") || "fa-coins";
+    lightbox = document.createElement("div");
+    lightbox.className = "nvm-donate__lightbox";
+    lightbox.setAttribute("role", "dialog");
+    lightbox.setAttribute("aria-label", "Preview " + name);
+    var tile = document.createElement("div");
+    tile.className = "nvm-donate__thumb";
+    var iconEl = document.createElement("i");
+    iconEl.className = "fa-solid " + icon;
+    iconEl.setAttribute("aria-hidden", "true");
+    tile.appendChild(iconEl);
+    var title = document.createElement("span");
+    title.textContent = name;
+    var hint = document.createElement("small");
+    hint.textContent = "Click anywhere to close";
+    lightbox.append(tile, title, hint);
+    lightbox.addEventListener("click", closeLightbox);
+    document.addEventListener("keydown", onKeydown);
+    document.body.appendChild(lightbox);
+  }
 
-    var valid = data.filter(function (item) {
-      return item && typeof item.name === "string" && item.name.trim();
-    });
-
-    var categories = Array.from(new Set(valid.map(function (item) {
-      return typeof item.category === "string" ? item.category.trim() : "";
-    }).filter(Boolean))).sort();
-
-    if (categoryEl) {
-      var selected = categoryValue;
-      categoryEl.textContent = "";
-      var first = document.createElement("option");
-      first.value = "";
-      first.textContent = "All Categories";
-      categoryEl.appendChild(first);
-      categories.forEach(function (category) {
-        var option = document.createElement("option");
-        option.value = category;
-        option.textContent = category;
-        categoryEl.appendChild(option);
-      });
-      categoryEl.value = categories.indexOf(selected) >= 0 ? selected : "";
-      categoryValue = categoryEl.value;
-    }
-
-    var term = searchValue.trim().toLowerCase();
-    var filtered = valid.filter(function (item) {
-      if (categoryValue && item.category !== categoryValue) return false;
-      if (!term) return true;
-      var haystack = [item.name, item.category, item.price, item.notes]
-        .concat(Array.isArray(item.rewards) ? item.rewards : [])
-        .join(" ").toLowerCase();
-      return haystack.indexOf(term) >= 0;
-    });
-
-    var count = root.querySelector("#nvm-donate-count");
-    if (count) count.textContent = filtered.length + " PACKAGE" + (filtered.length === 1 ? "" : "S");
-    var heroCount = root.querySelector("[data-nvm-donate-count]");
-    if (heroCount) heroCount.textContent = String(filtered.length);
-
-    results.textContent = "";
-    if (!valid.length) {
-      emptyState(results, "Donate list is being prepared", "Donation packages, prices, and rewards will be published here once verified.");
-      return;
-    }
-    if (!filtered.length) {
-      emptyState(results, "No packages found", "Try a different search or category.");
-      return;
-    }
-
-    var fragment = document.createDocumentFragment();
-    filtered.forEach(function (item) {
-      var card = document.createElement("article");
-      card.className = "nvm-donate__card";
-      var top = document.createElement("div");
-      top.className = "nvm-donate__card-top";
-      var tag = document.createElement("span");
-      tag.className = "nvm-donate__tag";
-      tag.textContent = (item.category || "DONATION").toUpperCase();
-      top.appendChild(tag);
-      card.appendChild(top);
-      if (item.price) {
-        var price = document.createElement("span");
-        price.className = "nvm-donate__price";
-        price.textContent = item.price;
-        card.appendChild(price);
-      }
-      var heading = document.createElement("h4");
-      heading.textContent = item.name;
-      card.appendChild(heading);
-      if (item.notes) {
-        var notes = document.createElement("p");
-        notes.textContent = item.notes;
-        card.appendChild(notes);
-      }
-      if (Array.isArray(item.rewards) && item.rewards.length) {
-        var list = document.createElement("ul");
-        list.className = "nvm-donate__rewards";
-        item.rewards.forEach(function (reward) {
-          if (typeof reward !== "string" || !reward.trim()) return;
-          var li = document.createElement("li");
-          var icon = document.createElement("i");
-          icon.className = "fa-solid fa-gift";
-          icon.setAttribute("aria-hidden", "true");
-          li.append(icon, document.createTextNode(reward));
-          list.appendChild(li);
-        });
-        if (list.childNodes.length) card.appendChild(list);
-      }
-      fragment.appendChild(card);
-    });
-    results.appendChild(fragment);
+  function onThumbClick(event) {
+    openLightbox(event.currentTarget);
   }
 
   window.nvmDonateDestroy = function () {
-    if (searchEl) searchEl.removeEventListener("input", onSearch);
-    if (categoryEl) categoryEl.removeEventListener("change", onCategory);
-    searchEl = null;
-    categoryEl = null;
+    if (input) input.removeEventListener("input", updatePrices);
+    thumbs.forEach(function (button) {
+      button.removeEventListener("click", onThumbClick);
+    });
+    closeLightbox();
   };
 
-  searchEl = root.querySelector("#nvm-donate-search");
-  categoryEl = root.querySelector("#nvm-donate-category");
-  if (searchEl) {
-    searchEl.value = searchValue;
-    searchEl.addEventListener("input", onSearch);
-  }
-  if (categoryEl) categoryEl.addEventListener("change", onCategory);
-  render();
+  if (input) input.addEventListener("input", updatePrices);
+  thumbs.forEach(function (button) {
+    button.addEventListener("click", onThumbClick);
+  });
+  updatePrices();
 })();
