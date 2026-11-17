@@ -74,7 +74,8 @@
 #nvm-donatelist .nvm-donate__coin-readout::after{content:"";position:absolute;inset:auto -30% -55% -30%;height:120px;background:radial-gradient(closest-side,rgba(105,228,242,.16),transparent);pointer-events:none}
 #nvm-donatelist .nvm-donate__readout-label{color:var(--nvm-muted);font-size:11px;font-weight:600;letter-spacing:.06em}
 #nvm-donatelist .nvm-donate__readout-prices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
-#nvm-donatelist .nvm-donate__price-tile{padding:8px 6px;border:1px solid var(--nvm-line);border-radius:6px;background:#101b28;text-align:center}
+#nvm-donatelist .nvm-donate__price-tile{min-width:0;padding:8px 6px;border:1px solid var(--nvm-line);border-radius:6px;background:#101b28;text-align:center}
+#nvm-donatelist .nvm-donate__plan-prices .nvm-donate__price-tile strong{font-size:13px;white-space:normal;line-height:1.2}
 #nvm-donatelist .nvm-donate__price-label{display:block;margin-bottom:3px;color:var(--nvm-muted);font-size:10px;font-weight:650;letter-spacing:.08em}
 #nvm-donatelist .nvm-donate__price-tile strong{display:block;color:#fff;font-size:clamp(14px,1.8vw,17px);font-weight:650;line-height:1.2;font-variant-numeric:tabular-nums;letter-spacing:-.01em;white-space:nowrap}
 #nvm-donatelist .nvm-donate__price-tile strong>span:first-child{margin-right:2px;color:var(--nvm-cyan)}
@@ -84,7 +85,7 @@
 #nvm-donatelist .nvm-donate__coin-disc--2{left:24px;animation-delay:.5s}
 #nvm-donatelist .nvm-donate__coin-disc--3{left:48px;animation-delay:1s}
 #nvm-donatelist .nvm-donate__section{margin-top:12px}
-#nvm-donatelist .nvm-donate__plans{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px;align-items:stretch}
+#nvm-donatelist .nvm-donate__plans{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px;align-items:stretch}
 #nvm-donatelist .nvm-donate__plan{position:relative;display:flex;flex-direction:column;min-width:0;padding:12px;border:1px solid var(--nvm-line);border-radius:6px;background:var(--nvm-bg);overflow:hidden;transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
 #nvm-donatelist .nvm-donate__plan:hover{transform:translateY(-3px);border-color:rgba(105,228,242,.55);box-shadow:0 12px 28px rgba(0,0,0,.35)}
 #nvm-donatelist .nvm-donate__plan--featured{border-color:#735c34;background:linear-gradient(160deg,rgba(214,161,60,.12),rgba(16,27,40,.9) 55%);box-shadow:0 0 0 1px rgba(242,197,107,.08),0 14px 32px rgba(0,0,0,.35)}
@@ -106,6 +107,22 @@
 #nvm-donatelist .nvm-donate__features li i{color:var(--nvm-cyan);font-size:11px;flex:0 0 auto}
 #nvm-donatelist .nvm-donate__plan--featured .nvm-donate__features li i{color:var(--nvm-gold)}
 #nvm-donatelist .nvm-donate__plan-prices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:auto;padding-top:12px}
+#nvm-donatelist .nvm-donate__tier-hint{margin:0 0 8px;color:var(--nvm-muted);font-size:11px}
+#nvm-donatelist .nvm-donate__tiers{display:grid;gap:6px;margin:0;padding:0;list-style:none}
+#nvm-donatelist .nvm-donate__tier{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;padding:9px 12px;border:1px solid var(--nvm-line);border-radius:6px;background:#152434;color:var(--nvm-text);font:inherit;font-size:12px;text-align:left;cursor:pointer;transition:border-color .2s ease,transform .2s ease,background .2s ease}
+#nvm-donatelist .nvm-donate__tier:hover{border-color:rgba(105,228,242,.55);transform:translateY(-1px)}
+#nvm-donatelist .nvm-donate__tier:focus-visible{border-color:var(--nvm-cyan);outline:0}
+#nvm-donatelist .nvm-donate__tier.is-active{border-color:var(--nvm-cyan);background:rgba(105,228,242,.12);color:var(--nvm-cyan)}
+#nvm-donatelist .nvm-donate__tier-name{font-weight:650;white-space:nowrap}
+#nvm-donatelist .nvm-donate__tier-name span{color:var(--nvm-cyan)}
+#nvm-donatelist .nvm-donate__tier-num{margin-right:6px;color:var(--nvm-muted);font-size:10px;font-weight:600}
+#nvm-donatelist .nvm-donate__tier-name .nvm-donate__tier-num{color:var(--nvm-muted)}
+#nvm-donatelist .nvm-donate__tier.is-active .nvm-donate__tier-num{color:var(--nvm-cyan)}
+#nvm-donatelist .nvm-donate__tier-prices{display:flex;flex-wrap:wrap;gap:4px 12px;justify-content:flex-end}
+#nvm-donatelist .nvm-donate__tier-price{white-space:nowrap;color:var(--nvm-muted);font-size:11px}
+#nvm-donatelist .nvm-donate__tier-price i{font-style:normal;font-weight:650;letter-spacing:.06em}
+#nvm-donatelist .nvm-donate__tier-price strong{color:#fff;font-weight:650;font-variant-numeric:tabular-nums}
+#nvm-donatelist .nvm-donate__tier-price strong>span:first-child{margin-right:1px;color:var(--nvm-cyan)}
 #nvm-donatelist .nvm-donate__plan--featured .nvm-donate__price-tile{border-color:#735c34;background:rgba(214,161,60,.07)}
 #nvm-donatelist .nvm-donate__plan--featured .nvm-donate__price-tile strong>span:first-child{color:var(--nvm-gold)}
 #nvm-donatelist .nvm-donate__sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
