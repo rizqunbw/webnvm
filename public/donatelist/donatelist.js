@@ -9,16 +9,17 @@
   if (!root) return;
 
   // Internal rates, set on the section in donatelist.html.
-  // $1 = Rp5,000 and ₱1 = Rp250: deliberately below the market rate
+  // $1 = Rp15,000 and ₱1 = Rp250: deliberately below the market rate
   // (about $1 = Rp18,275 and ₱1 = Rp286 on 17 Nov 2026) so the amount
   // received in IDR still covers the IDR price after international
-  // transfer fees and FX spreads. The USD divisor is 5,000 (not 15,000)
-  // because the smallest IDR step between packages is Rp5,000 — a larger
-  // divisor collapses neighbouring prices into the same whole-dollar
-  // amount, so every package would show a duplicate $ price.
+  // transfer fees and FX spreads. The USD divisor is 15,000 (owner
+  // decision 2026-11-19, back from 5,000). Because 15,000 collapses
+  // neighbouring IDR prices into the same whole-dollar amount, the
+  // USD price is then bumped up within each tier list so no two rows
+  // in one section share the same $ price — see renderFixedPrices.
   var COIN_PER_IDR = Number(root.dataset.coinPerIdr) || 10;
   var PHP_RATE = Number(root.dataset.phpRate) || 250;
-  var USD_RATE = Number(root.dataset.usdRate) || 5000;
+  var USD_RATE = Number(root.dataset.usdRate) || 15000;
   var METER_MAX = 100000000;
 
   var input = root.querySelector("#nvm-donate-coin-amount");
@@ -36,13 +37,16 @@
   // PHP and USD are always derived from IDR, never written in the HTML.
   // Both are rounded UP to whole pesos / whole dollars, so the fee buffer
   // is paid by the buyer: $0.67 -> $1, $3.33 -> $4, $6.67 -> $7.
-  function fillPrices(cell, idr) {
+  // usdOverride (optional) replaces the derived USD value — used by
+  // renderFixedPrices to bump a row's $ price up so no two rows in one
+  // section share the same whole-dollar amount.
+  function fillPrices(cell, idr, usdOverride) {
     if (!cell) return;
     var idrEl = cell.querySelector("[data-nvm-donate-price-idr]");
     var phpEl = cell.querySelector("[data-nvm-donate-price-php]");
     var usdEl = cell.querySelector("[data-nvm-donate-price-usd]");
     var php = idr > 0 ? Math.ceil(idr / PHP_RATE) : 0;
-    var usd = idr > 0 ? Math.ceil(idr / USD_RATE) : 0;
+    var usd = typeof usdOverride === "number" ? usdOverride : (idr > 0 ? Math.ceil(idr / USD_RATE) : 0);
     if (idrEl) { idrEl.setAttribute("data-nvm-value", String(idr)); idrEl.textContent = formatWhole(idr); }
     if (phpEl) { phpEl.setAttribute("data-nvm-value", String(php)); phpEl.textContent = formatWhole(php); }
     if (usdEl) { usdEl.setAttribute("data-nvm-value", String(usd)); usdEl.textContent = formatWhole(usd); }
@@ -51,9 +55,30 @@
   function renderFixedPrices() {
     // Every fixed plan only carries data-nvm-donate-idr="...".
     // To change a price, change that one IDR number in donatelist.html.
-    var cells = root.querySelectorAll("[data-nvm-donate-price-cell][data-nvm-donate-idr]");
-    Array.prototype.forEach.call(cells, function (cell) {
-      fillPrices(cell, Number(cell.dataset.nvmDonateIdr) || 0);
+    // USD is derived as ceil(IDR / USD_RATE), then bumped up within
+    // each tier list (Premium, Cash Coin, Weapon, Armor, Shield) so no
+    // two rows in one section share the same whole-dollar price: rows
+    // are sorted cheapest-first and each row's $ price is raised to at
+    // least $1 above the previous row's. That way a player can always
+    // see that a higher-tier item costs more dollars than the one
+    // below it. PHP is NOT bumped — only USD gets the no-duplicates
+    // treatment, per the owner's rule (2026-11-19).
+    var lists = root.querySelectorAll(".nvm-donate__tiers");
+    Array.prototype.forEach.call(lists, function (list) {
+      var cells = list.querySelectorAll("[data-nvm-donate-price-cell][data-nvm-donate-idr]");
+      var rows = Array.prototype.map.call(cells, function (cell) {
+        var idr = Number(cell.dataset.nvmDonateIdr) || 0;
+        return { cell: cell, idr: idr, usd: idr > 0 ? Math.ceil(idr / USD_RATE) : 0 };
+      });
+      rows.sort(function (a, b) { return a.idr - b.idr; });
+      var prevUsd = 0;
+      rows.forEach(function (row) {
+        if (row.usd <= prevUsd) row.usd = prevUsd + 1;
+        prevUsd = row.usd;
+      });
+      rows.forEach(function (row) {
+        fillPrices(row.cell, row.idr, row.usd);
+      });
     });
     // Per-day cost, derived from the same IDR price: ceil(IDR / days).
     var perDay = root.querySelectorAll("[data-nvm-donate-per-day]");

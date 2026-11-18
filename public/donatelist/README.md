@@ -28,50 +28,50 @@ The loader uses the latest GitHub commit to refresh assets and falls back to the
 | # | Item | IDR (written in HTML) | PHP (auto) | USD (auto) |
 |---|---|---|---|---|
 | 1 | Cash Coin calculator (Rate 1:10) — minimum Rp25,000 = 250,000 Cash Coin | calculated from coin amount | calculated | calculated |
-| 2 | (03) Cash Coin 250,000 | Rp25,000 | ₱100 | $5 |
-| 3 | (04) Cash Coin 500,000 | Rp50,000 | ₱200 | $10 |
-| 4 | (05) Cash Coin 1,000,000 | Rp100,000 | ₱400 | $20 |
-| 5 | (06) Cash Coin 2,500,000 | Rp250,000 | ₱1,000 | $50 |
-| 6 | (07) Cash Coin 5,000,000 | Rp500,000 | ₱2,000 | $100 |
-| 7 | (08) Cash Coin 10,000,000 | Rp1,000,000 | ₱4,000 | $200 |
-| 8 | (09) Cash Coin 25,000,000 | Rp2,500,000 | ₱10,000 | $500 |
-| 9 | (10) Cash Coin 50,000,000 | Rp5,000,000 | ₱20,000 | $1,000 |
-| 10 | (11) Cash Coin 100,000,000 | Rp10,000,000 | ₱40,000 | $2,000 |
-| 11 | (01) Premium Service 30 Days | Rp50,000 | ₱200 | $10 |
-| 12 | (02) Premium Service 60 Days | Rp100,000 | ₱400 | $20 |
-| 13 | (12) Weapon Lv. 70 (D) | Rp150,000 | ₱600 | $30 |
-| 14 | (13) Weapon Lv. 70 (C) | Rp125,000 | ₱500 | $25 |
-| 15 | (14) Weapon Lv. 70 (B) | Rp105,000 | ₱420 | $21 |
-| 16 | (15) Weapon Lv. 67 (D) | Rp100,000 | ₱400 | $20 |
-| 17 | (16) Weapon Lv. 67 (C) | Rp75,000 | ₱300 | $15 |
-| 18 | (17) Weapon Lv. 67 (B) | Rp70,000 | ₱280 | $14 |
-| 19 | (18) Weapon Lv. 65 (D) | Rp55,000 | ₱220 | $11 |
-| 20 | (19) Weapon Lv. 70 (Ore) | Rp50,000 | ₱200 | $10 |
-| 21 | (20) Weapon Lv. 65 (B) | Rp40,000 | ₱160 | $8 |
-| 22 | (21) Weapon Lv. 67 (Ore) | Rp35,000 | ₱140 | $7 |
-| 23 | (22) Weapon Lv. 65 (Ore) | Rp25,000 | ₱100 | $5 |
-| 24 | (23) Armor Lv. 70 (D) | Rp75,000 | ₱300 | $15 |
-| 25 | (24) Armor Lv. 67 (D) | Rp65,000 | ₱260 | $13 |
-| 26 | (25) Armor Lv. 70 (C) | Rp55,000 | ₱220 | $11 |
-| 27 | (26) Armor Lv. 65 (D) | Rp50,000 | ₱200 | $10 |
-| 28 | (27) Armor Lv. 70 (B) | Rp45,000 | ₱180 | $9 |
-| 29 | (28) Armor Lv. 67 (C) | Rp40,000 | ₱160 | $8 |
-| 30 | (29) Armor Lv. 67 (B) | Rp35,000 | ₱140 | $7 |
-| 31 | (30) Armor Lv. 70 (Ore) | Rp30,000 | ₱120 | $6 |
-| 32 | (31) Armor Lv. 65 (B) | Rp25,000 | ₱100 | $5 |
-| 33 | (32) Armor Lv. 67 (Ore) | Rp20,000 | ₱80 | $4 |
-| 34 | (33) Armor Lv. 65 (Ore) | Rp15,000 | ₱60 | $3 |
-| 35 | (34) Shield Lv. 70 (D) | Rp75,000 | ₱300 | $15 |
-| 36 | (35) Shield Lv. 67 (D) | Rp65,000 | ₱260 | $13 |
-| 37 | (36) Shield Lv. 70 (C) | Rp55,000 | ₱220 | $11 |
-| 38 | (37) Shield Lv. 65 (D) | Rp50,000 | ₱200 | $10 |
-| 39 | (38) Shield Lv. 70 (B) | Rp45,000 | ₱180 | $9 |
-| 40 | (39) Shield Lv. 67 (C) | Rp40,000 | ₱160 | $8 |
-| 41 | (40) Shield Lv. 67 (B) | Rp35,000 | ₱140 | $7 |
-| 42 | (41) Shield Lv. 70 (Ore) | Rp30,000 | ₱120 | $6 |
-| 43 | (42) Shield Lv. 65 (B) | Rp25,000 | ₱100 | $5 |
-| 44 | (43) Shield Lv. 67 (Ore) | Rp20,000 | ₱80 | $4 |
-| 45 | (44) Shield Lv. 65 (Ore) | Rp15,000 | ₱60 | $3 |
+| 2 | (03) Cash Coin 250,000 | Rp25,000 | ₱100 | $2 |
+| 3 | (04) Cash Coin 500,000 | Rp50,000 | ₱200 | $4 |
+| 4 | (05) Cash Coin 1,000,000 | Rp100,000 | ₱400 | $7 |
+| 5 | (06) Cash Coin 2,500,000 | Rp250,000 | ₱1,000 | $17 |
+| 6 | (07) Cash Coin 5,000,000 | Rp500,000 | ₱2,000 | $34 |
+| 7 | (08) Cash Coin 10,000,000 | Rp1,000,000 | ₱4,000 | $67 |
+| 8 | (09) Cash Coin 25,000,000 | Rp2,500,000 | ₱10,000 | $167 |
+| 9 | (10) Cash Coin 50,000,000 | Rp5,000,000 | ₱20,000 | $334 |
+| 10 | (11) Cash Coin 100,000,000 | Rp10,000,000 | ₱40,000 | $667 |
+| 11 | (01) Premium Service 30 Days | Rp50,000 | ₱200 | $4 |
+| 12 | (02) Premium Service 60 Days | Rp100,000 | ₱400 | $7 |
+| 13 | (12) Weapon Lv. 70 (D) | Rp150,000 | ₱600 | $12 |
+| 14 | (13) Weapon Lv. 70 (C) | Rp125,000 | ₱500 | $11 |
+| 15 | (14) Weapon Lv. 70 (B) | Rp105,000 | ₱420 | $10 |
+| 16 | (15) Weapon Lv. 67 (D) | Rp100,000 | ₱400 | $9 |
+| 17 | (16) Weapon Lv. 67 (C) | Rp75,000 | ₱300 | $8 |
+| 18 | (17) Weapon Lv. 67 (B) | Rp70,000 | ₱280 | $7 |
+| 19 | (18) Weapon Lv. 65 (D) | Rp55,000 | ₱220 | $6 |
+| 20 | (19) Weapon Lv. 70 (Ore) | Rp50,000 | ₱200 | $5 |
+| 21 | (20) Weapon Lv. 65 (B) | Rp40,000 | ₱160 | $4 |
+| 22 | (21) Weapon Lv. 67 (Ore) | Rp35,000 | ₱140 | $3 |
+| 23 | (22) Weapon Lv. 65 (Ore) | Rp25,000 | ₱100 | $2 |
+| 24 | (23) Armor Lv. 70 (D) | Rp75,000 | ₱300 | $11 |
+| 25 | (24) Armor Lv. 67 (D) | Rp65,000 | ₱260 | $10 |
+| 26 | (25) Armor Lv. 70 (C) | Rp55,000 | ₱220 | $9 |
+| 27 | (26) Armor Lv. 65 (D) | Rp50,000 | ₱200 | $8 |
+| 28 | (27) Armor Lv. 70 (B) | Rp45,000 | ₱180 | $7 |
+| 29 | (28) Armor Lv. 67 (C) | Rp40,000 | ₱160 | $6 |
+| 30 | (29) Armor Lv. 67 (B) | Rp35,000 | ₱140 | $5 |
+| 31 | (30) Armor Lv. 70 (Ore) | Rp30,000 | ₱120 | $4 |
+| 32 | (31) Armor Lv. 65 (B) | Rp25,000 | ₱100 | $3 |
+| 33 | (32) Armor Lv. 67 (Ore) | Rp20,000 | ₱80 | $2 |
+| 34 | (33) Armor Lv. 65 (Ore) | Rp15,000 | ₱60 | $1 |
+| 35 | (34) Shield Lv. 70 (D) | Rp75,000 | ₱300 | $11 |
+| 36 | (35) Shield Lv. 67 (D) | Rp65,000 | ₱260 | $10 |
+| 37 | (36) Shield Lv. 70 (C) | Rp55,000 | ₱220 | $9 |
+| 38 | (37) Shield Lv. 65 (D) | Rp50,000 | ₱200 | $8 |
+| 39 | (38) Shield Lv. 70 (B) | Rp45,000 | ₱180 | $7 |
+| 40 | (39) Shield Lv. 67 (C) | Rp40,000 | ₱160 | $6 |
+| 41 | (40) Shield Lv. 67 (B) | Rp35,000 | ₱140 | $5 |
+| 42 | (41) Shield Lv. 70 (Ore) | Rp30,000 | ₱120 | $4 |
+| 43 | (42) Shield Lv. 65 (B) | Rp25,000 | ₱100 | $3 |
+| 44 | (43) Shield Lv. 67 (Ore) | Rp20,000 | ₱80 | $2 |
+| 45 | (44) Shield Lv. 65 (Ore) | Rp15,000 | ₱60 | $1 |
 
 The (01)–(11) numbers are the GameCP package numbers, in the same order as the Topup > Donation dropdown (Premium first, then Cash Coin ascending). The website does not show the numbers — those only order the GameCP Topup dropdown.
 
@@ -82,17 +82,19 @@ Premium descriptions: 30 Days + Bonus PC Cafe +100% EXP Gain Rate, +4% Attack, 3
 Rates are stored as `data-coin-per-idr`, `data-php-rate`, and `data-usd-rate` on the `#nvm-donatelist` section in `donatelist.html`:
 
 - Cash Coin: **10 coins per Rp1** (Rate 1:10). IDR price = coins ÷ 10, rounded up.
-- **$1 = Rp5,000**
+- **$1 = Rp15,000** (owner decision 2026-11-19, back from Rp5,000)
 - **₱1 = Rp250**
 
 For every fixed plan, the HTML only carries `data-nvm-donate-idr="..."` on its price cell, e.g. `data-nvm-donate-idr="50000"`. `donatelist.js` fills the PHP and USD spans from that one number:
 
 - PHP = IDR ÷ 250, rounded **up** to a whole peso.
-- USD = IDR ÷ 5,000, rounded **up** to a whole dollar. No decimals, no comma. The divisor is 5,000 (not 15,000) because the smallest IDR step between packages is Rp5,000 — with a larger divisor, neighbouring prices collapse into the same whole-dollar amount and many rows show the same $ price. All package IDR prices are multiples of Rp5,000, so every distinct IDR price maps to a distinct whole-dollar price, at least $1 apart.
+- USD = IDR ÷ 15,000, rounded **up** to a whole dollar — then **bumped up within each section** (Premium, Cash Coin, Weapon, Armor, Shield) so no two rows in one section share the same whole-dollar price. Rows are sorted cheapest-first and each row's $ price is raised to at least $1 above the previous row's. So a player can always see that a higher-tier item costs more dollars than the one below it. The bump only touches USD; PHP is derived straight from IDR and is left alone. Example: Weapon Lv. 70 (D) Rp150,000 → base $10, bumped to $12 because the rows below it already take $2–$11.
 
-To change a price, change only the IDR number in `donatelist.html` (and the matching `data-nvm-donate-idr` on the per-day span). To add a new plan, copy a Premium card, change its name/features and its `data-nvm-donate-idr`, and leave the PHP/USD spans empty — the JS fills them. Example: 100,000 Cash Coin = Rp10,000 = ₱40 = $2.
+Why bump instead of a smaller divisor? With ÷15,000, neighbouring IDR prices collapse into the same whole dollar (e.g. Weapon Rp35,000 and Rp40,000 both base $3; Armor Rp20,000, Rp25,000 and Rp30,000 all base $2). The owner (2026-11-19) wants the ÷15,000 rate back but with no duplicate $ prices inside a section, so the small colliding prices are raised until every row in the section is distinct. The bump is the minimum raise that achieves it: each section's $ prices end up as consecutive whole dollars from its cheapest row upward.
 
-These are internal rates, not the market rate. On 17 Nov 2026 the market mid-rate was about $1 = Rp18,275 and ₱1 = Rp286, with a 30-day low of about $1 = Rp17,889 and ₱1 = Rp284. The PHP rate sits about 13% below market, and below the 30-day low, so the IDR amount actually received should still cover the IDR price after international transfer fees. The USD rate (Rp5,000) sits about 73% below the market mid-rate — far more than any transfer fee — because distinct whole-dollar prices require a divisor no larger than the smallest IDR step (Rp5,000). International players therefore pay roughly 3x the market dollar price; that is the trade-off for dollar prices that never repeat.
+To change a price, change only the IDR number in `donatelist.html` (and the matching `data-nvm-donate-idr` on the per-day span). To add a new plan, copy a Premium card, change its name/features and its `data-nvm-donate-idr`, and leave the PHP/USD spans empty — the JS fills them (and re-runs the bump for that section). Example: 100,000 Cash Coin = Rp10,000 = ₱40 = $2.
+
+These are internal rates, not the market rate. On 17 Nov 2026 the market mid-rate was about $1 = Rp18,275 and ₱1 = Rp286, with a 30-day low of about $1 = Rp17,889 and ₱1 = Rp284. The PHP rate sits about 13% below market, and below the 30-day low, so the IDR amount actually received should still cover the IDR price after international transfer fees. The USD rate (Rp15,000) sits about 18% below the market mid-rate, which covers typical transfer fees; the per-section bump can push individual rows further below market (e.g. Armor Lv. 70 (D) Rp75,000 shows $11, about Rp6,800 per dollar) — that is the trade-off for dollar prices that never repeat inside a section.
 
 Typical haircut when receiving money from abroad: PayPal international receiving is about 4.4% + $0.30 plus a 3–4% FX conversion markup; Wise is about 0.5–1% plus a small fixed fee; bank wires add a flat $15–45. For small donations the total is usually 5–10%. The 13–18% rate buffer covers that, plus FX spread and rounding.
 
